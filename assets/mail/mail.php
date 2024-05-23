@@ -15,8 +15,9 @@ Message: ".$message."
 
 ";
 
-mail ("feliperenjifoz@gmail.com" , "New Message", $email_message);
-header("location: ../../mail-success.html");
+//mail ("feliperenjifoz@gmail.com" , "New Message", $email_message);
+//header("location: ../../mail-success.html");
+print "hola";
 ?>
 
 
