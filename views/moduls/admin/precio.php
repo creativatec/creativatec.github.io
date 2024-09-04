@@ -1,3 +1,8 @@
+<?php
+$agregar = new ControaldorPrecio();
+$res = $agregar->agregarPrecio();
+$lsita = $agregar->agregarListaPrecio();
+?>
 <div class="container">
     <div class="signin-row row">
         <div class="span2"></div>
@@ -13,6 +18,7 @@
                                 <div class="control-group ">
                                     <label class="control-label">Etiqueta<span class="required">*</span></label>
                                     <div class="controls">
+                                        <input type="hidden" name="id_precio" required class="span4" id="">
                                         <input type="text" name="etiqueta" required class="span4" id="">
 
                                     </div>
@@ -45,7 +51,7 @@
                             <div class="control-group ">
                                 <label class="control-label">precio<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="precio" required class="span4" id="">
+                                    <input type="text" name="precioValor" required class="span4 decimalInput" id="precio_1">
 
                                 </div>
                             </div>
@@ -77,15 +83,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                foreach ($lsita as $key => $value) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $value['id_precio'] ?></td>
+                                                        <td><?php echo $value['estilo'] ?></td>
+                                                        <td><?php echo number_format($value['precio'], 0) ?></td>
+                                                        <td><a class="btn btn-primary edit-button-precio" data-id="<?php print $value['id_precio']; ?>">Editar</a></td>
 
-                                                <tr>
-                                                    <td>759 Sinking Dr.</td>
-                                                    <td>Sacramento</td>
-                                                    <td>CA</td>
-                                                    <td>98765</td>
-
-                                                </tr>
-
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -116,6 +126,7 @@
                                 <div class="control-group ">
                                     <label class="control-label">Descripcion<span class="required">*</span></label>
                                     <div class="controls">
+                                        <input id="current-pass-control" name="id_lista" required class="span4" type="hidden" value="" autocomplete="false">
                                         <input id="current-pass-control" name="descripcionPrecio" required class="span4" type="text" value="" autocomplete="false">
 
                                     </div>
@@ -125,37 +136,16 @@
                                     <div class="controls">
                                         <div class="controls">
                                             <select id="challenge_question_control" required name="id_precio" class="span5">
-                                                <option value="">-- Select a Question --</option>
-                                                <option value="In which city were you born?">
-                                                    In which city were you born?
-                                                </option>
-                                                <option value="What is your birth date?">
-                                                    What is your birth date?
-                                                </option>
-                                                <option value="What are the last four digits of your driver's license number?">
-                                                    What are the last four digits of your drivers license number?
-                                                </option>
-                                                <option value="What is your zip or postal code?">
-                                                    What is your zip or postal code?
-                                                </option>
-                                                <option value="What high school did you attend?">
-                                                    What high school did you attend?
-                                                </option>
-                                                <option value="What was the name of your first pet?">
-                                                    What was the name of your first pet?
-                                                </option>
-                                                <option value="What is your father's middle name?">
-                                                    What is your father's middle name?
-                                                </option>
-                                                <option value="What is your mother's middle name?">
-                                                    What is your mother's middle name?
-                                                </option>
-                                                <option value="What is your mother's maiden name?">
-                                                    What is your mother's maiden name?
-                                                </option>
-                                                <option value="What is your spouse's middle name?">
-                                                    What is your spouse's middle name?
-                                                </option>
+                                                <option value="">-- Seleccionar Precio --</option>
+                                                <?php
+                                                foreach ($res as $key => $value) {
+                                                ?>
+                                                    <option value="<?php echo $value['id_precio'] ?>">
+                                                        <?php echo $value['nombre_etiqueta'] ?>
+                                                    </option>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
 
                                         </div>
@@ -184,15 +174,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                foreach ($lsita as $key => $value) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $value['id_lis_precio'] ?></td>
+                                                        <td><?php echo $value['descripcion'] ?></td>
+                                                        <td><?php echo $value['nombre_etiqueta'] ?></td>
+                                                        <td><a class="btn btn-primary edit-button-lista" data-id="<?php print $value['id_lis_precio']; ?>">Editar</a></td>
 
-                                                <tr>
-                                                    <td>759 Sinking Dr.</td>
-                                                    <td>Sacramento</td>
-                                                    <td>CA</td>
-                                                    <td>98765</td>
-
-                                                </tr>
-
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>

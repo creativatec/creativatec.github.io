@@ -1,19 +1,19 @@
 <?php
 
-class ControladorInformacionBasica
+class ControladorCliente
 {
-    function agregarInformaciónBasica()
+    function agregarCliente()
     {
-        if (isset($_POST['info'])) {
-            if ($_POST['id_info'] > 0) {
-                //actualizar informacion basica
-                $archivo = $_FILES['logoinfo']['name'];
+        if (isset($_POST['cliente'])) {
+            if ($_POST['id_cliente'] > 0) {
+                //actualizar
+                $archivo = $_FILES['logo']['name'];
                 //Si el archivo contiene algo y es diferente de vacio
                 if (isset($archivo) && $archivo != "") {
                     //Obtenemos algunos datos necesarios sobre el archivo
-                    $tipo = $_FILES['logoinfo']['type'];
-                    $tamano = $_FILES['logoinfo']['size'];
-                    $temp = $_FILES['logoinfo']['tmp_name'];
+                    $tipo = $_FILES['logo']['type'];
+                    $tamano = $_FILES['logo']['size'];
+                    $temp = $_FILES['logo']['tmp_name'];
                     //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
                     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
                         echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
@@ -34,36 +34,33 @@ class ControladorInformacionBasica
                         }
                     }
                 }
-                if ($_FILES['logoinfo']['name'] != null) {
-                    $file = 'assets/images/web/' . $archivo . '';
-                }else{
-                    $file = $_POST['foto'];
+                if ($_FILES['logo']['name'] != null) {
+                    $file = 'assets/images/web/' . $archivo;
+                } else {
+                    $file = $_POST['uploadImage1'];
                 }
                 $dato = array(
-                    'id' => $_POST['id_info'],
-                    'nombre' => $_POST['nombre'],
-                    'correo' => $_POST['correo'],
+                    'id' => $_POST['id_cliente'],
+                    'cliente' => $_POST['Nomcliente'],
+                    'tel' => $_POST['tel'],
                     'dire' => $_POST['dire'],
-                    'tel1' => $_POST['tel1'],
-                    'tel2' => $_POST['tel2'],
-                    'tel3' => $_POST['tel3'],
-                    'logo' => $file,
-                    'footer' => $_POST['footer']
+                    'proy' => $_POST['proy'],
+                    'logo' => $file
                 );
-                $actualizar = new ModeloInformacionBasica();
-                $res = $actualizar->actualizarInformaciónBasicaModelo($dato);
+                $actaulziar = new ModeloCliente();
+                $res = $actaulziar->actualizarClienteModleo($dato);
                 if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'info';</script>";
+                    echo "<script type='text/javascript'>window.location.href = 'cliente';</script>";
                 }
             } else {
-                //agregar Informacion Basica
-                $archivo = $_FILES['logoinfo']['name'];
+                //agreagr
+                $archivo = $_FILES['logo']['name'];
                 //Si el archivo contiene algo y es diferente de vacio
                 if (isset($archivo) && $archivo != "") {
                     //Obtenemos algunos datos necesarios sobre el archivo
-                    $tipo = $_FILES['logoinfo']['type'];
-                    $tamano = $_FILES['logoinfo']['size'];
-                    $temp = $_FILES['logoinfo']['tmp_name'];
+                    $tipo = $_FILES['logo']['type'];
+                    $tamano = $_FILES['logo']['size'];
+                    $temp = $_FILES['logo']['tmp_name'];
                     //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
                     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
                         echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
@@ -85,57 +82,22 @@ class ControladorInformacionBasica
                     }
                 }
                 $dato = array(
-                    'nombre' => $_POST['nombre'],
-                    'correo' => $_POST['correo'],
+                    'cliente' => $_POST['Nomcliente'],
+                    'tel' => $_POST['tel'],
                     'dire' => $_POST['dire'],
-                    'tel1' => $_POST['tel1'],
-                    'tel2' => $_POST['tel2'],
-                    'tel3' => $_POST['tel3'],
-                    'logo' => 'assets/images/web/' . $archivo . '',
-                    'footer' => $_POST['footer']
+                    'proy' => $_POST['proy'],
+                    'logo' => 'assets/images/web/' . $archivo
                 );
-                $agregar = new ModeloInformacionBasica();
-                $res = $agregar->agregarInformaciónBasicaModelo($dato);
+                var_dump($dato);
+                $agregar = new ModeloCliente();
+                $res = $agregar->agregarClienteModleo($dato);
                 if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'info';</script>";
+                    echo "<script type='text/javascript'>window.location.href = 'cliente';</script>";
                 }
             }
         }
-        $consultar = new ModeloInformacionBasica();
-        $mostrar = $consultar->ModeloInformaciónBasicaModelo();
-        return $mostrar;
-    }
-
-    function agregarRedes()
-    {
-        if (isset($_POST['redes'])) {
-            if ($_POST['id_redes'] > 0) {
-                //actualziar redes
-                $dato = array(
-                    'id' => $_POST['id_redes'],
-                    'logo' => $_POST['logo'],
-                    'url' => $_POST['url']
-                );
-                $agregar = new ModeloInformacionBasica();
-                $res = $agregar->actualizarRedesModelo($dato);
-                if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'info';</script>";
-                }
-            } else {
-                //agregar redes
-                $dato = array(
-                    'logo' => $_POST['logo'],
-                    'url' => $_POST['url']
-                );
-                $agregar = new ModeloInformacionBasica();
-                $res = $agregar->agregarRedesModelo($dato);
-                if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'info';</script>";
-                }
-            }
-        }
-        $consultar = new ModeloInformacionBasica();
-        $mostrar = $consultar->mostrarRedesModelo();
-        return $mostrar;
+        $mostrar = new ModeloCliente();
+        $res = $mostrar->mostrarClienteModleo();
+        return $res;
     }
 }

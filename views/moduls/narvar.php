@@ -1,3 +1,9 @@
+<?php
+$agregarInforRedes = new ControladorInformacionBasica();
+$lsitar = $agregarInforRedes->agregarInformaciónBasica();
+$agregarRedes = new ControladorInformacionBasica();
+$listarRedes = $agregarRedes->agregarRedes();
+?>
 <!--[if lte IE 9]>
       <p class="browserupgrade">
         You are using an <strong>outdated</strong> browser. Please
@@ -25,18 +31,21 @@
             <div class="row">
                 <div class="col-lg-8 col-md-9 col-12">
                     <div class="toolbar-contact">
-                        <p><i class="lni lni-envelope"></i><a href="mailto:inf  o@yourwebsite.com">info@yourwebsite.com</a></p>
-                        <p><i class="lni lni-phone"></i><a href="tel:+573122146368">(+57) 3122146368</a></p>
-                        <p><i class="lni lni-map-marker"></i> Cra 12 19-16 Bra Sucre</p>
+                        <p><i class="lni lni-envelope"></i><a href="mailto:<?php print $lsitar[0]['correo'] ?>"><?php print $lsitar[0]['correo'] ?></a></p>
+                        <p><i class="lni lni-phone"></i><a href="tel:+57<?php print $lsitar[0]['telefono1'] ?>">(+57) <?php print $lsitar[0]['telefono1'] ?></a></p>
+                        <p><i class="lni lni-map-marker"></i> <?php print $lsitar[0]['direccion'] ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-3 col-12">
                     <div class="toolbar-sl-share">
                         <ul>
-                            <li><a href="https://www.facebook.com/creativabrandmarketing/" target="_blank"><i class="lni lni-facebook-filled"></i></a></li>
-                            <li><a href="#" target="_blank"><i class="lni lni-twitter-original"></i></a></li>
-                            <li><a href="#" target="_blank"><i class="lni lni-pinterest"></i></a></li>
-                            <li><a href="#" target="_blank"><i class="lni lni-youtube"></i></a></li>
+                            <?php
+                            foreach ($listarRedes as $key => $value) {
+                            ?>
+                                <li><a href="<?php echo $value['url'] ?>" target="_blank"><i class="<?php echo $value['logo'] ?>"></i></a></li>
+                            <?php
+                            }
+                            ?>
                             <li><a href="ingresar" target="_blank"><i class="lni lni-user"></i></a></li>
                         </ul>
                     </div>

@@ -66,7 +66,8 @@ $listarRedes = $agregarRedes->agregarRedes();
                             <fieldset>
                                 <div class="control-group">
                                     <label for="challengeQuestion" class="control-label">Logo*</span></label>
-                                    <input id="uploadImage1" required type="file" name="logoinfo" onchange="previewImage1(1);" />
+                                    <input type="hidden" name="foto" id="" value="<?php echo $lsitar[0]['logo'] ?>">
+                                    <input id="uploadImage1" type="file" name="logoinfo" onchange="previewImage1(1);" />
                                     <img id="uploadPreview1" width="350" height="200" class="mb-3" src="<?php if (isset($lsitar[0]['logo'])) {
                                                                                                             print $lsitar[0]['logo'];
                                                                                                         } else {

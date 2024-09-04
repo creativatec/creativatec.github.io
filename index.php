@@ -1,18 +1,15 @@
-<?php  
+<?php
 
-//controllers
-require_once 'controllers/controladorViews.php';
-require_once 'controllers/controladorUsuario.php';
-require_once 'controllers/controladorInformacionBasica.php';
-require_once 'controllers/controladorNosotros.php';
-require_once 'controllers/controladorServicio.php';
-//Modelo
-require_once 'models/conexion.php';
-require_once 'models/modeloViews.php';
-require_once 'models/modeloUsuario.php';
-require_once 'models/modeloInformacionBasica.php';
-require_once 'models/modeloNosotros.php';
-require_once 'models/modeloServicio.php';
+// Requiere todos los archivos en la carpeta 'controllers'
+foreach (glob("controllers/*.php") as $filename) {
+    require_once $filename;
+}
+
+// Requiere todos los archivos en la carpeta 'models'
+foreach (glob("models/*.php") as $filename) {
+    require_once $filename;
+}
+
 //fpdf
 
 

@@ -1,10 +1,14 @@
+<?php
+$agregar = new ControladorCliente();
+$res = $agregar->agregarCliente();
+?>
 <div class="container">
     <div class="signin-row row">
         <div class="span2"></div>
         <div class="span16">
             <div class="well well-small well-shadow">
                 <legend class="lead">Cliente</legend>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div id="acct-password-row" class="span1">
                         </div>
@@ -13,7 +17,8 @@
                                 <div class="control-group ">
                                     <label class="control-label">Nombre Cliente<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="current-pass-control" name="cliente" required class="span4" type="text" value="" autocomplete="false">
+                                        <input id="current-pass-control" name="id_cliente" required class="span4" type="hidden" value="" autocomplete="false">
+                                        <input id="current-pass-control" name="Nomcliente" required class="span4" type="text" value="" autocomplete="false">
 
                                     </div>
                                 </div>
@@ -45,7 +50,8 @@
                                 <div class="control-group ">
                                     <label class="control-label">Logo<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="uploadImage2" required class="form-control" type="file" id="subirAntes" name="logo" onchange="previewImage1(2);" />
+                                        <input id="current-pass-control" name="uploadImage1" class="span4" type="hidden" value="" autocomplete="false">
+                                        <input id="uploadImage2" class="form-control" type="file" id="subirAntes" name="logo" onchange="previewImage1(2);" />
                                         <img id="uploadPreview2" width="350" height="200" class="mb-3" src="Views/images/img.jpg" />
 
                                     </div>
@@ -73,16 +79,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                foreach ($res as $key => $value) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $value['id_cliente'] ?></td>
+                                                        <td><?php echo $value['nombre_cliente'] ?></td>
+                                                        <td><?php echo $value['tel'] ?></td>
+                                                        <td><?php echo $value['dire'] ?></td>
+                                                        <td><a class="btn btn-primary edit-button-cliente" data-id="<?php print $value['id_cliente']; ?>">Editar</a></td>
 
-                                                <tr>
-                                                    <td>759 Sinking Dr.</td>
-                                                    <td>Sacramento</td>
-                                                    <td>CA</td>
-                                                    <td>98765</td>
-                                                    <td></td>
-
-                                                </tr>
-
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -92,7 +102,7 @@
                         </div>
                     </div>
                     <footer id="submit-actions" class="form-actions">
-                        <button id="submit-button" type="submit" class="btn btn-primary" name="proyecto" value="CONFIRM">Guardar</button>
+                        <button id="submit-button" type="submit" class="btn btn-primary" name="cliente" value="CONFIRM">Guardar</button>
                     </footer>
                 </form>
             </div>
