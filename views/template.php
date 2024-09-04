@@ -6,7 +6,8 @@ if (isset($_SESSION['validarPagina'])) {
     <html lang="en">
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Creativa Publicidad & Tecnologia <?php if (isset($_GET['action'])) {
                                                     print "|" . $_GET['action'];
@@ -75,16 +76,16 @@ if (isset($_SESSION['validarPagina'])) {
 } else {
 ?>
     <!DOCTYPE html>
-    <html class="no-js" lang="zxx">
+    <html lang="en">
 
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <title>Creativa Publicidad & Tecnologia <?php if (isset($_GET['action'])) {
                                                     print "|" . $_GET['action'];
                                                 } ?></title>
         <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpeg" />
         <!-- Place favicon.ico in the root directory -->
 

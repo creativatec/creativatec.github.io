@@ -5,7 +5,7 @@ class ModeloInformacionBasica
     public $tabla = "info";
     
 
-    function agregarInformaciónBasicaModelo($dato)
+    function agregarInformacionBasicaModelo($dato)
     {
         $sql = "INSERT INTO $this->tabla(nombre_empresa, logo, correo, telefono1, telefono2, telefono3, direccion, footer_descripcion) VALUES (?,?,?,?,?,?,?,?)";
         $conn = new Conexion();
@@ -31,7 +31,7 @@ class ModeloInformacionBasica
         }
     }
 
-    function ModeloInformaciónBasicaModelo()
+    function ModeloInformacionBasicaModelo()
     {
         $sql = "SELECT * FROM $this->tabla";
         $conn = new Conexion();
@@ -47,7 +47,7 @@ class ModeloInformacionBasica
         }
     }
 
-    function actualizarInformaciónBasicaModelo($dato)
+    function actualizarInformacionBasicaModelo($dato)
     {
         $sql = "UPDATE $this->tabla SET nombre_empresa=?,logo=?,correo=?,telefono1=?,telefono2=?,telefono3=?,direccion=?,footer_descripcion=? WHERE id_info=?";
         $conn = new Conexion();

@@ -2,7 +2,7 @@
 
 class ControladorInformacionBasica
 {
-    function agregarInformaciónBasica()
+    function agregarInformacionBasica()
     {
         if (isset($_POST['info'])) {
             if ($_POST['id_info'] > 0) {
@@ -51,7 +51,7 @@ class ControladorInformacionBasica
                     'footer' => $_POST['footer']
                 );
                 $actualizar = new ModeloInformacionBasica();
-                $res = $actualizar->actualizarInformaciónBasicaModelo($dato);
+                $res = $actualizar->actualizarInformacionBasicaModelo($dato);
                 if ($res == true) {
                     echo "<script type='text/javascript'>window.location.href = 'info';</script>";
                 }
@@ -95,14 +95,14 @@ class ControladorInformacionBasica
                     'footer' => $_POST['footer']
                 );
                 $agregar = new ModeloInformacionBasica();
-                $res = $agregar->agregarInformaciónBasicaModelo($dato);
+                $res = $agregar->agregarInformacionBasicaModelo($dato);
                 if ($res == true) {
                     echo "<script type='text/javascript'>window.location.href = 'info';</script>";
                 }
             }
         }
         $consultar = new ModeloInformacionBasica();
-        $mostrar = $consultar->ModeloInformaciónBasicaModelo();
+        $mostrar = $consultar->ModeloInformacionBasicaModelo();
         return $mostrar;
     }
 

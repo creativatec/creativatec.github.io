@@ -1,6 +1,6 @@
 <?php
 $agregarInforRedes = new ControladorInformacionBasica();
-$lsitar = $agregarInforRedes->agregarInformaciónBasica();
+$lsitar = $agregarInforRedes->agregarInformacionBasica();
 $agregarRedes = new ControladorInformacionBasica();
 $listarRedes = $agregarRedes->agregarRedes();
 ?>

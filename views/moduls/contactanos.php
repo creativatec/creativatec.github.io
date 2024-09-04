@@ -1,6 +1,6 @@
 <?php
 $agregarInforRedes = new ControladorInformacionBasica();
-$lsitar = $agregarInforRedes->agregarInformaciónBasica();
+$lsitar = $agregarInforRedes->agregarInformacionBasica();
 ?>
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_dlbvUgEp1DEOepAF6iYh8HXopaNbcE&callback=initMap&libraries=places&v=weekly"
