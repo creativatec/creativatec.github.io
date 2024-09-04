@@ -1,5 +1,5 @@
 <?php
-$agregar = new ControladorCliente();
+$agregar = new ControladorClientePagina();
 $res = $agregar->agregarCliente();
 ?>
 <div class="container">

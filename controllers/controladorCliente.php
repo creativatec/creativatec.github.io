@@ -2,102 +2,105 @@
 
 class ControladorCliente
 {
-    function agregarCliente()
+    function agregarCLiente()
     {
-        if (isset($_POST['cliente'])) {
-            if ($_POST['id_cliente'] > 0) {
-                //actualizar
-                $archivo = $_FILES['logo']['name'];
-                //Si el archivo contiene algo y es diferente de vacio
-                if (isset($archivo) && $archivo != "") {
-                    //Obtenemos algunos datos necesarios sobre el archivo
-                    $tipo = $_FILES['logo']['type'];
-                    $tamano = $_FILES['logo']['size'];
-                    $temp = $_FILES['logo']['tmp_name'];
-                    //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
-                    if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
-                        echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
-                            - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
-                    } else {
-                        //Si la imagen es correcta en tamaño y tipo
-                        //Se intenta subir al servidor
-                        if (move_uploaded_file($temp, 'assets/images/web/' . $archivo)) {
-                            //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
-                            chmod('assets/images/web/' . $archivo, 0777);
-                            //Mostramos el mensaje de que se ha subido co éxito
-                            echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
-                            //Mostramos la imagen subida
-                            //echo '<p><img src="assets/images/web/' . $archivo . '"></p>';
-                        } else {
-                            //Si no se ha podido subir la imagen, mostramos un mensaje de error
-                            echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
-                        }
-                    }
-                }
-                if ($_FILES['logo']['name'] != null) {
-                    $file = 'assets/images/web/' . $archivo;
-                } else {
-                    $file = $_POST['uploadImage1'];
-                }
+        if (isset($_POST['agregarCliente'])) {
+            if ($_SESSION['rol'] == "Administrador") {
                 $dato = array(
-                    'id' => $_POST['id_cliente'],
-                    'cliente' => $_POST['Nomcliente'],
-                    'tel' => $_POST['tel'],
-                    'dire' => $_POST['dire'],
-                    'proy' => $_POST['proy'],
-                    'logo' => $file
+                    'priNombre' => $_POST['priNombre'],
+                    'segNombre' => $_POST['segNombre'],
+                    'priApellido' => $_POST['priApellido'],
+                    'segApellido' => $_POST['segApellido'],
+                    'cc' => $_POST['cc'],
+                    'email' => $_POST['email'],
+                    //'local' => $_POST['local']
                 );
-                $actaulziar = new ModeloCliente();
-                $res = $actaulziar->actualizarClienteModleo($dato);
-                if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'cliente';</script>";
-                }
             } else {
-                //agreagr
-                $archivo = $_FILES['logo']['name'];
-                //Si el archivo contiene algo y es diferente de vacio
-                if (isset($archivo) && $archivo != "") {
-                    //Obtenemos algunos datos necesarios sobre el archivo
-                    $tipo = $_FILES['logo']['type'];
-                    $tamano = $_FILES['logo']['size'];
-                    $temp = $_FILES['logo']['tmp_name'];
-                    //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
-                    if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
-                        echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
-                            - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
-                    } else {
-                        //Si la imagen es correcta en tamaño y tipo
-                        //Se intenta subir al servidor
-                        if (move_uploaded_file($temp, 'assets/images/web/' . $archivo)) {
-                            //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
-                            chmod('assets/images/web/' . $archivo, 0777);
-                            //Mostramos el mensaje de que se ha subido co éxito
-                            echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
-                            //Mostramos la imagen subida
-                            //echo '<p><img src="assets/images/web/' . $archivo . '"></p>';
-                        } else {
-                            //Si no se ha podido subir la imagen, mostramos un mensaje de error
-                            echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
-                        }
-                    }
-                }
                 $dato = array(
-                    'cliente' => $_POST['Nomcliente'],
-                    'tel' => $_POST['tel'],
-                    'dire' => $_POST['dire'],
-                    'proy' => $_POST['proy'],
-                    'logo' => 'assets/images/web/' . $archivo
+                    'priNombre' => $_POST['priNombre'],
+                    'segNombre' => $_POST['segNombre'],
+                    'priApellido' => $_POST['priApellido'],
+                    'segApellido' => $_POST['segApellido'],
+                    'cc' => $_POST['cc'],
+                    'email' => $_POST['email'],
+                    //'local' => $_SESSION['id_local']
                 );
-                var_dump($dato);
-                $agregar = new ModeloCliente();
-                $res = $agregar->agregarClienteModleo($dato);
-                if ($res == true) {
-                    echo "<script type='text/javascript'>window.location.href = 'cliente';</script>";
-                }
+            }
+
+            $agregar = new ModeloCliente();
+            $res = $agregar->agregarClienteModelo($dato);
+            if ($res == true) {
+                echo '<script>window.location="agregarCliente"</script>';
+            }
+        } elseif (isset($_POST['actualizarCliente'])) {
+            if ($_SESSION['rol'] == "Administrador") {
+                $dato = array(
+                    'id' => $_GET['id_cliente'],
+                    'priNombre' => $_POST['priNombreEdit'],
+                    'segNombre' => $_POST['segNombreEdit'],
+                    'priApellido' => $_POST['priApellidoEdit'],
+                    'segApellido' => $_POST['segApellidoEdit'],
+                    'cc' => $_POST['ccEdit'],
+                    'email' => $_POST['emailEdit'],
+                    //'local' => $_POST['localEdit']
+                );
+            } else {
+                $dato = array(
+                    'id' => $_GET['id_cliente'],
+                    'priNombre' => $_POST['priNombreEdit'],
+                    'segNombre' => $_POST['segNombreEdit'],
+                    'priApellido' => $_POST['priApellidoEdit'],
+                    'segApellido' => $_POST['segApellidoEdit'],
+                    'cc' => $_POST['ccEdit'],
+                    'email' => $_POST['emailEdit'],
+                    //'local' => $_SESSION['id_local']
+                );
+            }
+
+            $agregar = new ModeloCliente();
+            $res = $agregar->actualizarClienteModelo($dato);
+            if ($res == true) {
+                echo '<script>window.location="actualizarCliente"</script>';
             }
         }
-        $mostrar = new ModeloCliente();
-        $res = $mostrar->mostrarClienteModleo();
+    }
+
+    function listarCliente()
+    {
+        $listar = new ModeloCliente();
+        $res = $listar->listarModeloCliente();
         return $res;
+    }
+
+    function consultarClienteAjax($dato)
+    {
+        $consultar = new ModeloCliente();
+        $res = $consultar->consultarClienteAjaxModelo($dato);
+        return $res;
+    }
+
+    function listarClienteId()
+    {
+        $id = $_GET['id_cliente'];
+        $listar = new ModeloCliente();
+        $res = $listar->mostrarClienteFacturaVentaModelo($id);
+        return $res;
+    }
+
+    function consumidorFinalCompra()
+    {
+        $listar = new ModeloCliente();
+        $res = $listar->consumidorFinalCompraModelo();
+        return $res;
+    }
+
+    function eliminarClienteId()
+    {
+        $id = $_GET['id'];
+        $listar = new ModeloCliente();
+        $res = $listar->eliminarClienteIdModelo($id);
+        if ($res == true) {
+            echo '<script>window.location="eliminarCliente"</script>';
+        }
     }
 }

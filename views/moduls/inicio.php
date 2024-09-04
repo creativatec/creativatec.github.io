@@ -9,7 +9,7 @@ $resSobreNoso = $agregar->agregarInfoSobreNosotros();
 $ser = new ControladorServicio();
 $ser = $ser->agregarServicio();
 
-$cli = new ControladorCliente();
+$cli = new ControladorClientePagina();
 $cliente = $cli->agregarCliente();
 ?>
 <section class="hero-slider">

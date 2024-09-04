@@ -28,14 +28,14 @@ class ControladorUsuario
                 if ($res != []) {
                     if ($res[0]['nombre_activo'] != 'Inactivo') {
                         if ($res[0]['usuario'] == $_POST['user'] && $res[0]['clave'] == $_POST['clave']) {
-                            session_start();
+                            //session_start();
                             $_SESSION['id_usuario'] = $res[0]['id_usuario'];
                             $_SESSION['id_local'] = $res[0]['id_local'];
                             $_SESSION['usuario'] = $res[0]['usuario'];
                             $_SESSION['rol'] = $res[0]['nombre_rol'];
                             $_SESSION['validar'] = true;
-                            //$funcion = new ControladorFuncion();
-                            //$funcion->listarFunciones();
+                            $funcion = new ControladorFuncion();
+                            $funcion->listarFunciones();
                         } else {
                             header('location:loginFallido');
                         }
