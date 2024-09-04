@@ -10,13 +10,23 @@ class ModeloCliente
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
-            $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
-            $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
-            $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
-            $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
-            $stms->bindParam(5, $dato['cc'], PDO::PARAM_STR);
-            $stms->bindParam(6, $dato['email'], PDO::PARAM_STR);
-            $stms->bindParam(7, $_SESSION['id_local'], PDO::PARAM_INT);
+            if (isset($_SESSION['rol'])) {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['cc'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['email'], PDO::PARAM_STR);
+                $stms->bindParam(7, $_SESSION['id_local'], PDO::PARAM_INT);
+            } else {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['cc'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['email'], PDO::PARAM_STR);
+                $stms->bindParam(7, $dato['local'], PDO::PARAM_INT);
+            }
         }
         try {
             if ($stms->execute()) {
@@ -70,7 +80,7 @@ class ModeloCliente
 
     function mostrarClienteFacturaVentaModelo($id)
     {
-        $sql = "SELECT * FROM $this->tabla WHERE id_cliente = ? AND = id_local = ?";
+        $sql = "SELECT * FROM $this->tabla WHERE id_cliente = ? AND id_local = ?";
 
         try {
             $conn = new Conexion();

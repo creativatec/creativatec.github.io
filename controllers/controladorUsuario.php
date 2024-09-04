@@ -1,5 +1,4 @@
 <?php
-
 class ControladorUsuario
 {
     function loginControlador()
@@ -28,7 +27,7 @@ class ControladorUsuario
                 if ($res != []) {
                     if ($res[0]['nombre_activo'] != 'Inactivo') {
                         if ($res[0]['usuario'] == $_POST['user'] && $res[0]['clave'] == $_POST['clave']) {
-                            //session_start();
+                            
                             $_SESSION['id_usuario'] = $res[0]['id_usuario'];
                             $_SESSION['id_local'] = $res[0]['id_local'];
                             $_SESSION['usuario'] = $res[0]['usuario'];
@@ -52,18 +51,32 @@ class ControladorUsuario
     function agregarUsuario()
     {
         if (isset($_POST['agregarUsuario'])) {
-            if ($_SESSION['rol'] == "Administrador") {
-                $dato = array(
-                    'priNombre' => $_POST['priNombre'],
-                    'segNombre' => $_POST['segNombre'],
-                    'priApellido' => $_POST['priApellido'],
-                    'segApellido' => $_POST['segApellido'],
-                    'user' => $_POST['user'],
-                    'clave' => $_POST['clave'],
-                    'rol' => $_POST['rol'],
-                    'activo' => $_POST['activo'],
-                    'local' => $_POST['local']
-                );
+            if (isset($_SESSION['rol'])) {
+                if ($_SESSION['rol'] == "Administrador") {
+                    $dato = array(
+                        'priNombre' => $_POST['priNombre'],
+                        'segNombre' => $_POST['segNombre'],
+                        'priApellido' => $_POST['priApellido'],
+                        'segApellido' => $_POST['segApellido'],
+                        'user' => $_POST['user'],
+                        'clave' => $_POST['clave'],
+                        'rol' => $_POST['rol'],
+                        'activo' => $_POST['activo'],
+                        'local' => $_SESSION['id_local']
+                    );
+                } else {
+                    $dato = array(
+                        'priNombre' => $_POST['priNombre'],
+                        'segNombre' => $_POST['segNombre'],
+                        'priApellido' => $_POST['priApellido'],
+                        'segApellido' => $_POST['segApellido'],
+                        'user' => $_POST['user'],
+                        'clave' => $_POST['clave'],
+                        'rol' => $_POST['rol'],
+                        'activo' => $_POST['activo'],
+                        'local' => $_SESSION['id_local']
+                    );
+                }
             } else {
                 $dato = array(
                     'priNombre' => $_POST['priNombre'],
@@ -74,7 +87,7 @@ class ControladorUsuario
                     'clave' => $_POST['clave'],
                     'rol' => $_POST['rol'],
                     'activo' => $_POST['activo'],
-                    'local' => $_SESSION['id_local']
+                    'local' => $_POST['id']
                 );
             }
 
@@ -84,22 +97,37 @@ class ControladorUsuario
                 echo '<script>window.location="agregarUsuario"</script>';
             }
         } elseif (isset($_POST['ActualizarUsuario'])) {
-            if ($_SESSION['rol'] == "Administrador") {
-                $dato = array(
-                    'id' => $_GET['id_usuario'],
-                    'priNombre' => $_POST['priNombreEdit'],
-                    'segNombre' => $_POST['segNombreEdit'],
-                    'priApellido' => $_POST['priApellidoEdit'],
-                    'segApellido' => $_POST['segApellidoEdit'],
-                    'user' => $_POST['userEdit'],
-                    'clave' => $_POST['claveEdit'],
-                    'rol' => $_POST['rolEdit'],
-                    'activo' => $_POST['activoEdit'],
-                    'local' => $_POST['localEdit']
-                );
+            if (isset($_SESSION['rol'])) {
+                if ($_SESSION['rol'] == "Administrador") {
+                    $dato = array(
+                        'id' => $_GET['id_usuario'],
+                        'priNombre' => $_POST['priNombreEdit'],
+                        'segNombre' => $_POST['segNombreEdit'],
+                        'priApellido' => $_POST['priApellidoEdit'],
+                        'segApellido' => $_POST['segApellidoEdit'],
+                        'user' => $_POST['userEdit'],
+                        'clave' => $_POST['claveEdit'],
+                        'rol' => $_POST['rolEdit'],
+                        'activo' => $_POST['activoEdit'],
+                        'local' => $_SESSION['id_local']
+                    );
+                } else {
+                    $dato = array(
+                        'id' => $_GET['id_usuario'],
+                        'priNombre' => $_POST['priNombreEdit'],
+                        'segNombre' => $_POST['segNombreEdit'],
+                        'priApellido' => $_POST['priApellidoEdit'],
+                        'segApellido' => $_POST['segApellidoEdit'],
+                        'user' => $_POST['userEdit'],
+                        'clave' => $_POST['claveEdit'],
+                        'rol' => $_POST['rolEdit'],
+                        'activo' => $_POST['activoEdit'],
+                        'local' => $_SESSION['id_local']
+                    );
+                }
             } else {
                 $dato = array(
-                    'id' => $_GET['id_usuario'],
+                    'id' => $_POST['id_usuario'],
                     'priNombre' => $_POST['priNombreEdit'],
                     'segNombre' => $_POST['segNombreEdit'],
                     'priApellido' => $_POST['priApellidoEdit'],
@@ -108,9 +136,10 @@ class ControladorUsuario
                     'clave' => $_POST['claveEdit'],
                     'rol' => $_POST['rolEdit'],
                     'activo' => $_POST['activoEdit'],
-                    'local' => $_SESSION['id_local']
+                    'local' => $_POST['id']
                 );
             }
+
             $actualizr = new ModeloUsuario();
             $res = $actualizr->actualizarUsuarioModelo($dato);
             if ($res == true) {

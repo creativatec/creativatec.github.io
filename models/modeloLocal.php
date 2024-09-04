@@ -1,5 +1,5 @@
 <?php
-
+require_once 'conexion.php';
 class ModeloLocal
 {
     public $tabla = "local";
@@ -25,11 +25,36 @@ class ModeloLocal
         }
     }
 
+    function obtenerUltimoID()
+    {
+        $sql = "SELECT MAX(id_local) FROM $this->tabla;";
+
+        try {
+            $conn = new Conexion();
+            $stms = $conn->conectar()->prepare($sql);
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return true;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
     function listarModeloModelo()
     {
-        $sql = "SELECT * FROM $this->tabla";
+        if (isset($_SESSION['id_local'])) {
+            $sql = "SELECT * FROM $this->tabla WHERE id_local = ?";
+        } else {
+            $sql = "SELECT * FROM $this->tabla";
+        }
+
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
+        if (isset($_SESSION['id_local'])) {
+            $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
+        }
         try {
             if ($stms->execute()) {
                 return $stms->fetchAll();
@@ -138,4 +163,28 @@ class ModeloLocal
             print_r($e->getMessage());
         }
     }
+
+    function obtenerLocalPorID($id_local)
+    {
+        $sql = "SELECT * FROM $this->tabla WHERE id_local = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+        $stms->bindParam(1, $id_local, PDO::PARAM_STR);
+
+        try {
+            if ($stms->execute()) {
+                echo json_encode($stms->fetch(PDO::FETCH_ASSOC));
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+}
+$ajax = new ModeloLocal();
+
+if (isset($_POST['id_local'])) {
+    $id_local = $_POST['id_local'];
+    $red = $ajax->obtenerLocalPorID($id_local);
 }

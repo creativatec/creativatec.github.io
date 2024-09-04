@@ -8,11 +8,23 @@ class ControladorLocal
             $dato = array('local' => $_POST['local'], 'nit' => $_POST['nit'], 'dire' => $_POST['dire'], 'tel' => $_POST['tel']);
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
-            if ($res == true) {
+            $resIDLocal = $agregar->obtenerUltimoID();
+            $dato = array(
+                'priNombre' => 'NNNN',
+                'segNombre' => '',
+                'priApellido' => 'NNNN',
+                'segApellido' => '',
+                'cc' => '111111',
+                'email' => 'feliperenjifoz@gmail.com',
+                'local' => $resIDLocal[0]['MAX(id_local)']
+            );
+            $cliente = new ModeloCliente();
+            $resClient = $cliente->agregarClienteModelo($dato);
+            if ($resClient == true) {
                 echo '<script>window.location="agregarLocal"</script>';
             }
         } elseif (isset($_POST['actualizarLocal'])) {
-            $dato = array('id' => $_GET['id_local'], 'local' => $_POST['localEdit'], 'nit' => $_POST['nitEdit'], 'dire' => $_POST['direEdit'], 'tel' => $_POST['telEdit']);
+            $dato = array('id' => $_POST['id'], 'local' => $_POST['localEdit'], 'nit' => $_POST['nitEdit'], 'dire' => $_POST['direEdit'], 'tel' => $_POST['telEdit']);
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalModelo($dato);
             if ($res == true) {

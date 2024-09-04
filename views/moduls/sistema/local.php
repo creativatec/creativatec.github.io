@@ -38,7 +38,7 @@ if (isset($_GET['id'])) {
 <div class="container mt-5">
     <div class="row">
         <div class="col-sm-6">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                     class="bi bi-building-fill-add" viewBox="0 0 16 16">
                     <path
@@ -46,7 +46,7 @@ if (isset($_GET['id'])) {
                     <path
                         d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z" />
                 </svg>
-            </button>
+            </button>-->
         </div>
     </div>
     <br>
@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
             <tbody>
                 <?php
                 foreach ($res as $key => $value) {
-                    ?>
+                ?>
                     <tr>
                         <td>
                             <?php echo $value['nombre_local'] ?>
@@ -81,7 +81,7 @@ if (isset($_GET['id'])) {
                         <td><a href="index.php?action=local&id_local=<?php echo $value['id_local'] ?>"><i
                                     class="fas fa-print fa-lg"></i></a><a href="index.php?action=local&id=<?php echo $value['id_local'] ?>"><i class="fas fa-trash-alt fa-lg"></i></a></td>
                     </tr>
-                    <?php
+                <?php
                 }
                 ?>
             </tbody>
@@ -159,6 +159,8 @@ if (isset($_GET['id'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Local</label>
+                            <input type="hidden" class="form-control" value="<?php echo $listar[0]['id_local'] ?>" name="id" id="inputEmail4"
+                                placeholder="Primer nombre">
                             <input type="text" class="form-control" value="<?php echo $listar[0]['nombre_local'] ?>" name="localEdit" id="inputEmail4"
                                 placeholder="Primer nombre">
                         </div>

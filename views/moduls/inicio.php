@@ -247,13 +247,13 @@ if ($num > 0) {
         <div class="client-logo-wrapper">
             <div class="client-logo-carousel d-flex align-items-center justify-content-between">
                 <?php
-                foreach ($cliente as $key => $value) {
+                /*foreach ($cliente as $key => $value) {
                 ?>
                     <div class="client-logo">
                         <img src="<?php echo $value['logo'] ?>" class="card-img-top" alt="">
                     </div>
                 <?php
-                }
+                }*/
                 ?>
             </div>
         </div>

@@ -2,9 +2,10 @@
 
 class ModeloViews
 {
-    private $directorioModulos = 'views/moduls/';
-    private $directorioAlternativo = 'views/moduls/admin/';
+    
     private $directorioSistema = 'views/moduls/sistema/';
+    private $directorioAlternativo = 'views/moduls/admin/';
+    private $directorioModulos = 'views/moduls/';
     private $modulosValidos = [];
 
     public function __construct()
@@ -51,7 +52,11 @@ class ModeloViews
             case 'agregarUsuario':
             case 'eliminarUsuario':
             case 'actualizarUsuario':
-                $modulo = 'usuario.php';
+                if (isset($_SESSION['rol'])) {
+                    $modulo = 'usuario.php';
+                } else {
+                    $modulo = 'inicio.php';
+                }
                 break;
             case 'agregarCliente':
             case 'eliminarCliente':
@@ -65,7 +70,11 @@ class ModeloViews
             case 'agregarLocal':
             case 'eliminarLocal':
             case 'actualizarLocal':
-                $modulo = 'local.php';
+                if (isset($_SESSION['rol'])) {
+                    $modulo = 'local.php';
+                } else {
+                    $modulo = 'inicio.php';
+                }
                 break;
             case 'agregarProeevedor':
             case 'eliminarProeevedor':

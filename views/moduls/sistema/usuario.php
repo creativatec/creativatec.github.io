@@ -309,7 +309,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                         <?php
-                        if ($_SESSION['rol'] == "Administrador") {
+                        /*if ($_SESSION['rol'] == "Administrador") {
                         ?>
                             <div class="form-group col-md-4">
                                 <label for="">Establecimiento</label>
@@ -329,7 +329,7 @@ if (isset($_GET['id'])) {
                                 </select>
                             </div>
                         <?php
-                        }
+                        }*/
                         ?>
                     </div>
                     <button type="submit" name="ActualizarUsuario" class="btn btn-primary">Actualizar</button>

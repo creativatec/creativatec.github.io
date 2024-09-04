@@ -1,5 +1,5 @@
 <?php
-
+require_once 'conexion.php';
 class ModeloUsuario
 {
     public $tabla = "usuario";
@@ -49,15 +49,27 @@ class ModeloUsuario
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
-            $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
-            $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
-            $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
-            $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
-            $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
-            $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
-            $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
-            $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
-            $stms->bindParam(9, $_SESSION['id_local'], PDO::PARAM_INT);
+            if (isset($_SESSION['rol'])) {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
+                $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
+                $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
+                $stms->bindParam(9, $_SESSION['id_local'], PDO::PARAM_INT);
+            } else {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
+                $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
+                $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
+                $stms->bindParam(9, $dato['local'], PDO::PARAM_INT);
+            }
         }
         try {
             if ($stms->execute()) {
@@ -72,17 +84,24 @@ class ModeloUsuario
 
     function listarModeloUsuario()
     {
-        if ($_SESSION['rol'] == "Administrador") {
-            $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE local.id_local = ?";
+        if (isset($_SESSION['rol'])) {
+            if ($_SESSION['rol'] == "Administrador") {
+                $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE local.id_local = ?";
+            } else {
+                $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE local.id_local = ?";
+            }
         } else {
-            $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE local.id_local = ?";
+            $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local";
         }
+
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
-        if ($_SESSION['rol'] == "Administrador") {
-            $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
-        } else {
-            $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
+        if (isset($_SESSION['rol'])) {
+            if ($_SESSION['rol'] == "Administrador") {
+                $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
+            } else {
+                $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
+            }
         }
         try {
             if ($stms->execute()) {
@@ -142,16 +161,28 @@ class ModeloUsuario
 
     function listarUsuarioIdModelo($id)
     {
-        $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE id_usuario = ? AND usuario.id_local = ?";
+        if (isset($_SESSION['rol'])) {
+            $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE id_usuario = ? AND usuario.id_local = ?";
+        } else {
+            $sql = "SELECT * FROM $this->tabla INNER JOIN rol ON rol.id_rol = usuario.id_rol INNER JOIN activo ON activo.id_activo = usuario.id_activo INNER JOIN local ON local.id_local = usuario.id_local WHERE id_usuario = ?";
+        }
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
-        if ($id != '') {
+        if (isset($_SESSION['rol'])) {
+            if ($id != '') {
+                $stms->bindParam(1, $id, PDO::PARAM_INT);
+                $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
+            }
+        } else {
             $stms->bindParam(1, $id, PDO::PARAM_INT);
-            $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
-                return $stms->fetchAll();
+                if (isset($_SESSION['rol'])) {
+                    return $stms->fetchAll();
+                } else {
+                    echo json_encode($stms->fetch(PDO::FETCH_ASSOC));
+                }
             } else {
                 return false;
             }
@@ -162,21 +193,38 @@ class ModeloUsuario
 
     function actualizarUsuarioModelo($dato)
     {
-        $sql = "UPDATE $this->tabla SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,usuario=?,clave=?,id_rol=?,id_activo=?,id_local= ? WHERE id_usuario = ? AND id_local = ?";
+        if (isset($_SESSION['rol'])) {
+            $sql = "UPDATE $this->tabla SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,usuario=?,clave=?,id_rol=?,id_activo=?,id_local= ? WHERE id_usuario = ? AND id_local = ?";
+        } else {
+            $sql = "UPDATE $this->tabla SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,usuario=?,clave=?,id_rol=?,id_activo=?,id_local= ? WHERE id_usuario = ?";
+        }
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
-            $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
-            $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
-            $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
-            $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
-            $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
-            $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
-            $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
-            $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
-            $stms->bindParam(9, $_SESSION['id_local'], PDO::PARAM_INT);
-            $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
-            $stms->bindParam(11, $_SESSION['id_local'], PDO::PARAM_INT);
+            if (isset($_SESSION['rol'])) {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
+                $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
+                $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
+                $stms->bindParam(9, $_SESSION['id_local'], PDO::PARAM_INT);
+                $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
+                $stms->bindParam(11, $_SESSION['id_local'], PDO::PARAM_INT);
+            } else {
+                $stms->bindParam(1, $dato['priNombre'], PDO::PARAM_STR);
+                $stms->bindParam(2, $dato['segNombre'], PDO::PARAM_STR);
+                $stms->bindParam(3, $dato['priApellido'], PDO::PARAM_STR);
+                $stms->bindParam(4, $dato['segApellido'], PDO::PARAM_STR);
+                $stms->bindParam(5, $dato['user'], PDO::PARAM_STR);
+                $stms->bindParam(6, $dato['clave'], PDO::PARAM_STR);
+                $stms->bindParam(7, $dato['rol'], PDO::PARAM_INT);
+                $stms->bindParam(8, $dato['activo'], PDO::PARAM_INT);
+                $stms->bindParam(9, $dato['local'], PDO::PARAM_INT);
+                $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
+            }
         }
         try {
             if ($stms->execute()) {
@@ -219,4 +267,10 @@ class ModeloUsuario
             print_r($e->getMessage());
         }
     }
+}
+$ajax = new ModeloUsuario();
+
+if (isset($_POST['id_usuario'])) {
+    $id_usuario = $_POST['id_usuario'];
+    $red = $ajax->listarUsuarioIdModelo($id_usuario);
 }

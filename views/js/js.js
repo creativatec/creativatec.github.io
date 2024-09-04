@@ -1046,7 +1046,7 @@ $(document).ready(function () {
 							//if (cantidad <= 0) {
 								//swal("Ups!!!!", "El producto: "+name+" esta agotado", "error");
 							//} else {
-								if (urlActual == "http://" + hosting + "/juniorPizza/caja") {
+								if (urlActual == "http://" + hosting + "/creativatec.gihub.io/caja") {
 									document.getElementById('id_articulo_' + index).value = id;
 									document.getElementById('codigo_' + index).value = codigo;
 									document.getElementById('nombre_' + index).value = name;
