@@ -75,4 +75,5 @@ class ControaldorPrecio
         $res = $mostrar->mostrarListaModelo();
         return $res;
     }
+
 }

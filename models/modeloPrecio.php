@@ -146,6 +146,23 @@ class ModeloPrecio
         }
     }
 
+    function mostrarListaModeloId($id)
+    {
+        $sql = "SELECT * FROM $this->tabla1 WHERE id_precio = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        $stms->bindParam(1, $id, PDO::PARAM_INT);
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
     function obtenerListaPorID($id_lis_precio)
     {
         $sql = "SELECT * FROM $this->tabla1 WHERE id_lis_precio = ?";

@@ -22,15 +22,22 @@ if (isset($_GET['producto'])) {
     $sheet->setCellValue('H1', 'Local');
 
     // Conectar a la base de datos y recuperar los datos
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "junior";
+    $servername = "148.113.168.25";
+    $username = "creati12_root";
+    $password = "xdPhAU{8Q;i!";
+    $dbname = "creati12_creativepagina";
 
+    // Crear la conexión
     $conn = new mysqli($servername, $username, $password, $dbname);
 
+    // Verificar la conexión
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
+    }
+
+    // Configura la codificación de caracteres para la conexión
+    if (!$conn->set_charset("utf8mb4")) {
+        die("Error cargando el conjunto de caracteres utf8mb4: " . $conn->error);
     }
 
     $sql = "SELECT proeevedor.nombre_proeevedor AS nombre_proveedor, producto.codigo_producto, producto.nombre_producto, producto.precio_unitario, producto.cantidad_producto, categoria.nombre_categoria, medida.nombre_medida, local.nombre_local FROM producto INNER JOIN proeevedor ON proeevedor.id_proeevedor = producto.id_proeevedor INNER JOIN categoria ON categoria.id_categoria = producto.id_categoria INNER JOIN medida ON medida.id_medida = producto.id_medida INNER JOIN local ON local.id_local = producto.id_local WHERE producto.id_local = $id";
@@ -136,7 +143,7 @@ if (isset($_GET['productoMes'])) {
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
-    $fecha = date('Y-m')."%";
+    $fecha = date('Y-m') . "%";
     $sql = "SELECT producto.nombre_producto, SUM(cantidad) AS total_vendido FROM `venta` INNER JOIN producto ON producto.id_producto = venta.id_producto WHERE fecha_ingreso like '$fecha' AND venta.id_local = $id GROUP BY producto.nombre_producto ORDER BY total_vendido";
     $result = $conn->query($sql);
 
@@ -144,7 +151,7 @@ if (isset($_GET['productoMes'])) {
         $row = 2; // Empezar desde la fila 2 ya que la fila 1 contiene los encabezados
         while ($data = $result->fetch_assoc()) {
             $sheet->setCellValue('A' . $row, $data['nombre_producto']);
-            $sheet->setCellValue('B' . $row, number_format($data['total_vendido'],0));
+            $sheet->setCellValue('B' . $row, number_format($data['total_vendido'], 0));
             $row++;
         }
     }
@@ -185,7 +192,7 @@ if (isset($_GET['ventaMes'])) {
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
-    $fecha = date('Y-m')."%";
+    $fecha = date('Y-m') . "%";
     $sql = "SELECT DATE(fecha_ingreso) AS dia_facturado, SUM(precio_compra) AS total FROM `venta` WHERE fecha_ingreso LIKE '$fecha' AND id_local = $id GROUP BY DATE(fecha_ingreso) ORDER BY DATE(fecha_ingreso)";
     $result = $conn->query($sql);
 
@@ -193,7 +200,7 @@ if (isset($_GET['ventaMes'])) {
         $row = 2; // Empezar desde la fila 2 ya que la fila 1 contiene los encabezados
         while ($data = $result->fetch_assoc()) {
             $sheet->setCellValue('A' . $row, $data['dia_facturado']);
-            $sheet->setCellValue('B' . $row, number_format($data['total'],0));
+            $sheet->setCellValue('B' . $row, number_format($data['total'], 0));
             $row++;
         }
     }

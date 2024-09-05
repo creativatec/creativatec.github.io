@@ -84,7 +84,7 @@ $lsita = $agregar->agregarListaPrecio();
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                foreach ($lsita as $key => $value) {
+                                                foreach ($res as $key => $value) {
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $value['id_precio'] ?></td>
@@ -141,7 +141,7 @@ $lsita = $agregar->agregarListaPrecio();
                                                 foreach ($res as $key => $value) {
                                                 ?>
                                                     <option value="<?php echo $value['id_precio'] ?>">
-                                                        <?php echo $value['nombre_etiqueta'] ?>
+                                                        <?php echo $value['estilo'] ?>
                                                     </option>
                                                 <?php
                                                 }
@@ -163,7 +163,8 @@ $lsita = $agregar->agregarListaPrecio();
 
                                     </div>
                                     <div class="box-content box-table">
-                                        <table class="table table-hover tablesorter">
+                                    <input type="text" id="local" placeholder="Buscar en la tabla...">
+                                        <table id="my-local" class="table table-hover tablesorter">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -180,7 +181,7 @@ $lsita = $agregar->agregarListaPrecio();
                                                     <tr>
                                                         <td><?php echo $value['id_lis_precio'] ?></td>
                                                         <td><?php echo $value['descripcion'] ?></td>
-                                                        <td><?php echo $value['nombre_etiqueta'] ?></td>
+                                                        <td><?php echo $value['estilo'] ?></td>
                                                         <td><a class="btn btn-primary edit-button-lista" data-id="<?php print $value['id_lis_precio']; ?>">Editar</a></td>
 
                                                     </tr>

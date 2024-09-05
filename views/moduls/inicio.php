@@ -11,6 +11,9 @@ $ser = $ser->agregarServicio();
 
 $cli = new ControladorClientePagina();
 $cliente = $cli->agregarCliente();
+
+$precio = new ControaldorPrecio();
+$precioRes = $precio->agregarPrecio();
 ?>
 <section class="hero-slider">
     <!-- Single Slider -->
@@ -122,138 +125,78 @@ $cliente = $cli->agregarCliente();
 <!-- /End Services Area -->
 
 <!-- Pricing Table -->
-<?php
-$num = 0;
-if ($num > 0) {
 
-?>
-    <section id="pricing" class="pricing-table section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 col-12">
-                    <div class="section-title">
-                        <span class="wow fadeInDown" data-wow-delay=".2s">Tabla De Precios</span>
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Nuestro Plan De Precios</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                            Ipsum available, but the majority have suffered alteration in some form.</p>
-                    </div>
+<section id="pricing" class="pricing-table section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-12">
+                <div class="section-title">
+                    <span class="wow fadeInDown" data-wow-delay=".2s">Tabla Precios</span>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Nuestro plan de precios</h2>
+                    <!--<p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>-->
                 </div>
             </div>
-            <div class="row">
+            <?php
+            foreach ($precioRes as $key => $value) {
+            ?>
                 <div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".3s">
+                    <div class="single-table wow fadeInUp" data-wow-delay=".<?php echo $key + 4 ?>s">
+                        <p class="<?php echo $value['etiqueta'] ?>"><?php echo $value['nombre_etiqueta'] ?></p>
                         <!-- Table Head -->
                         <div class="table-head">
-                            <h4 class="title">Basic <span>for small business</span></h4>
+                            <h4 class="title"><?php echo $value['estilo'] ?> <span><?php echo $value['descripcion_estilo'] ?></span></h4>
                             <div class="price">
-                                <p class="amount"><span class="curency">$</span>29<span class="duration">/mo</span></p>
+                                <p class="amount"><span class="curency">$</span><?php echo $value['precio'] ?><span class="duration"><?php echo $value['duracion'] ?></span></p>
                             </div>
                         </div>
                         <!-- Table List -->
                         <ul class="table-list">
-                            <li>3 Users</li>
-                            <li>Unlimited Projects</li>
-                            <li>Download Prototypes</li>
+                            <?php
+                            $listar = new ModeloPrecio();
+                            $resListar = $listar->mostrarListaModeloId($value['id_precio']);
+                            foreach ($resListar as $key => $valueList) {
+                            ?>
+                                <li><?php echo $valueList['descripcion'] ?></li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                         <div class="button">
-                            <a class="btn white-bg mouse-dir" href="#">Get Started <span class="dir-part"></span></a>
+                            <a class="btn white-bg mouse-dir" href="contactanos">Empezar <span class="dir-part"></span></a>
                         </div>
                         <!-- Table Bottom -->
                     </div>
                     <!-- End Single Table-->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".5s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Standard <span>for companies</span></h4>
-                            <div class="price">
-                                <p class="amount"><span class="curency">$</span>59<span class="duration">/mo</span></p>
-                            </div>
-                        </div>
-                        <!-- Table List -->
-                        <ul class="table-list">
-                            <li>5 Users</li>
-                            <li>Unlimited Projects</li>
-                            <li>Download Prototypes</li>
-                        </ul>
-                        <div class="button">
-                            <a class="btn white-bg mouse-dir" href="#">Get Started <span class="dir-part"></span></a>
-                        </div>
-                        <!-- Table Bottom -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".7s">
-                        <p class="popular">Popular</p>
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Professonal <span>for small business</span></h4>
-                            <div class="price">
-                                <p class="amount"><span class="curency">$</span>600<span class="duration">/mo</span></p>
-                            </div>
-                        </div>
-                        <!-- Table List -->
-                        <ul class="table-list">
-                            <li>8 Users</li>
-                            <li>Unlimited Projects</li>
-                            <li>Download Prototypes</li>
-                        </ul>
-                        <div class="button">
-                            <a class="btn white-bg mouse-dir" href="#">Get Started <span class="dir-part"></span></a>
-                        </div>
-                        <!-- Table Bottom -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".9s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Most Popular <span>for small business</span></h4>
-                            <div class="price">
-                                <p class="amount"><span class="curency">$</span>99<span class="duration">/mo</span></p>
-                            </div>
-                        </div>
-                        <!-- Table List -->
-                        <ul class="table-list">
-                            <li>10 Users</li>
-                            <li>Unlimited Projects</li>
-                            <li>Download Prototypes</li>
-                        </ul>
-                        <div class="button">
-                            <a class="btn white-bg mouse-dir" href="#">Get Started <span class="dir-part"></span></a>
-                        </div>
-                        <!-- Table Bottom -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
-    </section>
-<?php
-}
-?>
+    </div>
+</section>
 <!--/ End Pricing Table -->
 
 <!-- Start Clients Area -->
 <section class="client-logo-section">
     <div class="container">
+        <div class="col-lg-8 offset-lg-2 col-12">
+            <div class="section-title">
+                <span class="wow fadeInDown" data-wow-delay=".2s">Clientes</span>
+                <h2 class="wow fadeInUp" data-wow-delay=".4s">Nuestros Clientes</h2>
+                <!--<p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>-->
+            </div>
+        </div>
         <div class="client-logo-wrapper">
             <div class="client-logo-carousel d-flex align-items-center justify-content-between">
                 <?php
-                /*foreach ($cliente as $key => $value) {
+                foreach ($cliente as $key => $value) {
                 ?>
                     <div class="client-logo">
                         <img src="<?php echo $value['logo'] ?>" class="card-img-top" alt="">
                     </div>
                 <?php
-                }*/
+                }
                 ?>
             </div>
         </div>
