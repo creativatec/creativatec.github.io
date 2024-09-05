@@ -166,11 +166,11 @@ class ModeloPrecio
 }
 $ajax = new ModeloPrecio();
 
-if (isset($_POST['id_precio'])) {
-    $id_precio = $_POST['id_precio'];
+if (isset($_POST['id_preci'])) {
+    $id_precio = $_POST['id_preci'];
     $red = $ajax->obtenerPrecioPorID($id_precio);
 }
-if (isset($_POST['id_lis_precio'])) {
-    $id_lis_precio = $_POST['id_lis_precio'];
+if (isset($_POST['id_lis_preci'])) {
+    $id_lis_precio = $_POST['id_lis_preci'];
     $red = $ajax->obtenerListaPorID($id_lis_precio);
 }

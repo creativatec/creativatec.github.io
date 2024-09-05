@@ -82,7 +82,7 @@ class ModeloServicio
 
 $ajax = new ModeloServicio();
 
-if (isset($_POST['id_servicio'])) {
-    $id_servicio = $_POST['id_servicio'];
+if (isset($_POST['id_servici'])) {
+    $id_servicio = $_POST['id_servici'];
     $red = $ajax->obtenerServicoPorID($id_servicio);
 }

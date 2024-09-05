@@ -184,7 +184,7 @@ class ModeloLocal
 }
 $ajax = new ModeloLocal();
 
-if (isset($_POST['id_local'])) {
-    $id_local = $_POST['id_local'];
+if (isset($_POST['id_loca'])) {
+    $id_local = $_POST['id_loca'];
     $red = $ajax->obtenerLocalPorID($id_local);
 }

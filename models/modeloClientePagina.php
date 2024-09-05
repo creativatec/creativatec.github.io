@@ -85,7 +85,7 @@ class ModeloClientePagina
 }
 $ajax = new ModeloClientePagina();
 
-if (isset($_GET['id_cliente'])) {
-    $id_cliente = $_GET['id_cliente'];
+if (isset($_POST['id_clie'])) {
+    $id_cliente = $_POST['id_clie'];
     $red = $ajax->obtenerListaPorID($id_cliente);
 }

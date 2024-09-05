@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_redes=' + id
+                body: 'id_rede=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_sobre_nosotros=' + id
+                body: 'id_sobre_nosotro=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_info_nosotros=' + id
+                body: 'id_info_nosotro=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_info_sobre_nosotros=' + id
+                body: 'id_info_sobre_nosotro=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_servicio=' + id
+                body: 'id_servici=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_portafolio=' + id
+                body: 'id_portafoli=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_categoria_portafolio=' + id
+                body: 'id_categoria_portafoli=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_proyecto=' + id
+                body: 'id_proyect=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_precio=' + id
+                body: 'id_preci=' + id
             })
                 .then(response => response.json())
                 .then(data => {
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_lis_precio=' + id
+                body: 'id_lis_preci=' + id
             })
             .then(response => response.json())
             .then(data => {
@@ -392,12 +392,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const id = this.getAttribute('data-id');
 
             // Realiza una llamada AJAX para obtener los datos
-            fetch('models/modeloCliente.php', {
-                method: 'GET',
+            fetch('models/modeloClientePagina.php', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_cliente=' + id
+                body: 'id_clie=' + id
             })
             .then(response => response.json())
             .then(data => {
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_local=' + id
+                body: 'id_loca=' + id
             })
             .then(response => response.json())
             .then(data => {
@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'id_usuario=' + id
+                body: 'id_usuari=' + id
             })
             .then(response => response.json())
             .then(data => {

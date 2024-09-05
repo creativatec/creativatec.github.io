@@ -257,15 +257,15 @@ class ModeloPortafolio
 }
 $ajax = new ModeloPortafolio();
 
-if (isset($_POST['id_portafolio'])) {
-    $id_portafolio = $_POST['id_portafolio'];
+if (isset($_POST['id_portafoli'])) {
+    $id_portafolio = $_POST['id_portafoli'];
     $red = $ajax->obtenerPortafolioPorID($id_portafolio);
 }
-if (isset($_POST['id_categoria_portafolio'])) {
-    $id_categoria_portafolio = $_POST['id_categoria_portafolio'];
+if (isset($_POST['id_categoria_portafoli'])) {
+    $id_categoria_portafolio = $_POST['id_categoria_portafoli'];
     $red = $ajax->obtenerCategoriaPortafolioPorID($id_categoria_portafolio);
 }
-if (isset($_POST['id_proyecto'])) {
-    $id_proyecto = $_POST['id_proyecto'];
+if (isset($_POST['id_proyect'])) {
+    $id_proyecto = $_POST['id_proyect'];
     $red = $ajax->obtenerProyectoPorID($id_proyecto);
 }

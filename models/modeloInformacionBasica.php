@@ -155,7 +155,7 @@ class ModeloInformacionBasica
 
 $ajax = new ModeloInformacionBasica();
 
-if (isset($_POST['id_redes'])) {
-    $id_redes = $_POST['id_redes'];
+if (isset($_POST['id_rede'])) {
+    $id_redes = $_POST['id_rede'];
     $red = $ajax->obtenerRedSocialPorID($id_redes);
 }

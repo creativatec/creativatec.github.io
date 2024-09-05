@@ -241,17 +241,17 @@ class ModeloNosotros
 }
 $ajax = new ModeloNosotros();
 
-if (isset($_POST['id_sobre_nosotros'])) {
-    $id_sobre_nosotros = $_POST['id_sobre_nosotros'];
+if (isset($_POST['id_sobre_nosotro'])) {
+    $id_sobre_nosotros = $_POST['id_sobre_nosotro'];
     $red = $ajax->obtenerNotrosoPorID($id_sobre_nosotros);
 }
 
-if (isset($_POST['id_info_nosotros'])) {
-    $id_info_nosotros = $_POST['id_info_nosotros'];
+if (isset($_POST['id_info_nosotro'])) {
+    $id_info_nosotros = $_POST['id_info_nosotro'];
     $red = $ajax->obtenerInfoNotrosoPorID($id_info_nosotros);
 }
 
-if (isset($_POST['id_info_sobre_nosotros'])) {
-    $id_info_sobre_nosotros = $_POST['id_info_sobre_nosotros'];
+if (isset($_POST['id_info_sobre_nosotro'])) {
+    $id_info_sobre_nosotros = $_POST['id_info_sobre_nosotro'];
     $red = $ajax->obtenerInfoSobreNotrosoPorID($id_info_sobre_nosotros);
 }

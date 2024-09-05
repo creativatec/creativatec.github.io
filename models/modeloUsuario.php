@@ -270,7 +270,7 @@ class ModeloUsuario
 }
 $ajax = new ModeloUsuario();
 
-if (isset($_POST['id_usuario'])) {
-    $id_usuario = $_POST['id_usuario'];
+if (isset($_POST['id_usuari'])) {
+    $id_usuario = $_POST['id_usuari'];
     $red = $ajax->listarUsuarioIdModelo($id_usuario);
 }

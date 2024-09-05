@@ -264,7 +264,7 @@ $proyecto = $agregar->agregarProyecto();
                                     <div class="controls">
                                         <input id="" class="form-control" type="hidden" id="subirAntes" name="uploadImage1" />
                                         <input id="uploadImage1" class="form-control" type="file" id="subirAntes" name="logoporta" onchange="previewImage1(1);" />
-                                        <img id="uploadPreview1" width="350" height="200" class="mb-3" src="Views/images/img.jpg" />
+                                        <img id="uploadPreview1" width="350" height="200" class="mb-3" src="views/images/img.jpg" />
 
                                     </div>
                                 </div>
@@ -273,7 +273,7 @@ $proyecto = $agregar->agregarProyecto();
                                     <div class="controls">
                                         <input id="" class="form-control" type="hidden" id="subirAntes" name="uploadImage2"/>
                                         <input id="uploadImage2" class="form-control" type="file" id="subirAntes" name="foto1" onchange="previewImage1(2);" />
-                                        <img id="uploadPreview2" width="350" height="200" class="mb-3" src="Views/images/img.jpg" />
+                                        <img id="uploadPreview2" width="350" height="200" class="mb-3" src="views/images/img.jpg" />
 
                                     </div>
                                 </div>
@@ -282,7 +282,7 @@ $proyecto = $agregar->agregarProyecto();
                                     <div class="controls">
                                         <input id="" class="form-control" type="hidden" id="subirAntes" name="uploadImage3" />
                                         <input id="uploadImage3" class="form-control" type="file" id="subirAntes" name="foto2" onchange="previewImage1(3);" />
-                                        <img id="uploadPreview3" width="350" height="200" class="mb-3" src="Views/images/img.jpg" />
+                                        <img id="uploadPreview3" width="350" height="200" class="mb-3" src="views/images/img.jpg" />
 
                                     </div>
                                 </div>

@@ -52,7 +52,7 @@ $res = $agregar->agregarCliente();
                                     <div class="controls">
                                         <input id="current-pass-control" name="uploadImage1" class="span4" type="hidden" value="" autocomplete="false">
                                         <input id="uploadImage2" class="form-control" type="file" id="subirAntes" name="logo" onchange="previewImage1(2);" />
-                                        <img id="uploadPreview2" width="350" height="200" class="mb-3" src="Views/images/img.jpg" />
+                                        <img id="uploadPreview2" width="350" height="200" class="mb-3" src="views/images/img.jpg" />
 
                                     </div>
                                 </div>
