@@ -187,6 +187,40 @@ class ModeloLocal
             print_r($e->getMessage());
         }
     }
+
+    function listarTablasLocal(){
+        $sql = "SELECT table_name FROM information_schema.columns WHERE column_name = 'id_local' AND table_schema = 'junior'";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function obtenerTablasPorID($tabla, $id_local)
+    {
+        $sql = "DELETE FROM $tabla WHERE id_local = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+        $stms->bindParam(1, $id_local, PDO::PARAM_STR);
+
+        try {
+            if ($stms->execute()) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al eliminar']);
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
 }
 $ajax = new ModeloLocal();
 

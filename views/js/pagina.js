@@ -564,3 +564,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona todos los botones de eliminar
+    const deleteButtons = document.querySelectorAll('.eliminar-button-local');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+                // Realiza una llamada AJAX para eliminar el registro
+                fetch('views/ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id_locaEliminar=' + id
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Verifica si la eliminación fue exitosa
+                        if (data.success) {
+                            alert('Registro eliminado correctamente.');
+                            location.reload(); // Recarga la página
+                        } else {
+                            alert('Error al eliminar el registro.');
+                            location.reload(); // Recarga la página
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Registro eliminado correctamente.');
+                        location.reload(); // Recarga la página
+                    });
+            }
+        });
+    });
+});

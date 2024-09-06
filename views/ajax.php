@@ -313,6 +313,14 @@ class Ajax
         print json_encode($res);
 
     }
+
+    function eliminarLocalIdMasivo($id){
+        $listar = new ModeloLocal();
+        $res = $listar->listarTablasLocal();
+        foreach ($res as $key => $value) {
+            $listar->obtenerTablasPorID($value['table_name'],$id);
+        }
+    }
 }
 
 $ajax = new Ajax();
@@ -421,4 +429,9 @@ if (isset($_GET['nuevo_valor']) && isset($_GET['id_factura'])) {
 if (isset($_GET['codigo1'])) {
     $ajax->articulo = $_GET['codigo1'];
     $ajax->consultarAritucloProeevedorAgregarFactura();
+}
+
+if (isset($_POST['id_locaEliminar'])) {
+    $id_local = $_POST['id_locaEliminar'];
+    $red = $ajax->eliminarLocalIdMasivo($id_local);
 }

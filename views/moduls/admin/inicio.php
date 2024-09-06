@@ -158,7 +158,7 @@ $res = $user->listarUsuario();
                                                             }
                                                             ?>
                                                         </td>
-                                                        <td><a class="btn btn-primary edit-button-local" data-id="<?php print $value['id_local']; ?>">Editar</a></td>
+                                                        <td><a class="btn btn-primary edit-button-local" data-id="<?php print $value['id_local']; ?>">Editar</a><a class="btn btn-primary eliminar-button-local" data-id="<?php print $value['id_local']; ?>">Eliminar</a></td>
 
                                                     </tr>
                                                 <?php

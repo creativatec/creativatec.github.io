@@ -80,4 +80,6 @@ class ControladorLocal
             echo '<script>window.location="eliminarLocal"</script>';
         }
     }
+
+    
 }
