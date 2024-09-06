@@ -202,3 +202,41 @@ document.addEventListener('DOMContentLoaded', function () {
     defaultBtn.click();
   }
 });
+//enviar Comprobante pago
+document.addEventListener('DOMContentLoaded', function () {
+	const abrirModalBtn = document.getElementById('abrirModal');
+	const comprobanteForm = document.getElementById('comprobanteForm');
+
+	abrirModalBtn.addEventListener('click', function () {
+		$('#caducidadModal').modal('hide');
+		$('#comprobanteModal').modal('show');
+	});
+
+	comprobanteForm.addEventListener('submit', function (e) {
+		e.preventDefault();
+
+		const nombreEstablecimiento = document.getElementById('nombreEstablecimiento').value;
+		const comprobantePago = document.getElementById('comprobantePago').files[0];
+
+		if (nombreEstablecimiento && comprobantePago) {
+			const formData = new FormData();
+			formData.append('nombreEstablecimiento', nombreEstablecimiento);
+			formData.append('comprobantePago', comprobantePago);
+
+			fetch('views/enviarCorreo.php', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.text())
+			.then(result => {
+				alert('Comprobante enviado exitosamente.');
+				$('#comprobanteModal').modal('hide');
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+		} else {
+			alert('Por favor, complete todos los campos.');
+		}
+	});
+});

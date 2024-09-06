@@ -655,6 +655,7 @@ if (isset($_SESSION['validarPagina'])) {
         <link rel="stylesheet" href="assets/css/responsive.css" />
         <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
         <script src="views/js/sweetalert.min.js"></script>
+        <script src="views/js/jquery-3.3.1.js"></script>
 
     </head>
 

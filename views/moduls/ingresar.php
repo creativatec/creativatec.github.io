@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="assets/css/login.css" />
 <div class="container mt-5">
 
@@ -63,9 +62,58 @@ if (isset($_GET['action'])) {
             </script>';
     }
     if ($_GET['action'] == "LoginSuspendidoPorPago") {
-        print '<script>
-                swal("Ops!", "Su local ha sido suspendido por exceso de pago", "error");
-            </script>';
+?>
+        <script>
+            $(document).ready(function() {
+                $('#caducidadModal').modal('toggle')
+            });
+        </script>
+        <div class="modal fade" id="caducidadModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">¡Atención!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Ya han caducado los 7 días hábiles. Te quedan 0 días para pagar por lo cual tu establecimiento fue suspendido. Por favor, envía la confirmación de tu pago a través de un correo electrónico para habilitar tu establecimiento.
+                        <br>
+                        Total A pagar $60.000
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="abrirModal">Enviar Correo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="comprobanteModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Enviar Comprobante de Pago</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="comprobanteForm">
+                            <div class="form-group">
+                                <label for="nombreEstablecimiento">Nombre del Establecimiento:</label>
+                                <input type="text" class="form-control" id="nombreEstablecimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comprobantePago">Foto del Comprobante de Pago:</label>
+                                <input type="file" class="form-control-file" id="comprobantePago" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
     }
 }
 ?>

@@ -101,6 +101,7 @@ $res = $user->listarUsuario();
                                                     <th>Nit</th>
                                                     <th>Dirección</th>
                                                     <th>Telefono</th>
+                                                    <th>Dias Restantes</th>
                                                     <th>Acciones</th>
 
                                                 </tr>
@@ -124,6 +125,38 @@ $res = $user->listarUsuario();
                                                         </td>
                                                         <td>
                                                             <?php echo $value['telefono'] ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            $local = new ModeloLocal();
+                                                            $reslocal = $local->consultarLocalModelo($value['id_local']);
+                                                            //dias restantes
+                                                            $fechaFin = $reslocal[0]['fin'];
+                                                            $fechaPlazo = $reslocal[0]['plazo'];
+                                                            $fechaActual = new DateTime();
+                                                            $fechaFinDate = new DateTime($fechaFin);
+                                                            $fechaFinDatePlazo = new DateTime($fechaPlazo);
+                                                            $diferencia = $fechaActual->diff($fechaFinDate);
+                                                            $diferenciaPlazo = $fechaActual->diff($fechaFinDatePlazo);
+                                                            $diasRestantes = (int)$diferencia->format("%r%a");
+                                                            $Restantes = (int)$diferenciaPlazo->format("%r%a");
+                                                            if ($diasRestantes <= 0) {
+                                                                if ($Restantes <= 0) {
+                                                            ?>
+                                                                    Local Suspendido Por No Pago
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    Dias Restantes Para Suspencion: <?php echo $Restantes ?>
+                                                                <?php
+                                                                }
+                                                            } else {
+
+                                                                ?>
+                                                                Dias Restantes: <?php echo $diasRestantes ?>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td><a class="btn btn-primary edit-button-local" data-id="<?php print $value['id_local']; ?>">Editar</a></td>
 
