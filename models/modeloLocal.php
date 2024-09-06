@@ -5,7 +5,7 @@ class ModeloLocal
     public $tabla = "local";
     function agregarLocalModelo($dato)
     {
-        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono, inicio, fin, plazo) VALUES (?,?,?,?,?,?,?)";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -13,6 +13,9 @@ class ModeloLocal
             $stms->bindParam(2, $dato['nit'], PDO::PARAM_STR);
             $stms->bindParam(3, $dato['dire'], PDO::PARAM_STR);
             $stms->bindParam(4, $dato['tel'], PDO::PARAM_STR);
+            $stms->bindParam(5, $dato['inicio'], PDO::PARAM_STR);
+            $stms->bindParam(6, $dato['fin'], PDO::PARAM_STR);
+            $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
         }
         try {
             if ($stms->execute()) {
@@ -113,7 +116,7 @@ class ModeloLocal
 
     function actualizarLocalModelo($dato)
     {
-        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=? WHERE id_local=?";
+        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=? WHERE id_local=?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -121,7 +124,10 @@ class ModeloLocal
             $stms->bindParam(2, $dato['nit'], PDO::PARAM_STR);
             $stms->bindParam(3, $dato['dire'], PDO::PARAM_STR);
             $stms->bindParam(4, $dato['tel'], PDO::PARAM_STR);
-            $stms->bindParam(5, $dato['id'], PDO::PARAM_INT);
+            $stms->bindParam(5, $dato['inicio'], PDO::PARAM_STR);
+            $stms->bindParam(6, $dato['fin'], PDO::PARAM_STR);
+            $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
+            $stms->bindParam(8, $dato['id'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {

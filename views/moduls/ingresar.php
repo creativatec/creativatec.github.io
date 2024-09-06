@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="assets/css/login.css" />
 <div class="container mt-5">
 
@@ -59,6 +60,11 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "loginInactivo") {
         print '<script>
                 swal("Ops!", "El usuario ha sido desabilitado", "error");
+            </script>';
+    }
+    if ($_GET['action'] == "LoginSuspendidoPorPago") {
+        print '<script>
+                swal("Ops!", "Su local ha sido suspendido por exceso de pago", "error");
             </script>';
     }
 }

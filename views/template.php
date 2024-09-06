@@ -73,8 +73,7 @@ if (isset($_SESSION['validarPagina'])) {
 
     </html>
 <?php
-}
-elseif (isset($_SESSION['validar'])) {
+} elseif (isset($_SESSION['validar'])) {
     $local = new ControladorLocal();
     $res = $local->consultarLocal(1);
     if ($res != null) {
@@ -662,7 +661,7 @@ elseif (isset($_SESSION['validar'])) {
     <body>
         <?php
         if (isset($_GET['action'])) {
-            if ($_GET['action'] != 'ingresar') {
+            if ($_GET['action'] != 'ingresar' && $_GET['action'] != 'loginFallido' && $_GET['action'] != 'loginInactivo' && $_GET['action'] != 'LoginSuspendidoPorPago') {
                 include("views/moduls/narvar.php");
             } else {
             }
@@ -676,7 +675,7 @@ elseif (isset($_SESSION['validar'])) {
         ?>
         <?php
         if (isset($_GET['action'])) {
-            if ($_GET['action'] != 'ingresar') {
+            if ($_GET['action'] != 'ingresar' && $_GET['action'] != 'loginFallido' && $_GET['action'] != 'loginInactivo' && $_GET['action'] != 'LoginSuspendidoPorPago') {
                 include("views/moduls/footer.php");
             }
         } else {

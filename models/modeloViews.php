@@ -2,7 +2,7 @@
 
 class ModeloViews
 {
-    
+
     private $directorioSistema = 'views/moduls/sistema/';
     private $directorioAlternativo = 'views/moduls/admin/';
     private $directorioModulos = 'views/moduls/';
@@ -65,6 +65,7 @@ class ModeloViews
                 break;
             case 'loginFallido':
             case 'loginInactivo':
+            case 'LoginSuspendidoPorPago':
                 $modulo = 'ingresar.php';
                 break;
             case 'agregarLocal':

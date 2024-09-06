@@ -42,6 +42,20 @@ $res = $user->listarUsuario();
 
                                     </div>
                                 </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Fecha Inicio<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="date" id="inicio" name="inicio" class="span4">
+
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Plazo<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="date" id="diasHabiles" name="diasHabiles" class="span4" readonly>
+
+                                    </div>
+                                </div>
                             </fieldset>
                         </div>
                         <div id="acct-password-row" class="span7">
@@ -57,6 +71,13 @@ $res = $user->listarUsuario();
                                     <label class="control-label">Telefono<span class="required">*</span></label>
                                     <div class="controls">
                                         <input id="current-pass-control" name="tel" required class="span4" type="text" value="" autocomplete="false">
+
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Fecha Fin<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="date" id="fin" name="fin" class="span4" readonly>
 
                                     </div>
                                 </div>

@@ -171,22 +171,75 @@ $precioRes = $precio->agregarPrecio();
             <div class="section-title">
                 <span class="wow fadeInDown" data-wow-delay=".2s">Clientes</span>
                 <h2 class="wow fadeInUp" data-wow-delay=".4s">Nuestros Clientes</h2>
-                <!--<p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>-->
             </div>
         </div>
         <div class="client-logo-wrapper">
             <div class="client-logo-carousel d-flex align-items-center justify-content-between">
-                <?php
-                foreach ($cliente as $key => $value) {
-                ?>
-                    <div class="client-logo">
+                <?php foreach ($cliente as $key => $value) { ?>
+                    <div class="client-logo" data-bs-toggle="modal" data-bs-target="#clienteModal<?php echo $key + 1 ?>">
                         <img src="<?php echo $value['logo'] ?>" class="card-img-top" alt="">
                     </div>
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
         </div>
     </div>
 </section>
 <!-- End Clients Area -->
+
+<!-- Modal Section -->
+<?php foreach ($cliente as $key => $value) { ?>
+    <div class="modal fade" id="clienteModal<?php echo $key + 1 ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="bi bi-building"></i> <?php echo $value['nombre_cliente']; ?>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <!-- Row for Logo -->
+                        <div class="row mb-4">
+                            <div class="col-lg-12 text-center">
+                                <img src="<?php echo $value['logo']; ?>" alt="Logo de <?php echo $value['nombre_cliente']; ?>" class="img-fluid" style="max-height: 150px;">
+                            </div>
+                        </div>
+
+                        <!-- Row for Client Info -->
+                        <div class="row mb-4">
+                            <div class="col-lg-6">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-primary"><i class="bi bi-info-circle"></i> Información del Cliente</h6>
+                                        <p class="mb-2"><strong>Establecimiento:</strong> <?php echo $value['nombre_cliente']; ?></p>
+                                        <p class="mb-2"><strong>Teléfono:</strong> <?php echo $value['tel']; ?></p>
+                                        <p class="mb-2"><strong>Dirección:</strong> <?php echo $value['dire']; ?></p>
+                                        <p class="mb-0"><strong>Proyecto:</strong> <?php echo $value['proyecto']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row for Map -->
+                            <div class="col-lg-6">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-primary"><i class="bi bi-geo-alt"></i> Ubicación</h6>
+                                        <div class="map-container" style="height: 300px;">
+                                            <iframe id="gmap_canvas"
+                                                src="https://maps.google.com/maps?q=<?php echo urlencode($value['dire']); ?>&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                                                style="border:0; width: 100%; height: 100%;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End row -->
+                    </div> <!-- End container-fluid -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>

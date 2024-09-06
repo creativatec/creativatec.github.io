@@ -46,18 +46,3 @@
     </div>
 
 </div>
-<?php
-$ingresar = new ControladorUsuario();
-$ingresar->loginControlador();
-if (isset($_GET['action'])) {
-    if ($_GET['action'] == "loginFallido") {
-        print '<script>
-                swal("Ops!", "El usuario y/o contraseña invalidos", "error");
-            </script>';
-    }if ($_GET['action'] == "loginInactivo") {
-        print '<script>
-                swal("Ops!", "El usuario ha sido desabilitado", "error");
-            </script>';
-    }
-}
-?>

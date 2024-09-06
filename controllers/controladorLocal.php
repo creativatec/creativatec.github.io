@@ -5,7 +5,15 @@ class ControladorLocal
     function agregarLocal()
     {
         if (isset($_POST['agregarLocal'])) {
-            $dato = array('local' => $_POST['local'], 'nit' => $_POST['nit'], 'dire' => $_POST['dire'], 'tel' => $_POST['tel']);
+            $dato = array(
+                'local' => $_POST['local'],
+                'nit' => $_POST['nit'],
+                'dire' => $_POST['dire'],
+                'tel' => $_POST['tel'],
+                'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
+                'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
+                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null
+            );
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
             $resIDLocal = $agregar->obtenerUltimoID();
@@ -24,14 +32,23 @@ class ControladorLocal
                 echo '<script>window.location="agregarLocal"</script>';
             }
         } elseif (isset($_POST['actualizarLocal'])) {
-            $dato = array('id' => $_POST['id'], 'local' => $_POST['localEdit'], 'nit' => $_POST['nitEdit'], 'dire' => $_POST['direEdit'], 'tel' => $_POST['telEdit']);
+            $dato = array(
+                'id' => $_POST['id'],
+                'local' => $_POST['localEdit'],
+                'nit' => $_POST['nitEdit'],
+                'dire' => $_POST['direEdit'],
+                'tel' => $_POST['telEdit'],
+                'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
+                'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
+                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null
+            );
+            var_dump($dato);
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalModelo($dato);
             if ($res == true) {
                 echo '<script>window.location="actualizarLocal"</script>';
             }
         }
-
     }
 
     function listarLocal()
@@ -55,7 +72,8 @@ class ControladorLocal
         return $res;
     }
 
-    function eliminarLocalId(){
+    function eliminarLocalId()
+    {
         $id = $_GET['id'];
         $listar = new ModeloLocal();
         $res = $listar->eliminarLocalIdModelo($id);

@@ -14,7 +14,7 @@ class ControladorUsuario
             $resPagina = $consultarUsuario->ModeloLoginIngresarPagina($dato);
             if ($resPagina != []) {
                 if ($resPagina[0]['nombre'] == $_POST['user'] && $resPagina[0]['clave'] == $_POST['clave']) {
-                    
+
                     $_SESSION['id_usuario'] = $resPagina[0]['id_usuario'];
                     $_SESSION['usuario'] = $resPagina[0]['nombre'];
                     $_SESSION['validarPagina'] = true;
@@ -27,22 +27,51 @@ class ControladorUsuario
                 if ($res != []) {
                     if ($res[0]['nombre_activo'] != 'Inactivo') {
                         if ($res[0]['usuario'] == $_POST['user'] && $res[0]['clave'] == $_POST['clave']) {
-                            
-                            $_SESSION['id_usuario'] = $res[0]['id_usuario'];
-                            $_SESSION['id_local'] = $res[0]['id_local'];
-                            $_SESSION['usuario'] = $res[0]['usuario'];
-                            $_SESSION['rol'] = $res[0]['nombre_rol'];
-                            $_SESSION['validar'] = true;
-                            $funcion = new ControladorFuncion();
-                            $funcion->listarFunciones();
+                            $local = new ModeloLocal();
+                            $reslocal = $local->consultarLocalModelo($res[0]['id_local']);
+                            //dias restantes
+                            $fechaFin = $reslocal[0]['fin'];
+                            $fechaPlazo = $reslocal[0]['plazo'];
+                            $fechaActual = new DateTime();
+                            $fechaFinDate = new DateTime($fechaFin);
+                            $fechaFinDatePlazo = new DateTime($fechaPlazo);
+                            $diferencia = $fechaActual->diff($fechaFinDate);
+                            $diferenciaPlazo = $fechaActual->diff($fechaFinDatePlazo);
+                            $diasRestantes = (int)$diferencia->format("%r%a");
+                            $Restantes = (int)$diferenciaPlazo->format("%r%a");
+                            if ($diasRestantes <= 0) {
+                                if ($Restantes <= 0) {
+                                    echo "<script type='text/javascript'>window.location.href = 'LoginSuspendidoPorPago';</script>";
+                                } else {
+                                    $_SESSION['fin'] = $diasRestantes;
+                                    $_SESSION['restamte'] = $Restantes;
+                                    $_SESSION['id_usuario'] = $res[0]['id_usuario'];
+                                    $_SESSION['id_local'] = $res[0]['id_local'];
+                                    $_SESSION['usuario'] = $res[0]['usuario'];
+                                    $_SESSION['rol'] = $res[0]['nombre_rol'];
+                                    $_SESSION['validar'] = true;
+                                    $funcion = new ControladorFuncion();
+                                    $funcion->listarFunciones();
+                                }
+                            } else {
+                                $_SESSION['fin'] = $diasRestantes;
+                                $_SESSION['restamte'] = $Restantes;
+                                $_SESSION['id_usuario'] = $res[0]['id_usuario'];
+                                $_SESSION['id_local'] = $res[0]['id_local'];
+                                $_SESSION['usuario'] = $res[0]['usuario'];
+                                $_SESSION['rol'] = $res[0]['nombre_rol'];
+                                $_SESSION['validar'] = true;
+                                $funcion = new ControladorFuncion();
+                                $funcion->listarFunciones();
+                            }
                         } else {
-                            header('location:loginFallido');
+                            echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";
                         }
                     } else {
-                        header('location:loginInactivo');
+                        echo "<script type='text/javascript'>window.location.href = 'loginInactivo';</script>";
                     }
                 } else {
-                    header('location:loginFallido');
+                    echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";
                 }
             }
         }

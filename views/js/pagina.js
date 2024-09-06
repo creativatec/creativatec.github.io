@@ -1,4 +1,48 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // Coloca tu código JavaScript aquí
+    const inputInicio = document.getElementById('inicio');
+    const inputFin = document.getElementById('fin');
+    const inputDiasHabiles = document.getElementById('diasHabiles');
 
+    // Función para agregar días (sin tener en cuenta días hábiles)
+    function sumarDias(fecha, dias) {
+        const nuevaFecha = new Date(fecha);
+        nuevaFecha.setDate(nuevaFecha.getDate() + dias);
+        return nuevaFecha;
+    }
+
+    // Función para agregar días hábiles (sin contar fines de semana)
+    function sumarDiasHabiles(fecha, diasHabiles) {
+        let diasSumados = 0;
+        let nuevaFecha = new Date(fecha);
+
+        while (diasSumados < diasHabiles) {
+            nuevaFecha.setDate(nuevaFecha.getDate() + 1);
+
+            // Si el día no es sábado (6) ni domingo (0), cuenta como día hábil
+            if (nuevaFecha.getDay() !== 0 && nuevaFecha.getDay() !== 6) {
+                diasSumados++;
+            }
+        }
+
+        return nuevaFecha;
+    }
+
+    // Evento cuando la fecha de inicio cambia
+    inputInicio.addEventListener('change', function () {
+        const fechaInicio = new Date(inputInicio.value);
+
+        if (!isNaN(fechaInicio)) {
+            // Calcular la fecha de fin sumando 30 días
+            const fechaFin = sumarDias(fechaInicio, 30);
+            inputFin.value = fechaFin.toISOString().split('T')[0];
+
+            // Calcular 7 días hábiles desde la fecha de fin
+            const fechaDiasHabiles = sumarDiasHabiles(fechaFin, 7);
+            inputDiasHabiles.value = fechaDiasHabiles.toISOString().split('T')[0];
+        }
+    });
+});
 
 ///
 
@@ -8,9 +52,9 @@ $(function () {
     $("[rel=tooltip]").tooltip();
 
     // Filtrar tabla
-    $('#local').on('keyup', function() {
+    $('#local').on('keyup', function () {
         var value = $(this).val().toLowerCase();
-        $('#my-local tbody tr').filter(function() {
+        $('#my-local tbody tr').filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
@@ -24,9 +68,9 @@ $(function () {
     $("[rel=tooltip]").tooltip();
 
     // Filtrar tabla
-    $('#usuario').on('keyup', function() {
+    $('#usuario').on('keyup', function () {
         var value = $(this).val().toLowerCase();
-        $('#my-usuario tbody tr').filter(function() {
+        $('#my-usuario tbody tr').filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
@@ -367,18 +411,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: 'id_lis_preci=' + id
             })
-            .then(response => response.json())
-            .then(data => {
-                
-                // Asigna los valores obtenidos a los campos de entrada
-                document.querySelector('input[name="id_lista"]').value = data.id_lis_precio;
-                document.querySelector('input[name="descripcionPrecio"]').value = data.descripcion;
+                .then(response => response.json())
+                .then(data => {
 
-                // Selecciona la opción correcta del select
-                const selectCategoria = document.querySelector('select[name="id_precio"]');
-                selectCategoria.value = data.id_precio;
-            })
-            .catch(error => console.error('Error:', error));
+                    // Asigna los valores obtenidos a los campos de entrada
+                    document.querySelector('input[name="id_lista"]').value = data.id_lis_precio;
+                    document.querySelector('input[name="descripcionPrecio"]').value = data.descripcion;
+
+                    // Selecciona la opción correcta del select
+                    const selectCategoria = document.querySelector('select[name="id_precio"]');
+                    selectCategoria.value = data.id_precio;
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 });
@@ -399,19 +443,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: 'id_clie=' + id
             })
-            .then(response => response.json())
-            .then(data => {
-                
-                // Asigna los valores obtenidos a los campos de entrada
-                document.querySelector('input[name="id_cliente"]').value = data.id_cliente;
-                document.querySelector('input[name="Nomcliente"]').value = data.nombre_cliente;
-                document.querySelector('input[name="tel"]').value = data.tel;
-                document.querySelector('input[name="dire"]').value = data.dire;
-                document.querySelector('input[name="proy"]').value = data.proyecto;
-                document.querySelector('input[name="uploadImage1"]').value = data.logo;
-                document.querySelector('img[id="uploadPreview2"]').src = data.logo;
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+
+                    // Asigna los valores obtenidos a los campos de entrada
+                    document.querySelector('input[name="id_cliente"]').value = data.id_cliente;
+                    document.querySelector('input[name="Nomcliente"]').value = data.nombre_cliente;
+                    document.querySelector('input[name="tel"]').value = data.tel;
+                    document.querySelector('input[name="dire"]').value = data.dire;
+                    document.querySelector('input[name="proy"]').value = data.proyecto;
+                    document.querySelector('input[name="uploadImage1"]').value = data.logo;
+                    document.querySelector('img[id="uploadPreview2"]').src = data.logo;
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 });
@@ -431,31 +475,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: 'id_loca=' + id
             })
-            .then(response => response.json())
-            .then(data => {
-                // Asigna los valores obtenidos a los campos de entrada
-                document.querySelector('input[name="id_local"]').value = data.id_local;
-                document.querySelector('input[name="id"]').value = data.id_local;
-                document.querySelector('input[name="local"]').value = data.nombre_local;
-                document.querySelector('input[name="nit"]').value = data.nit;
-                document.querySelector('input[name="dire"]').value = data.direccion;
-                document.querySelector('input[name="tel"]').value = data.telefono;
-                
-                // Cambia el texto del botón y el nombre
-                const submitButton = document.querySelector('button[name="agregarLocal"]');
-                if (submitButton) {
-                    submitButton.textContent = 'Actualizar';
-                    submitButton.setAttribute('name', 'actualizarLocal');
-                }
+                .then(response => response.json())
+                .then(data => {
+                    // Asigna los valores obtenidos a los campos de entrada
+                    document.querySelector('input[name="id_local"]').value = data.id_local;
+                    document.querySelector('input[name="id"]').value = data.id_local;
+                    document.querySelector('input[name="local"]').value = data.nombre_local;
+                    document.querySelector('input[name="nit"]').value = data.nit;
+                    document.querySelector('input[name="dire"]').value = data.direccion;
+                    document.querySelector('input[name="tel"]').value = data.telefono;
+                    document.querySelector('input[name="inicio"]').value = data.inicio;
+                    document.querySelector('input[name="fin"]').value = data.fin;
+                    document.querySelector('input[name="diasHabiles"]').value = data.plazo;
 
-                // Cambia los names de los inputs
-                document.querySelector('input[name="id_local"]').setAttribute('name', 'id');
-                document.querySelector('input[name="local"]').setAttribute('name', 'localEdit');
-                document.querySelector('input[name="nit"]').setAttribute('name', 'nitEdit');
-                document.querySelector('input[name="dire"]').setAttribute('name', 'direEdit');
-                document.querySelector('input[name="tel"]').setAttribute('name', 'telEdit');
-            })
-            .catch(error => console.error('Error:', error));
+                    // Cambia el texto del botón y el nombre
+                    const submitButton = document.querySelector('button[name="agregarLocal"]');
+                    if (submitButton) {
+                        submitButton.textContent = 'Actualizar';
+                        submitButton.setAttribute('name', 'actualizarLocal');
+                    }
+
+                    // Cambia los names de los inputs
+                    document.querySelector('input[name="id_local"]').setAttribute('name', 'id');
+                    document.querySelector('input[name="local"]').setAttribute('name', 'localEdit');
+                    document.querySelector('input[name="nit"]').setAttribute('name', 'nitEdit');
+                    document.querySelector('input[name="dire"]').setAttribute('name', 'direEdit');
+                    document.querySelector('input[name="tel"]').setAttribute('name', 'telEdit');
+                    ocument.querySelector('input[name="inicio"]').setAttribute('name', 'inicioEdit');
+                    ocument.querySelector('input[name="fin"]').setAttribute('name', 'finEdit');
+                    ocument.querySelector('input[name="diasHabiles"]').setAttribute('name', 'diasHabilesEdit');
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 });
@@ -475,42 +525,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: 'id_usuari=' + id
             })
-            .then(response => response.json())
-            .then(data => {
-                // Asigna los valores obtenidos a los campos de entrada
-                document.querySelector('input[name="id"]').value = data.id_local;
-                document.querySelector('input[name="id_usuario"]').value = data.id_usuario;
-                document.querySelector('input[name="priNombre"]').value = data.primer_nombre;
-                document.querySelector('input[name="segNombre"]').value = data.segundo_nombre;
-                document.querySelector('input[name="priApellido"]').value = data.primer_apellido;
-                document.querySelector('input[name="segApellido"]').value = data.segundo_apellido;
-                document.querySelector('input[name="user"]').value = data.usuario;
-                document.querySelector('input[name="clave"]').value = data.clave;
-                // Selecciona la opción correcta del select
-                const selectRol = document.querySelector('select[name="rol"]');
-                selectRol.value = data.id_rol;
-                // Selecciona la opción correcta del select
-                const selectActivo = document.querySelector('select[name="activo"]');
-                selectActivo.value = data.id_activo;
-                
-                // Cambia el texto del botón y el nombre
-                const submitButton = document.querySelector('button[name="agregarUsuario"]');
-                if (submitButton) {
-                    submitButton.textContent = 'Actualizar';
-                    submitButton.setAttribute('name', 'ActualizarUsuario');
-                }
+                .then(response => response.json())
+                .then(data => {
+                    // Asigna los valores obtenidos a los campos de entrada
+                    document.querySelector('input[name="id"]').value = data.id_local;
+                    document.querySelector('input[name="id_usuario"]').value = data.id_usuario;
+                    document.querySelector('input[name="priNombre"]').value = data.primer_nombre;
+                    document.querySelector('input[name="segNombre"]').value = data.segundo_nombre;
+                    document.querySelector('input[name="priApellido"]').value = data.primer_apellido;
+                    document.querySelector('input[name="segApellido"]').value = data.segundo_apellido;
+                    document.querySelector('input[name="user"]').value = data.usuario;
+                    document.querySelector('input[name="clave"]').value = data.clave;
+                    // Selecciona la opción correcta del select
+                    const selectRol = document.querySelector('select[name="rol"]');
+                    selectRol.value = data.id_rol;
+                    // Selecciona la opción correcta del select
+                    const selectActivo = document.querySelector('select[name="activo"]');
+                    selectActivo.value = data.id_activo;
 
-                // Cambia los names de los inputs
-                document.querySelector('input[name="priNombre"]').setAttribute('name', 'priNombreEdit');
-                document.querySelector('input[name="segNombre"]').setAttribute('name', 'segNombreEdit');
-                document.querySelector('input[name="priApellido"]').setAttribute('name', 'priApellidoEdit');
-                document.querySelector('input[name="segApellido"]').setAttribute('name', 'segApellidoEdit');
-                document.querySelector('input[name="user"]').setAttribute('name', 'userEdit');
-                document.querySelector('input[name="clave"]').setAttribute('name', 'claveEdit');
-                document.querySelector('select[name="rol"]').setAttribute('name', 'rolEdit');
-                document.querySelector('select[name="activo"]').setAttribute('name', 'activoEdit');
-            })
-            .catch(error => console.error('Error:', error));
+                    // Cambia el texto del botón y el nombre
+                    const submitButton = document.querySelector('button[name="agregarUsuario"]');
+                    if (submitButton) {
+                        submitButton.textContent = 'Actualizar';
+                        submitButton.setAttribute('name', 'ActualizarUsuario');
+                    }
+
+                    // Cambia los names de los inputs
+                    document.querySelector('input[name="priNombre"]').setAttribute('name', 'priNombreEdit');
+                    document.querySelector('input[name="segNombre"]').setAttribute('name', 'segNombreEdit');
+                    document.querySelector('input[name="priApellido"]').setAttribute('name', 'priApellidoEdit');
+                    document.querySelector('input[name="segApellido"]').setAttribute('name', 'segApellidoEdit');
+                    document.querySelector('input[name="user"]').setAttribute('name', 'userEdit');
+                    document.querySelector('input[name="clave"]').setAttribute('name', 'claveEdit');
+                    document.querySelector('select[name="rol"]').setAttribute('name', 'rolEdit');
+                    document.querySelector('select[name="activo"]').setAttribute('name', 'activoEdit');
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 });

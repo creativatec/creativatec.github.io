@@ -4,6 +4,8 @@ Options ALL -Indexes
 
 # MOSTRAR LAS URLS AMIGABLES
 
+AddDefaultCharset UTF-8
+
 RewriteEngine on
 
 RewriteRule ^(\w+)$ index.php?action=$1
