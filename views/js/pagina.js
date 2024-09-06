@@ -594,7 +594,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Registro eliminado correctamente.');
+                        alert('Ocurrió un error al eliminar el registro.');
                         location.reload(); // Recarga la página
                     });
             }

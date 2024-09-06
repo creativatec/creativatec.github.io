@@ -209,7 +209,7 @@ class ModeloLocal
         $sql = "DELETE FROM $tabla WHERE id_local = ?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
-        $stms->bindParam(1, $id_local, PDO::PARAM_STR);
+        $stms->bindParam(1, $id_local, PDO::PARAM_INT);
 
         try {
             if ($stms->execute()) {
