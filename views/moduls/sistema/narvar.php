@@ -367,6 +367,8 @@ if ($ress != null) {
                             </div>
                             <div class="modal-body">
                                 Ya han caducado los 30 días hábiles. Te quedan 7 días para pagar antes de que se desactive el sistema. Por favor, envía la confirmación de tu pago a través de un correo electrónico.
+                                <br>
+                                Total A pagar $60.000
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" id="abrirModal">Enviar Correo</button>
