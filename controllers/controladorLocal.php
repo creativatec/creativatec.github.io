@@ -42,7 +42,6 @@ class ControladorLocal
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null
             );
-            var_dump($dato);
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalModelo($dato);
             if ($res == true) {
