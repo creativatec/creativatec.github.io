@@ -219,3 +219,69 @@ if (isset($_GET['ventaMes'])) {
     $writer->save('php://output');
     exit;
 }
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+$servername = "localhost";
+$username = "root"; // Cambia esto por tu usuario de MySQL
+$password = ""; // Cambia esto por tu contraseña de MySQL
+$dbname = "junior"; // Cambia esto por tu base de datos
+
+// Conexión a la base de datos
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Verificar si se ha subido un archivo
+if (isset($_FILES['file']['name'])) {
+    $fileName = $_FILES['file']['tmp_name'];
+
+    // Obtener el id_local enviado por el formulario
+    $id_local = isset($_POST['id_local']) ? (int)$_POST['id_local'] : 0;
+
+    // Cargar el archivo de Excel
+    $spreadsheet = IOFactory::load($fileName);
+    $sheet = $spreadsheet->getActiveSheet();
+    $data = $sheet->toArray();
+    // Recorrer los datos del archivo Excel y guardarlos en la base de datos
+    foreach ($data as $key => $row) {
+        if ($key == 0) continue; // Saltar la primera fila (encabezado)
+        // Verificar que todos los campos obligatorios tengan datos
+        if (!empty($row[0]) && !empty($row[1]) && !empty($row[2]) && !empty($row[3]) && !empty($row[4]) && !empty($row[5]) && !empty($row[6])) {
+
+            $id_proveedor = $row[0];
+            $codigo = $row[1];
+            $nombre = $row[2];
+            $precio = $row[3];
+            $cantidad = $row[4];
+            $id_categoria = $row[5];
+            $id_medida = $row[6];
+
+            // Preparar la consulta SQL para insertar el producto
+            $sql = "INSERT INTO producto (id_proeevedor, codigo_producto, nombre_producto, precio_unitario, cantidad_producto, id_categoria, id_medida, id_local)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            //var_dump($id_proveedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_local);
+            // Depuración: Verificar si la consulta se prepara correctamente
+            if ($stmt = $conn->prepare($sql)) {
+                // Si la preparación es exitosa, enlazar los parámetros
+                $stmt->bind_param("issdiiii", $id_proveedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_local);
+
+                // Ejecutar la consulta
+                if (!$stmt->execute()) {
+                    echo "Error al insertar el producto: " . $stmt->error;
+                }
+            } else {
+                // Si hay un error en la preparación de la consulta, mostrar el mensaje de error
+                echo "Error en la preparación de la consulta: " . $conn->error;
+            }
+        }
+    }
+
+    echo "Cargue completado";
+} else {
+    echo "No se ha subido ningún archivo.";
+}
+
+$conn->close();

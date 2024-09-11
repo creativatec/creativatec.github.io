@@ -1784,3 +1784,35 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 });
+
+//Cargar EXCEL
+$(document).ready(function () {
+	$('#uploadForm').on('submit', function (e) {
+		e.preventDefault(); // Prevenir la recarga de la página
+
+		// Crear un FormData para enviar el archivo
+		var formData = new FormData(this);
+
+		// Obtener el valor del id_local desde el campo input hidden
+		var id_local = $('#id_local').val();
+
+		// Agregar el id_local al FormData
+		formData.append('id_local', id_local);
+
+		$.ajax({
+			url: 'views/excel.php', // Archivo PHP para procesar el cargue
+			type: 'POST',
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function (response) {
+				alert(response); // Mostrar respuesta del servidor
+				$('#cargarModal').modal('hide'); // Cerrar el modal
+				location.reload();
+			},
+			error: function () {
+				alert('Error al cargar el archivo.');
+			}
+		});
+	});
+});
