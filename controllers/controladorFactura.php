@@ -245,7 +245,7 @@ class ControladorFactura
     function listarFacturaCliente()
     {
         if (isset($_POST['buscarr'])) {
-            date_default_timezone_set('America/Mexico_City');
+            date_default_timezone_set('America/Bogota');
             $fechaActal = date('Y-m-d');
             if ($_POST['cc'] && $_POST['fecha'] != null) {
                 $dato = array(
@@ -282,7 +282,7 @@ class ControladorFactura
 
     function actualizarDeudaFactura()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         if (isset($_POST['guardar'])) {
             $total = str_replace(',', '', $_POST['debe']) + str_replace(',', '', $_POST['abono']);

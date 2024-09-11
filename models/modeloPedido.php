@@ -32,7 +32,7 @@ class ModeloPedido
 
     function listarPedidoMesa()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT DISTINCT mesa.id_mesa, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido, pedido.fecha_ingreso, estado_mesa.nombre_estado, estado_mesa.id_estado_mesa FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario INNER JOIN estado_mesa ON estado_mesa.id_estado_mesa = pedido.id_estado_mesa WHERE pedido.fecha_ingreso like ? AND pago = 0 AND pedido.id_local = ? ORDER BY $this->tabla.fecha_ingreso DESC";
         $conn = new Conexion();
@@ -53,7 +53,7 @@ class ModeloPedido
 
     function listarPedidoFacturaMesa()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT DISTINCT mesa.id_mesa, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido, estado_mesa.nombre_estado, estado_mesa.id_estado_mesa FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario INNER JOIN estado_mesa ON estado_mesa.id_estado_mesa = pedido.id_estado_mesa WHERE pedido.fecha_ingreso like ? AND pedido.id_estado_mesa = 4 AND pedido.pago = 0 AND pedido.id_local =? ORDER BY $this->tabla.fecha_ingreso DESC";
         $conn = new Conexion();
@@ -325,7 +325,7 @@ class ModeloPedido
 
     function listarPedidoFacturaModelo($id)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT * FROM $this->tabla INNER JOIN producto ON producto.id_producto = pedido.id_producto WHERE id_mesa = ? AND fecha_ingreso LIKE ? AND id_estado_mesa = 4 AND pago = 0 AND pedido.id_local = ?";
         $conn = new Conexion();

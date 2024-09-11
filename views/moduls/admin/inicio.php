@@ -131,6 +131,7 @@ $res = $user->listarUsuario();
                                                             $local = new ModeloLocal();
                                                             $reslocal = $local->consultarLocalModelo($value['id_local']);
                                                             //dias restantes
+                                                            date_default_timezone_set('America/Bogota');
                                                             $fechaFin = $reslocal[0]['fin'];
                                                             $fechaPlazo = $reslocal[0]['plazo'];
                                                             $fechaActual = new DateTime();

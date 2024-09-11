@@ -3,7 +3,7 @@ $local = new ControladorLocal();
 $res = $local->consultarLocal($_SESSION['id_local']);
 $consumidor = new ControladorCliente();
 $resConsu = $consumidor->consumidorFinalCompra();
-date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set('America/Bogota');
 $fechaActal = date('Y-m-d');
 if ($res != null) {
     $nombreSistema = $res[0]['nombre_local'];
@@ -31,7 +31,7 @@ if ($res != null) {
     <div style="text-align: right;">
         Fecha:
         <?php
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         print $fechaActal = date('Y-m-d');
         ?>
     </div>

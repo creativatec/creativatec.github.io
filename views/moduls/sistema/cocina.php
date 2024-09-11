@@ -10,7 +10,7 @@ if (isset($_GET['action'])) {
 $listarPedido = new ControladorPedido();
 $res = $listarPedido->ListarMesaPedido();
 $listarPedido->actualizarPedidoPrint();
-date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set('America/Bogota');
 $fechaActal = date('Y-m-d');
 ?>
 <div class="container">

@@ -211,7 +211,7 @@ if (isset($_GET['id_nomina'])) {
     $local = new ControladorLocal();
     $res = $local->consultarLocal($_SESSION['id_local']);
 
-    date_default_timezone_set('America/Mexico_City');
+    date_default_timezone_set('America/Bogota');
     $fechaActal = date('Y-m-d');
     if ($res != null) {
         $nombreSistema = $res[0]['nombre_local'];

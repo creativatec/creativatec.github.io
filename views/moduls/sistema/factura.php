@@ -114,7 +114,7 @@ $id_cliente = $resFactura[0]['id_cliente'];
 $mostrarCliente = new ModeloCliente();
 $resCliente = $mostrarCliente->mostrarClienteFacturaVentaModelo($id_cliente);
 
-date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set('America/Bogota');
 $fechaActal = date('Y-m-d');
 if ($res != null) {
     $nombreSistema = $res[0]['nombre_local'];

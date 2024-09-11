@@ -88,7 +88,7 @@ class ModeloGasto
 
     function TotalGastoModelo($dato)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(total), '$#,##0.00')),SUM(total) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -146,7 +146,7 @@ class ModeloGasto
 
     function gastosMensualesModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(total), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -168,7 +168,7 @@ class ModeloGasto
 
     function gastosAnuealesModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(total), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -190,7 +190,7 @@ class ModeloGasto
 
     function listarPorMesModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT SUM(total) AS totalGasto, MONTHNAME(fecha_ingreso) AS mesGasto FROM gasto WHERE fecha_ingreso like ? AND id_local = ? GROUP BY MONTH(fecha_ingreso)";

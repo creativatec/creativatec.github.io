@@ -74,7 +74,7 @@ class ModeloFactura
 
     function listarFacturaClienteModelo($dato)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         if ($dato != null) {
             $sql = "SELECT * FROM $this->tabla INNER JOIN cliente ON cliente.id_cliente = factura.id_cliente WHERE cliente.numero_cc = ? AND factura.fecha_factura like ? AND factura.id_local = ?";

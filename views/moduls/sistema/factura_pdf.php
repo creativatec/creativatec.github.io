@@ -23,7 +23,7 @@ $id_cliente = $resFactura[0]['id_cliente'];
 $mostrarCliente = new ModeloCliente();
 $resCliente = $mostrarCliente->mostrarClienteFacturaVentaModelo($id_cliente);
 
-date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set('America/Bogota');
 $fecha = date('Y-m-d') . " " . date('H:i:s');
 if ($res != null) {
     $nombreSistema = $res[0]['nombre_local'];
@@ -50,7 +50,7 @@ if (isset($_SESSION['factura'])) {
             $finMes = clone $inicioMes;
             $finMes->modify('last day of this month');
             ///////////////////////////////////////////////////
-            date_default_timezone_set('America/Mexico_City');
+            date_default_timezone_set('America/Bogota');
             $claveTecnica = "fc8eac422eba16e22ffd8c6f94b3f40a6e38162c"; //esta clave es generada por la DIAn
             $InvoiceAuthorization = "18760000001"; //numeor de autorizacion por la dian
             $StartDate = "2019-01-19"; //fecha inico de factura por DIAN

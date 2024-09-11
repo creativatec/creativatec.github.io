@@ -30,7 +30,7 @@ class ModeloNomina
 
     function ConsultarNominaModelo($id)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT * FROM $this->tabla WHERE id_usuario = ? AND fecha_ingreso = ? AND id_local = ?";
         $conn = new Conexion();
@@ -53,7 +53,7 @@ class ModeloNomina
 
     function deudaNominaModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(pago), '$#,##0.00')), SUM(pago) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -92,7 +92,7 @@ class ModeloNomina
 
     function nominaMesModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(pago), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -114,7 +114,7 @@ class ModeloNomina
 
     function nominaAnualModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(pago), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";

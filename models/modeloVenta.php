@@ -53,7 +53,7 @@ class ModeloVenta
 
     function consultarVentaDia($fecha)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
 
         if ($fecha != null) {
@@ -106,7 +106,7 @@ class ModeloVenta
 
     function consultarVentaDiaFactura($fecha)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
 
         if ($fecha != null) {
@@ -159,7 +159,7 @@ class ModeloVenta
 
     function consultarVentaTotalDia($fecha)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
 
         if ($fecha != null) {
@@ -212,7 +212,7 @@ class ModeloVenta
 
     function consultarVentaDiaCantidadTotalModelo($id, $fecha, $metodo)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
 
         if ($fecha != null) {
@@ -249,7 +249,7 @@ class ModeloVenta
 
     function consultarVentaDiaCantidadTotalModeloFactura($id, $fecha, $metodo)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
 
         if ($fecha != null) {
@@ -286,7 +286,7 @@ class ModeloVenta
 
     function ganaciasMensualesVentaModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(precio_compra), '$#,##0.00')) FROM `venta` WHERE fecha_ingreso like ? AND id_local = ?";
@@ -308,7 +308,7 @@ class ModeloVenta
 
     function ganaciasAnualesVentaModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(precio_compra), '$#,##0.00')) FROM `venta` WHERE fecha_ingreso like ? AND id_local = ?";
@@ -330,7 +330,7 @@ class ModeloVenta
 
     function listarPorMesModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT SUM(precio_compra) AS total, MONTHNAME(fecha_ingreso) AS mes FROM `venta` WHERE fecha_ingreso like ? AND id_local = ? GROUP BY MONTH(fecha_ingreso)";
@@ -352,7 +352,7 @@ class ModeloVenta
 
     function listarMetodosPagoModelo($metodo)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         if (isset($_POST['buscar'])) {
             $fechaActal = $_POST['buscar'] . "%";
@@ -481,7 +481,7 @@ class ModeloVenta
 
     function listarProductosVendidos()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT producto.nombre_producto AS nombre, SUM(cantidad) AS total_vendido FROM `venta` INNER JOIN producto ON producto.id_producto = venta.id_producto WHERE fecha_ingreso LIKE ? AND venta.id_local = ? GROUP BY producto.nombre_producto ORDER BY total_vendido DESC LIMIT 5";

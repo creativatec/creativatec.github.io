@@ -108,7 +108,7 @@ if (isset($_GET['id_factura'])) {
                 $mostrarCliente = new ModeloCliente();
                 $resCliente = $mostrarCliente->mostrarClienteFacturaVentaModelo($id_cliente);
 
-                date_default_timezone_set('America/Mexico_City');
+                date_default_timezone_set('America/Bogota');
                 $fechaActal = date('Y-m-d');
                 ?>
                 <h1 style="text-align: center;">Factura deudora</h1>

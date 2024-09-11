@@ -36,7 +36,7 @@ class ModeloFacturaProeevedor
 
     function listarProeevedorFacturaModelo($fecha)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         if ($fecha != null) {
             $fechaActal = $fecha;
         } else {
@@ -70,7 +70,7 @@ class ModeloFacturaProeevedor
 
     function listarFacturaProductoModelo($id, $fecha)
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         if ($fecha != null) {
             $fechaActal = $fecha;
         } else {
@@ -106,7 +106,7 @@ class ModeloFacturaProeevedor
 
     function DeudaProeevedorModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m-d');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(DISTINCT(pago_factura)), '$#,##0.00')),SUM(DISTINCT(pago_factura)) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
@@ -127,7 +127,7 @@ class ModeloFacturaProeevedor
 
     function gastosMensualesFacturaModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y-m');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(DISTINCT(pago_factura)), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local =? ";
@@ -149,7 +149,7 @@ class ModeloFacturaProeevedor
 
     function gastosAnualesFacturaModelo()
     {
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Bogota');
         $fechaActal = date('Y');
         $fechaActal = $fechaActal . "%";
         $sql = "SELECT CONCAT('$', FORMAT(SUM(DISTINCT(pago_factura)), '$#,##0.00')) FROM $this->tabla WHERE fecha_ingreso like ? AND id_local = ?";
