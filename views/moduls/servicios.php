@@ -9,7 +9,7 @@
               <div class="col-lg-6 col-md-6 col-12">
                   <div class="breadcrumbs-content left">
                       <h1 class="page-title">Servicios</h1>
-                      <p>En Creativa Publicidad y Tecnología, ofrecemos soluciones integrales para satisfacer todas tus necesidades de diseño, tecnología y publicidad. Desde la creación de páginas web y diseño gráfico hasta el desarrollo de software personalizado y estrategias de marketing, nuestro equipo de expertos trabaja para transformar tus ideas en resultados concretos. Estamos comprometidos con la excelencia y la innovación en cada proyecto para impulsar tu éxito.
+                      <p>En Creativetec Deveopment & Tecnology, ofrecemos soluciones integrales para satisfacer todas tus necesidades de diseño, tecnología y publicidad. Desde la creación de páginas web y diseño gráfico hasta el desarrollo de software personalizado y estrategias de marketing, nuestro equipo de expertos trabaja para transformar tus ideas en resultados concretos. Estamos comprometidos con la excelencia y la innovación en cada proyecto para impulsar tu éxito.
                       </p>
                   </div>
               </div>

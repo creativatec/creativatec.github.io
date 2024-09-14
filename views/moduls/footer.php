@@ -14,7 +14,7 @@ $listarRedes = $agregarRedes->agregarRedes();
                     <!-- Single Widget -->
                     <div class="f-about single-footer">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/images/LOGO CREATIVA PNG.png" alt="#"></a>
+                            <a href="index.html"><img src="assets/images/logoInicio.png" alt="#"></a>
                         </div>
                         <p><?php print $lsitar[0]['footer_descripcion'] ?></p>
                         <div class="footer-social">
