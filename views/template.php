@@ -9,13 +9,13 @@ if (isset($_SESSION['validarPagina'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Creativa Publicidad & Tecnologia <?php if (isset($_GET['action'])) {
+        <title>Creativetec Deveopment & Tecnology <?php if (isset($_GET['action'])) {
                                                     print "|" . $_GET['action'];
                                                 } ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta name="layout" content="main" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpeg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpg" />
 
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
@@ -75,7 +75,7 @@ if (isset($_SESSION['validarPagina'])) {
 <?php
 } elseif (isset($_SESSION['validar'])) {
     $local = new ControladorLocal();
-    $res = $local->consultarLocal(1);
+    $res = $local->consultarLocal($_SESSION['id_local']);
     if ($res != null) {
         $nombreSistema = $res[0]['nombre_local'];
         $nit = $res[0]['nit'];
@@ -107,7 +107,7 @@ if (isset($_SESSION['validarPagina'])) {
         <link rel="stylesheet" href="views/css/cocina.css" />
         <link rel="stylesheet" href="views/css/config.css" />
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
-        <link rel="icon" href="views/img/icon.jpg" />
+        <link rel="icon" href="views/img/logo.jpg" />
         <link rel="stylesheet" href="views/css/jquery-ui.css" />
 
     </head>
@@ -631,11 +631,11 @@ if (isset($_SESSION['validarPagina'])) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <title>Creativa Publicidad & Tecnologia <?php if (isset($_GET['action'])) {
+        <title>Creativetec Deveopment & Tecnology <?php if (isset($_GET['action'])) {
                                                     print "|" . $_GET['action'];
                                                 } ?></title>
         <meta name="description" content="" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpeg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpg" />
         <!-- Place favicon.ico in the root directory -->
 
         <!-- Web Font -->

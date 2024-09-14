@@ -60,7 +60,7 @@ $listarRedes = $agregarRedes->agregarRedes();
                 <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="inicio">
-                            <img src="assets/images/LOGO CREATIVA PNG.png" alt="Logo">
+                            <img src="assets/images/logoInicio.png" alt="Logo">
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

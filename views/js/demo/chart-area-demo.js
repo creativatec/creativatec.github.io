@@ -29,7 +29,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 var currentURL = window.location.href;
 var host = window.location.hostname;
 
-if (currentURL.includes("http://" + host + "/juniorPizza/inicio")) {
+if (currentURL.includes("http://" + host + "/creativatec.gihub.io/inicio")) {
   function getDataAndDrawChart() {
     // Realizar dos solicitudes AJAX, una para ventas y otra para gastos
     var xhrVentas = new XMLHttpRequest();
