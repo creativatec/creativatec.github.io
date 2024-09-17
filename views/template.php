@@ -10,8 +10,8 @@ if (isset($_SESSION['validarPagina'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Creativetec Deveopment & Tecnology <?php if (isset($_GET['action'])) {
-                                                    print "|" . $_GET['action'];
-                                                } ?></title>
+                                                        print "|" . $_GET['action'];
+                                                    } ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta name="layout" content="main" />
@@ -81,6 +81,7 @@ if (isset($_SESSION['validarPagina'])) {
         $nit = $res[0]['nit'];
         $tel = $res[0]['telefono'];
         $dire = $res[0]['direccion'];
+        $ip = $res[0]['ip'];
     } else {
         $nombreSistema = "Inventario";
         $nit = "1111";
@@ -240,8 +241,8 @@ if (isset($_SESSION['validarPagina'])) {
         </div>
         <?php
 
-        if (isset($_SESSION['impresionPos'])) {
-            if ($_SESSION['impresionPos'] == 'true') {
+        if (isset($_SESSION['estable'])) {
+            if ($_SESSION['estable'] == 1) {
                 $nombreSistema = "Comanda de Cocina";
                 $mesa = "1111";
                 $usuario = "1111";
@@ -496,7 +497,7 @@ if (isset($_SESSION['validarPagina'])) {
                                                         .Corte(1)
                                                         .Pulso(48, 60, 120)
                                                         .imprimirEn("cocina");
-                                                    //.imprimirEnImpresoraRemota("cocina", "http://192.168.10.11:8000" + "/imprimir");
+                                                    //.imprimirEnImpresoraRemota("cocina", "http://<?php echo $ip ?>:8000" + "/imprimir");
                                                     if (respuesta === true) {
                                                         $.ajax({
                                                             url: 'views/ajax.php',
@@ -542,8 +543,8 @@ if (isset($_SESSION['validarPagina'])) {
                                                         .Feed(3)
                                                         .Corte(1)
                                                         .Pulso(48, 60, 120)
-                                                        .imprimirEn("caja");
-                                                    //.imprimirEnImpresoraRemota("caja", "http://192.168.10.11:8000" + "/imprimir");
+                                                        //.imprimirEn("caja");
+                                                        .imprimirEnImpresoraRemota("cocina", "http://<?php echo $ip ?>:8000" + "/imprimir");
                                                     if (respuesta === true) {
                                                         $.ajax({
                                                             url: 'views/ajax.php',
@@ -632,8 +633,8 @@ if (isset($_SESSION['validarPagina'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <title>Creativetec Deveopment & Tecnology <?php if (isset($_GET['action'])) {
-                                                    print "|" . $_GET['action'];
-                                                } ?></title>
+                                                        print "|" . $_GET['action'];
+                                                    } ?></title>
         <meta name="description" content="" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.jpg" />
         <!-- Place favicon.ico in the root directory -->

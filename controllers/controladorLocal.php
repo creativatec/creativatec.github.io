@@ -13,8 +13,8 @@ class ControladorLocal
                 'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
-                'sistema' => $_POST['sistema'],
-                'estable' => $_POST['estable']
+                'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
+                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null
             );
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
@@ -43,8 +43,9 @@ class ControladorLocal
                 'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
-                'sistema' => $_POST['sistema'],
-                'estable' => $_POST['estable']
+                'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
+                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null,
+                'ip' => $_POST['ip']
             );
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalModelo($dato);
