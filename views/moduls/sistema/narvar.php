@@ -66,21 +66,34 @@ if ($ress != null) {
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menú:</h6>
-                    <?php if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
-                    } else { ?><a class="collapse-item" href="ingredientes">Ingredientes</a>
-                    <?php } ?>
+                    <?php
+                    if (isset($_SESSION['estable'])) {
+                        if ($_SESSION['estable'] == 1) {
+                            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
+                            } else { ?><a class="collapse-item" href="ingredientes">Ingredientes</a>
+                    <?php }
+                        }
+                    } ?>
                     <?php if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
                     ?>
                         <a class="collapse-item" href="productos">Productos</a>
                     <?php
                     } else { ?><a class="collapse-item" href="productos">Productos</a>
                     <?php } ?>
-                    <?php if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
-                    } else { ?><a class="collapse-item" href="ingrediente_Producto">Productos & ingredientes</a>
-                    <?php } ?>
-                    <?php if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
-                    } else { ?><a class="collapse-item" href="promocion">Promociones</a>
-                    <?php } ?>
+                    <?php if (isset($_SESSION['estable'])) {
+                        if ($_SESSION['estable'] == 1) {
+                            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
+                            } else { ?><a class="collapse-item" href="ingrediente_Producto">Productos & ingredientes</a>
+                    <?php }
+                        }
+                    } ?>
+                    <?php if (isset($_SESSION['estable'])) {
+                        if ($_SESSION['estable'] == 1) {
+                            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
+                            } else { ?><a class="collapse-item" href="promocion">Promociones</a>
+                    <?php }
+                        }
+                    } ?>
                     <?php if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente") {
                     } else { ?><a class="collapse-item" href="categoria">Categoria</a>
                     <?php } ?>
@@ -156,32 +169,37 @@ if ($ress != null) {
     }
     ?>
     <?php
-    if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Mesero") {
-    } else {
+    if (isset($_SESSION['estable'])) {
+        if ($_SESSION['estable'] == 1) {
+            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Mesero") {
+            } else {
     ?>
-        <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido') {
-                                print 'active';
-                            } ?>">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mesero" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-tablet-alt"></i>
-                <span>Mesero</span>
-            </a>
-            <div id="mesero" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Menu:</h6>
-                    <a class="collapse-item" href="mesas">Mesas</a>
-                    <a class="collapse-item" href="pedido">Pedidos</a>
-                    <!--<a class="collapse-item" href="utilities-animation.html">Animations</a>
+                <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido') {
+                                        print 'active';
+                                    } ?>">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mesero" aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-tablet-alt"></i>
+                        <span>Mesero</span>
+                    </a>
+                    <div id="mesero" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Menu:</h6>
+                            <a class="collapse-item" href="mesas">Mesas</a>
+                            <a class="collapse-item" href="pedido">Pedidos</a>
+                            <!--<a class="collapse-item" href="utilities-animation.html">Animations</a>
                 <a class="collapse-item" href="utilities-other.html">Other</a>-->
-                </div>
-            </div>
-        </li>
+                        </div>
+                    </div>
+                </li>
     <?php
+            }
+        } else {
+        }
     }
     ?>
     <?php
-    if (isset($_SESSION['taller'])) {
-        if ($_SESSION['taller'] == 'true') {
+    if (isset($_SESSION['estable'])) {
+        if ($_SESSION['estable'] == 3) {
             if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Cajero") {
             } else {
     ?>
@@ -235,17 +253,21 @@ if ($ress != null) {
     }
     ?>
     <?php
-    if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Cocina") {
-    } else {
+    if (isset($_SESSION['estable'])) {
+        if ($_SESSION['estable'] == 1) {
+            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Cocina") {
+            } else {
     ?>
-        <li class="nav-item <?php if ($_GET['action'] == 'cocina') {
-                                print 'active';
-                            } ?>">
-            <a class="nav-link" href="cocina">
-                <i class="fas fa-store"></i>
-                <span>Cocina</span></a>
-        </li>
+                <li class="nav-item <?php if ($_GET['action'] == 'cocina') {
+                                        print 'active';
+                                    } ?>">
+                    <a class="nav-link" href="cocina">
+                        <i class="fas fa-store"></i>
+                        <span>Cocina</span></a>
+                </li>
     <?php
+            }
+        }
     }
     ?>
     <!-- Nav Item - Dashboard -->
@@ -591,10 +613,10 @@ if ($ress != null) {
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Perfil
                         </a>
-                        <a class="dropdown-item" href="configuracion">
+                        <!--<a class="dropdown-item" href="configuracion">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Configuración
-                        </a>
+                        </a>-->
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log

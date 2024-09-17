@@ -12,7 +12,9 @@ class ControladorLocal
                 'tel' => $_POST['tel'],
                 'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
-                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null
+                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
+                'sistema' => $_POST['sistema'],
+                'estable' => $_POST['estable']
             );
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
@@ -40,7 +42,9 @@ class ControladorLocal
                 'tel' => $_POST['telEdit'],
                 'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
-                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null
+                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
+                'sistema' => $_POST['sistema'],
+                'estable' => $_POST['estable']
             );
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalModelo($dato);
@@ -81,5 +85,15 @@ class ControladorLocal
         }
     }
 
-    
+    function listarSistema(){
+        $listar = new ModeloLocal();
+        $res = $listar->listarSistemaModelo();
+        return $res;
+    }
+
+    function listarEstablecimiento(){
+        $listar = new ModeloLocal();
+        $res = $listar->listarEstablecimientoModelo();
+        return $res;
+    }
 }

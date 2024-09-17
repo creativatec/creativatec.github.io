@@ -37,8 +37,8 @@ if ($res != null) {
     $dire = "NNNN";
 }
 
-if (isset($_SESSION['factura'])) {
-    if ($_SESSION['factura'] == 'true') {
+if (isset($_SESSION['sistema'])) {
+    if ($_SESSION['sistema'] == 2) {
         if ($resFactura[0]['factura'] == "true") {
             $añoActual = date('Y');
             $mesActual = date('m');

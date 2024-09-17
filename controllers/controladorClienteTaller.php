@@ -9,7 +9,8 @@ class ControladorClienteTaller
                 'nombreCliente' => $_POST['nombreCliente'],
                 'nombreempresa' => $_POST['nombreempresa'],
                 'telefonoCliente' => $_POST['telefonoCliente'],
-                'recibidoPor' => $_POST['recibidoPor']
+                'recibidoPor' => $_POST['recibidoPor'],
+                'id_local' => $_SESSION['id_local']
             );
             $agregar = new ModeloClienteTaller();
             $res = $agregar->agregarOrdenTrabajoClienteModelo($dato);

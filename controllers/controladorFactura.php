@@ -7,9 +7,9 @@ class ControladorFactura
         if (isset($_POST['agregarFactrua'])) {
             #Agregar Factura
             $factura  = (isset($_POST['factura'])) ? $_POST['factura'] : "false";
-            $nombre = $_POST['nombre'];
-            $placa = $_POST['placa'];
-            $observacion = $_POST['observacion'];
+            $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
+            $placa = (isset($_POST['placa'])) ? $_POST['placa'] : "";
+            $observacion = (isset($_POST['observacion'])) ? $_POST['observacion'] : "";
             $id_usuario = $_SESSION['id_usuario'];
             $id_cliente = $_POST['id_cliente'];
             $id_articulo = $_POST['id_articulo'];
@@ -79,8 +79,8 @@ class ControladorFactura
             $agreagrFactura = new ModeloFactura();
             $resFactura = $agreagrFactura->agregarFacturaModelo($dato);
             $resUltimoId = $agreagrFactura->mostrarUltimoId();
-            if (isset($_SESSION['taller'])) {
-                if ($_SESSION['taller'] == 'true') {
+            if (isset($_SESSION['estable'])) {
+                if ($_SESSION['estable'] == 3) {
                     //datos observacion
                     $datoObservacion = array(
                         'id_factura' => $resUltimoId[0]['MAX(id_factura)'],

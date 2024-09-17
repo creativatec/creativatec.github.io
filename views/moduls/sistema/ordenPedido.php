@@ -121,7 +121,7 @@ if (isset($_GET['id_cliente_taller'])) {
             <div class="modal-body">
                 <form action="" method="post" id="workOrderForm">
                     <div class="row">
-                        <div class="col">
+                        <!--<div class="col">
                             <div class="table-responsive">
                                 <table class="">
                                     <thead>
@@ -154,7 +154,7 @@ if (isset($_GET['id_cliente_taller'])) {
                                     </tr>
                                 </thead>
                             </table>
-                        </div>
+                        </div>-->
                         <table>
                             <thead>
                                 <tr>
@@ -381,7 +381,7 @@ if (isset($_GET['id_cliente_taller'])) {
             <div class="modal-body">
                 <form action="" method="post" id="workOrderForm">
                     <div class="row">
-                        <div class="col">
+                        <!--<div class="col">
                             <div class="table-responsive">
                                 <table class="">
                                     <thead>
@@ -414,7 +414,7 @@ if (isset($_GET['id_cliente_taller'])) {
                                     </tr>
                                 </thead>
                             </table>
-                        </div>
+                        </div>-->
                         <table>
                             <thead>
                                 <tr>

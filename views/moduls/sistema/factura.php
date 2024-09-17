@@ -25,7 +25,6 @@ if (isset($_GET['id_factura'])) {
         $('#verFactura').modal('toggle')
     });</script>";
     $listar = $user->listarObservacionFacturaId();
-
 }
 ?>
 <div class="container mt-5">
@@ -97,23 +96,21 @@ $agregarFactura = new ModeloFactura();
 $resUltimoId = $agregarFactura->mostrarUltimoId();
 if (isset($_GET['id_factura'])) {
     $id_factura = $_GET['id_factura'];
-} else {
-    $id_factura = $resUltimoId[0]['MAX(id_factura)'];
-}
-//
-$mostrarVenta = new ControladorVenta();
-$resVenta = $mostrarVenta->mostrarFacturaVenta($id_factura);
-//
-$mostrarPropina = new ControladorPropina();
-$resPropina = $mostrarPropina->listarPropina($id_factura);
-//
-$mostrarVenta = new ModeloFactura();
-$resFactura = $mostrarVenta->mostrarFacturaVentaModelo($id_factura);
-$id_cliente = $resFactura[0]['id_cliente'];
-//
-$mostrarCliente = new ModeloCliente();
-$resCliente = $mostrarCliente->mostrarClienteFacturaVentaModelo($id_cliente);
 
+    //
+    $mostrarVenta = new ControladorVenta();
+    $resVenta = $mostrarVenta->mostrarFacturaVenta($id_factura);
+    //
+    $mostrarPropina = new ControladorPropina();
+    $resPropina = $mostrarPropina->listarPropina($id_factura);
+    //
+    $mostrarVenta = new ModeloFactura();
+    $resFactura = $mostrarVenta->mostrarFacturaVentaModelo($id_factura);
+    $id_cliente = $resFactura[0]['id_cliente'];
+    //
+    $mostrarCliente = new ModeloCliente();
+    $resCliente = $mostrarCliente->mostrarClienteFacturaVentaModelo($id_cliente);
+}
 date_default_timezone_set('America/Bogota');
 $fechaActal = date('Y-m-d');
 if ($res != null) {

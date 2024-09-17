@@ -275,8 +275,8 @@ if ($res != null) {
                                     <option value="transfferencia">Transferencia</option>
                                     <option value="member">Membrecia</option>
                                     <?php
-                                    if (isset($_SESSION['taller'])) {
-                                        if ($_SESSION['taller'] == 'true') {
+                                    if (isset($_SESSION['estable'])) {
+                                        if ($_SESSION['estable'] == 3) {
                                     ?>
                                             <option value="observacion">Observacion</option>
                                     <?php
@@ -321,8 +321,8 @@ if ($res != null) {
 
         </div>
         <?php
-        if (isset($_SESSION['taller'])) {
-            if ($_SESSION['taller'] == 'true') {
+        if (isset($_SESSION['estable'])) {
+            if ($_SESSION['estable'] == 3) {
         ?>
                 <style>
                     .hidden {
@@ -354,8 +354,8 @@ if ($res != null) {
         ?>
         <div style="text-align: right;">
             <?php
-            if (isset($_SESSION['factura'])) {
-                if ($_SESSION['factura'] == 'true') {
+            if (isset($_SESSION['sistema'])) {
+                if ($_SESSION['sistema'] == 2) {
             ?>
                     <div class="form-check form-switch">
                         <input class="form-check-input" name="factura" checked value="true" type="checkbox" id="flexSwitchCheckDefault">

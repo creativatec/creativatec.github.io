@@ -30,12 +30,13 @@ class ModeloVehiculo
 
     function listarOrdenTrabajoPlacaModelo($dato)
     {
-        $sql = "SELECT * FROM $this->tabla INNER JOIN cliente_taller ON cliente_taller.id_cliente_taller = vehiculo.id_cliente_taller WHERE placa like ?";
+        $sql = "SELECT * FROM $this->tabla INNER JOIN cliente_taller ON cliente_taller.id_cliente_taller = vehiculo.id_cliente_taller WHERE placa like ? AND id_local = ? ORDER BY fecha_entrada DESC";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
             $dato = "%" . $dato . "%";
             $stms->bindParam(1, $dato, PDO::PARAM_STR);
+            $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {

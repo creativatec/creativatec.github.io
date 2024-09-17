@@ -43,6 +43,10 @@ class ControladorUsuario
                                 if ($Restantes <= 0) {
                                     echo "<script type='text/javascript'>window.location.href = 'LoginSuspendidoPorPago';</script>";
                                 } else {
+                                    $local = new ControladorLocal();
+                                    $resLocal = $local->consultarLocal($res[0]['id_local']);
+                                    $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
+                                    $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
                                     $_SESSION['fin'] = $diasRestantes;
                                     $_SESSION['restamte'] = $Restantes;
                                     $_SESSION['id_usuario'] = $res[0]['id_usuario'];
@@ -54,6 +58,10 @@ class ControladorUsuario
                                     $funcion->listarFunciones();
                                 }
                             } else {
+                                $local = new ControladorLocal();
+                                $resLocal = $local->consultarLocal($res[0]['id_local']);
+                                $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
+                                $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
                                 $_SESSION['fin'] = $diasRestantes;
                                 $_SESSION['restamte'] = $Restantes;
                                 $_SESSION['id_usuario'] = $res[0]['id_usuario'];

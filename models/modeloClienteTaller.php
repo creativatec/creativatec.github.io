@@ -5,7 +5,7 @@ class ModeloClienteTaller
     public $tabla = "cliente_taller";
     function agregarOrdenTrabajoClienteModelo($dato)
     {
-        $sql = "INSERT INTO $this->tabla (nombre_cliente, nombre_empresa, telefono_cliente, recibido) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO $this->tabla (nombre_cliente, nombre_empresa, telefono_cliente, recibido,id_local) VALUES (?,?,?,?,?)";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -13,6 +13,7 @@ class ModeloClienteTaller
             $stms->bindParam(2, $dato['nombreempresa'], PDO::PARAM_STR);
             $stms->bindParam(3, $dato['telefonoCliente'], PDO::PARAM_INT);
             $stms->bindParam(4, $dato['recibidoPor'], PDO::PARAM_STR);
+            $stms->bindParam(5, $dato['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {

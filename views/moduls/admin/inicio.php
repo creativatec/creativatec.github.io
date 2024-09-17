@@ -8,6 +8,8 @@ $resActivo = $activo->listarActivo();
 ///Usuario
 $local = new ControladorLocal();
 $local->agregarLocal();
+$SisteRes = $local->listarSistema();
+$EstaRes = $local->listarEstablecimiento();
 $localRes = $local->listarLocal();
 
 $user = new ControladorUsuario();
@@ -56,6 +58,27 @@ $res = $user->listarUsuario();
 
                                     </div>
                                 </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Tipo Establecimiento<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <div class="controls">
+                                            <select id="challenge_question_control" required name="estable" class="span4">
+                                                <option value="">-- Seleccionar Establecimiento --</option>
+                                                <?php
+                                                foreach ($EstaRes as $key => $value) {
+                                                ?>
+                                                    <option value="<?php echo $value['id_establecimiento'] ?>">
+                                                        <?php echo $value['nombre'] ?>
+                                                    </option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+                                </div>
                             </fieldset>
                         </div>
                         <div id="acct-password-row" class="span7">
@@ -78,6 +101,27 @@ $res = $user->listarUsuario();
                                     <label class="control-label">Fecha Fin<span class="required">*</span></label>
                                     <div class="controls">
                                         <input type="date" id="fin" name="fin" class="span4" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Tipo Sistema<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <div class="controls">
+                                            <select id="challenge_question_control" required name="sistema" class="span4">
+                                                <option value="">-- Seleccionar Sistema --</option>
+                                                <?php
+                                                foreach ($SisteRes as $key => $value) {
+                                                ?>
+                                                    <option value="<?php echo $value['id_sistema'] ?>">
+                                                        <?php echo $value['nombre'] ?>
+                                                    </option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+
+                                        </div>
 
                                     </div>
                                 </div>

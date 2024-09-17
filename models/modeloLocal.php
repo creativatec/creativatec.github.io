@@ -3,9 +3,11 @@ require_once 'conexion.php';
 class ModeloLocal
 {
     public $tabla = "local";
+    public $tabla2 = "sistema";
+    public $tabla3 = "establecimiento";
     function agregarLocalModelo($dato)
     {
-        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono, inicio, fin, plazo) VALUES (?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono, inicio, fin, plazo,id_sistema,id_establecimiento) VALUES (?,?,?,?,?,?,?,?,?)";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -16,6 +18,8 @@ class ModeloLocal
             $stms->bindParam(5, $dato['inicio'], PDO::PARAM_STR);
             $stms->bindParam(6, $dato['fin'], PDO::PARAM_STR);
             $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
+            $stms->bindParam(8, $dato['sistema'], PDO::PARAM_INT);
+            $stms->bindParam(9, $dato['estable'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
@@ -116,7 +120,7 @@ class ModeloLocal
 
     function actualizarLocalModelo($dato)
     {
-        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=? WHERE id_local=?";
+        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=?,id_sistema=?,id_establecimiento=? WHERE id_local=?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -127,7 +131,9 @@ class ModeloLocal
             $stms->bindParam(5, $dato['inicio'], PDO::PARAM_STR);
             $stms->bindParam(6, $dato['fin'], PDO::PARAM_STR);
             $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
-            $stms->bindParam(8, $dato['id'], PDO::PARAM_INT);
+            $stms->bindParam(8, $dato['sistema'], PDO::PARAM_INT);
+            $stms->bindParam(9, $dato['estable'], PDO::PARAM_INT);
+            $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
@@ -188,7 +194,8 @@ class ModeloLocal
         }
     }
 
-    function listarTablasLocal(){
+    function listarTablasLocal()
+    {
         $sql = "SELECT table_name FROM information_schema.columns WHERE column_name = 'id_local' AND table_schema = 'junior'";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
@@ -216,6 +223,40 @@ class ModeloLocal
                 echo json_encode(['success' => true]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error al eliminar']);
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarSistemaModelo()
+    {
+        $sql = "SELECT * FROM $this->tabla2";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarEstablecimientoModelo()
+    {
+        $sql = "SELECT * FROM $this->tabla3";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
             }
         } catch (PDOException $e) {
             print_r($e->getMessage());

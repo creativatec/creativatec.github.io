@@ -488,6 +488,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('input[name="fin"]').value = data.fin;
                     document.querySelector('input[name="diasHabiles"]').value = data.plazo;
 
+                    const selectSistema = document.querySelector('select[name="sistema"]');
+                    selectSistema.value = data.id_sistema;
+                    // Selecciona la opción correcta del select
+                    const selectEstable = document.querySelector('select[name="estable"]');
+                    selectEstable.value = data.id_establecimiento;
+
                     // Cambia el texto del botón y el nombre
                     const submitButton = document.querySelector('button[name="agregarLocal"]');
                     if (submitButton) {

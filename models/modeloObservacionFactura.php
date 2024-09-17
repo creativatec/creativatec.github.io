@@ -27,12 +27,13 @@ class ModeloObservacionFactura
     }
     function listarObservacionFacturaModelo($placa)
     {
-        $sql = "SELECT * FROM $this->tabla INNER JOIN factura ON factura.id_factura = descripcion_factura.id_factura WHERE placa like ?";
+        $sql = "SELECT * FROM $this->tabla INNER JOIN factura ON factura.id_factura = descripcion_factura.id_factura WHERE placa like ? AND factura.id_local = ?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($placa != '') {
             $placa = "%" . $placa . "%";
             $stms->bindParam(1, $placa, PDO::PARAM_STR);
+            $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
