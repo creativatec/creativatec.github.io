@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const submitButton = document.querySelector('button[name="agregarLocal"]');
                     if (submitButton) {
                         submitButton.textContent = 'Actualizar';
-                        submitButton.setAttribute('name', 'actualizarLocal');
+                        submitButton.setAttribute('name', 'actualizarLocalAdmin');
                     }
 
                     // Cambia los names de los inputs

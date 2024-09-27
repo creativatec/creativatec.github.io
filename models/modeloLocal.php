@@ -118,9 +118,9 @@ class ModeloLocal
         }
     }
 
-    function actualizarLocalModelo($dato)
+    function actualizarLocalAdminModelo($dato)
     {
-        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=?,id_sistema=?,id_establecimiento=?, ip=? WHERE id_local=?";
+        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=?,id_sistema=?,id_establecimiento=? WHERE id_local=?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -133,8 +133,31 @@ class ModeloLocal
             $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
             $stms->bindParam(8, $dato['sistema'], PDO::PARAM_INT);
             $stms->bindParam(9, $dato['estable'], PDO::PARAM_INT);
-            $stms->bindParam(10, $dato['ip'], PDO::PARAM_STR);
-            $stms->bindParam(11, $dato['id'], PDO::PARAM_INT);
+            $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
+        }
+        try {
+            if ($stms->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+    
+    function actualizarLocalModelo($dato)
+    {
+        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,ip=? WHERE id_local=?";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+        if ($dato != '') {
+            $stms->bindParam(1, $dato['local'], PDO::PARAM_STR);
+            $stms->bindParam(2, $dato['nit'], PDO::PARAM_STR);
+            $stms->bindParam(3, $dato['dire'], PDO::PARAM_STR);
+            $stms->bindParam(4, $dato['tel'], PDO::PARAM_STR);
+            $stms->bindParam(5, $dato['ip'], PDO::PARAM_STR);
+            $stms->bindParam(6, $dato['id'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {

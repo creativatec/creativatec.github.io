@@ -33,7 +33,7 @@ class ControladorLocal
             if ($resClient == true) {
                 echo '<script>window.location="agregarLocal"</script>';
             }
-        } elseif (isset($_POST['actualizarLocal'])) {
+        } elseif (isset($_POST['actualizarLocalAdmin'])) {
             $dato = array(
                 'id' => $_POST['id'],
                 'local' => $_POST['localEdit'],
@@ -44,7 +44,20 @@ class ControladorLocal
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
                 'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
-                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null,
+                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null
+            );
+            $agregar = new ModeloLocal();
+            $res = $agregar->actualizarLocalAdminModelo($dato);
+            if ($res == true) {
+                echo '<script>window.location="actualizarLocal"</script>';
+            }
+        }elseif (isset($_POST['actualizarLocal'])) {
+            $dato = array(
+                'id' => $_POST['id'],
+                'local' => $_POST['localEdit'],
+                'nit' => $_POST['nitEdit'],
+                'dire' => $_POST['direEdit'],
+                'tel' => $_POST['telEdit'],
                 'ip' => $_POST['ip']
             );
             $agregar = new ModeloLocal();

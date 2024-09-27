@@ -177,12 +177,12 @@ if (isset($_SESSION['validarPagina'])) {
                         </div>
                     </div>
                     <?php
-                    if (isset($_SESSION['impresionPos'])) {
-                        if ($_SESSION['impresionPos'] == 'true') {
+                    if (isset($_SESSION['estable'])) {
+                        if ($_SESSION['estable'] == 1) {
                     ?>
                             <div class="field">
                                 <div class="">
-                                    <input type="hidden" id="<?php if ($_SESSION['impresionPos'] == 'true') { ?>btnImprimir<?php } ?>">
+                                    <input type="hidden" id="<?php if ($_SESSION['estable'] == 1) { ?>btnImprimir<?php } ?>">
                                 </div>
                             </div>
                     <?php
