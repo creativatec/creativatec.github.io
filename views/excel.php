@@ -219,6 +219,7 @@ if (isset($_GET['ventaMes'])) {
     $writer->save('php://output');
     exit;
 }
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 $servername = "localhost";
@@ -231,6 +232,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Configura la codificación de caracteres para la conexión
+if (!$conn->set_charset("utf8mb4")) {
+    die("Error cargando el conjunto de caracteres utf8mb4: " . $conn->error);
 }
 
 // Verificar si se ha subido un archivo
