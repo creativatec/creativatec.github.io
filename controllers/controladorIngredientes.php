@@ -81,7 +81,7 @@ class ControladorIngredientes
         $listar = new ModeloIngrediente();
         $res = $listar->eliminaIngredienteIdModelo($id);
         if ($res == true) {
-            echo '<script>window.location="eliminarProducto"</script>';
+            echo '<script>window.location="eliminarIngredeinte"</script>';
         }
     }
 }
