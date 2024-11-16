@@ -174,7 +174,7 @@ if ($ress != null) {
             if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Mesero") {
             } else {
     ?>
-                <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido') {
+                <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido' || $_GET['domicilio']) {
                                         print 'active';
                                     } ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mesero" aria-expanded="true" aria-controls="collapseUtilities">

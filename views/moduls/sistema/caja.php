@@ -245,23 +245,6 @@ if ($res != null) {
                         </th>
                     </tr>
                 </tbody>
-                <?php if (isset($_SESSION['propina'])) {
-                    if ($_SESSION['propina'] == 'true') {
-                ?>
-                        <tbody>
-                            <tr>
-                                <th>Propinas</th>
-                                <th></th>
-                                <!--<th></th>-->
-                                <!--<th></th>-->
-                                <th></th>
-                                <th></th>
-                                <th><input type="text" class="form-control propina" name="propina" id="propina">
-                                </th>
-                            </tr>
-                        </tbody>
-                <?php }
-                } ?>
                 <tbody>
                     <tr>
                         <th>Total</th>
