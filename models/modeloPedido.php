@@ -32,7 +32,7 @@ class ModeloPedido
 
     function listarPedidoMesa()
     {
-        date_default_timezone_set('America/Bogota');
+        date_default_timezone_set('America/Mexico_City');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT DISTINCT mesa.id_mesa, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido, pedido.fecha_ingreso, estado_mesa.nombre_estado, estado_mesa.id_estado_mesa FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario INNER JOIN estado_mesa ON estado_mesa.id_estado_mesa = pedido.id_estado_mesa WHERE pedido.fecha_ingreso like ? AND pago = 0 AND pedido.id_local = ? ORDER BY $this->tabla.fecha_ingreso DESC";
         $conn = new Conexion();
@@ -53,7 +53,7 @@ class ModeloPedido
 
     function listarPedidoFacturaMesa()
     {
-        date_default_timezone_set('America/Bogota');
+        date_default_timezone_set('America/Mexico_City');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT DISTINCT mesa.id_mesa, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido, estado_mesa.nombre_estado, estado_mesa.id_estado_mesa FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario INNER JOIN estado_mesa ON estado_mesa.id_estado_mesa = pedido.id_estado_mesa WHERE pedido.fecha_ingreso like ? AND pedido.id_estado_mesa = 4 AND pedido.pago = 0 AND pedido.id_local =? ORDER BY $this->tabla.fecha_ingreso DESC";
         $conn = new Conexion();
@@ -133,7 +133,7 @@ class ModeloPedido
 
     function ListarMesaPedidoModelo($fecha)
     {
-        $sql = "SELECT DISTINCT pedido.id_mesa, pedido.fecha_ingreso, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario WHERE fecha_ingreso LIKE ? AND cocina = 0 AND pedido.id_local ORDER BY fecha_ingreso DESC";
+        $sql = "SELECT DISTINCT pedido.id_mesa, pedido.fecha_ingreso, mesa.nombre_mesa, usuario.primer_nombre, usuario.primer_apellido FROM $this->tabla INNER JOIN mesa ON mesa.id_mesa = pedido.id_mesa INNER JOIN usuario ON usuario.id_usuario = pedido.id_usuario WHERE fecha_ingreso LIKE ? AND cocina = 0 AND pedido.id_local = ? ORDER BY fecha_ingreso DESC";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         $stms->bindParam(1, $fecha, PDO::PARAM_STR);
@@ -190,7 +190,7 @@ class ModeloPedido
 
     function actualizarPedidoCocinaModelo($id, $fecha, $cocina)
     {
-        $sql = "UPDATE $this->tabla SET cocina = ? WHERE fecha_ingreso = ? AND id_mesa = ? AND = ?";
+        $sql = "UPDATE $this->tabla SET cocina = ? WHERE fecha_ingreso = ? AND id_mesa = ? AND id_local = ?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         $stms->bindParam(1, $cocina, PDO::PARAM_INT);
@@ -325,7 +325,7 @@ class ModeloPedido
 
     function listarPedidoFacturaModelo($id)
     {
-        date_default_timezone_set('America/Bogota');
+        date_default_timezone_set('America/Mexico_City');
         $fechaActal = date('Y-m-d');
         $sql = "SELECT * FROM $this->tabla INNER JOIN producto ON producto.id_producto = pedido.id_producto WHERE id_mesa = ? AND fecha_ingreso LIKE ? AND id_estado_mesa = 4 AND pago = 0 AND pedido.id_local = ?";
         $conn = new Conexion();

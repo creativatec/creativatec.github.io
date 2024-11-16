@@ -3,9 +3,9 @@
 class ModeloProducto
 {
     public $tabla = "producto";
-    function agregarProductoModelo($id_proeevedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_local)
+    function agregarProductoModelo($id_proeevedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_impuesto, $id_local)
     {
-        $sql = "INSERT INTO $this->tabla (id_proeevedor, codigo_producto, nombre_producto, precio_unitario, cantidad_producto, id_categoria, id_medida, id_local) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO $this->tabla (id_proeevedor, codigo_producto, nombre_producto, precio_unitario, cantidad_producto, id_categoria, id_medida,id_impuesto, id_local) VALUES (?,?,?,?,?,?,?,?,?)";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($codigo != '') {
@@ -16,7 +16,8 @@ class ModeloProducto
             $stms->bindParam(5, $cantidad, PDO::PARAM_INT);
             $stms->bindParam(6, $id_categoria, PDO::PARAM_INT);
             $stms->bindParam(7, $id_medida, PDO::PARAM_INT);
-            $stms->bindParam(8, $_SESSION['id_local'], PDO::PARAM_INT);
+            $stms->bindParam(8, $id_impuesto, PDO::PARAM_INT);
+            $stms->bindParam(9, $_SESSION['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
@@ -68,7 +69,7 @@ class ModeloProducto
         }
     }
 
-    function consultarModeloProductoAjaxModelo($dato)
+    function consultarModeloProductoAjaxModelo($dato,$id)
     {
         if ($dato != '') {
             $dato = '%' . $dato . '%';
@@ -80,11 +81,16 @@ class ModeloProducto
         try {
             $conn = new Conexion();
             $stms = $conn->conectar()->prepare($sql);
+            if ($id == null) {
+                $local = $_SESSION['id_local'];
+            }else{
+                $local = $id;
+            }
             if ($dato != '') {
                 $stms->bindParam(1, $dato, PDO::PARAM_STR);
-                $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
+                $stms->bindParam(2, $local, PDO::PARAM_INT);
             }else{
-                $stms->bindParam(1, $_SESSION['id_local'], PDO::PARAM_INT);
+                $stms->bindParam(1, $local, PDO::PARAM_INT);
             }
             if ($stms->execute()) {
                 return $stms->fetchAll();
@@ -205,9 +211,9 @@ class ModeloProducto
         }
     }
 
-    function actualizarProductoModelo($id, $id_proeevedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_local)
+    function actualizarProductoModelo($id, $id_proeevedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_impuesto, $id_local)
     {
-        $sql = "UPDATE $this->tabla SET id_proeevedor=?,codigo_producto=?,nombre_producto=?,precio_unitario=?,cantidad_producto=?,id_categoria=?,id_medida=?,id_local=? WHERE id_producto=? AND id_local = ?";
+        $sql = "UPDATE $this->tabla SET id_proeevedor=?,codigo_producto=?,nombre_producto=?,precio_unitario=?,cantidad_producto=?,id_categoria=?,id_medida=?,id_impuesto=?, id_local=? WHERE id_producto=? AND id_local = ?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($codigo != '') {
@@ -218,9 +224,10 @@ class ModeloProducto
             $stms->bindParam(5, $cantidad, PDO::PARAM_INT);
             $stms->bindParam(6, $id_categoria, PDO::PARAM_INT);
             $stms->bindParam(7, $id_medida, PDO::PARAM_INT);
-            $stms->bindParam(8, $id_local, PDO::PARAM_INT);
-            $stms->bindParam(9, $id, PDO::PARAM_INT);
-            $stms->bindParam(10, $_SESSION['id_local'], PDO::PARAM_INT);
+            $stms->bindParam(8, $id_impuesto, PDO::PARAM_INT);
+            $stms->bindParam(9, $id_local, PDO::PARAM_INT);
+            $stms->bindParam(10, $id, PDO::PARAM_INT);
+            $stms->bindParam(11, $_SESSION['id_local'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {

@@ -2,9 +2,10 @@ function hacerClic() {
 
 	var urlActual = window.location.href;
 	var hosting = window.location.hostname;
-	if (urlActual == "http://" + hosting + "/juniorPizza/factura_pdf") {
+	if (urlActual == "http://" + hosting + "/creativatec.gihub.io/factura_pdf") {
 		//document.getElementById('caja').click();
 	}
+	document.getElementById('btnImprimirDomicilio').click();
 	document.getElementById('btnImprimir').click();
 	//console.log("hizo clic");
 }
@@ -12,10 +13,11 @@ window.onload = function () {
 	setInterval(hacerClic, 3000);
 	var urlActual = window.location.href;
 	var hosting = window.location.hostname;
-	if (urlActual == "http://" + hosting + "/juniorPizza/factura_pdf") {
+	if (urlActual == "http://" + hosting + "/creativatec.gihub.io/factura_pdf") {
 		setInterval(hacerClic, 10000);
 	}
 };
+
 //Autocomplete
 $("#proeevedor").autocomplete({
 	source: function (request, response) {
@@ -70,6 +72,39 @@ $(document).ready(function () {
 			select: function (event, ui) {
 				$("#medida_" + index).val(ui.item.label);
 				$("#id_medida_" + index).val(ui.item.id);
+				return false;
+
+			}
+
+		});
+	});
+});
+
+//Autocomplete Impuesto
+$(document).ready(function () {
+	$('body').on('keydown', '.impuesto', function () {
+		var id = this.id;
+		var splitid = id.split('_');
+		var index = splitid[1];
+		$(this).autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					url: 'views/ajax.php',
+					type: 'get',
+					dataType: 'json',
+					data: { impuesto: request.term },
+					success: function (data) {
+						response(data);
+						//console.log("el dato", data);
+
+					}
+
+				});
+			},
+			minLength: 1,
+			select: function (event, ui) {
+				$("#impuesto_" + index).val(ui.item.label);
+				$("#id_impuesto_" + index).val(ui.item.id);
 				return false;
 
 			}
@@ -307,6 +342,45 @@ $(document).ready(function () {
 				$("#producto_" + index).val(ui.item.label);
 				$("#id_predido_" + index).val(ui.item.id);
 				$("#descripcion_" + index).val(ui.item.descripcion);
+				$("#valor_" + index).val(ui.item.precio);
+				$("#precio_" + index).val(ui.item.precio);
+				return false;
+
+			}
+
+		});
+	});
+});
+
+//Autocomplete Domicilio
+$(document).ready(function () {
+	$('body').on('keydown', '.productoDomicilio', function () {
+		var id = this.id;
+		var splitid = id.split('_');
+		var index = splitid[1];
+		var id_local = document.getElementById('id_local_1').value
+		$(this).autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					url: 'views/ajax.php',
+					type: 'get',
+					dataType: 'json',
+					data: { productoDomicilio: request.term, id: id_local },
+					success: function (data) {
+						response(data);
+						//console.log("el dato", data);
+
+					}
+
+				});
+			},
+			minLength: 1,
+			select: function (event, ui) {
+				$("#producto_" + index).val(ui.item.label);
+				$("#id_predido_" + index).val(ui.item.id);
+				$("#descripcion_" + index).val(ui.item.descripcion);
+				$("#valor_" + index).val(ui.item.precio);
+				$("#precio_" + index).val(ui.item.precio);
 				return false;
 
 			}
@@ -320,7 +394,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	var index = 2;
 	$("#agregarProducto").click(function () {
-		$("#producto").append('<tr><td><input type="hidden" id="id_producto_' + index + '" name="id_producto[]"><input type="text" class="form-control" id="codigo_' + index + '" name="codigo[]"></td><td><input type="text" class="form-control nombrePro" id="producto_' + index + '" name="nombre[]"></td><td><input type="text" class="form-control precio_uni" id="precioUni_' + index + '" name="precioUnita[]" value="0"></td><td><input type="text" class="form-control precio" id="precio_' + index + '" name="precio[]"></td><td><input type="hidden" id="cantidad_' + index + '" name="cant[]"><input type="text" class="form-control cant" name="cantidad[]" id="cant_' + index + '"></td><td><input type="text" class="form-control Total" id="total_' + index + '" name="total[]" value="0"></td><td><input type="hidden" class="form-control" name="id_categoria[]"id="id_categoria_' + index + '"><input type="text" class="form-control categoria"name="" id="categoria_' + index + '"></td><td><input type="hidden" class="form-control" name="id_medida[]"id="id_medida_' + index + '"><input type="text" class="form-control medida" name=""id="medida_' + index + '"></td>');
+		$("#producto").append('<tr><td><input type="hidden" id="id_producto_' + index + '" name="id_producto[]"><input type="text" class="form-control" id="codigo_' + index + '" name="codigo[]"></td><td><input type="text" class="form-control nombrePro" id="producto_' + index + '" name="nombre[]"></td><td><input type="text" class="form-control precio_uni" id="precioUni_' + index + '" name="precioUnita[]" value="0"></td><td><input type="text" class="form-control precio" id="precio_' + index + '" name="precio[]"></td><td><input type="hidden" id="cantidad_' + index + '" name="cant[]"><input type="text" class="form-control cant" name="cantidad[]" id="cant_' + index + '"></td><td><input type="text" class="form-control Total" id="total_' + index + '" name="total[]" value="0"></td><td><input type="hidden" class="form-control" name="id_categoria[]"id="id_categoria_' + index + '"><input type="text" class="form-control categoria"name="" id="categoria_' + index + '"></td><td><input type="hidden" class="form-control" name="id_medida[]"id="id_medida_' + index + '"><input type="text" class="form-control medida" name=""id="medida_' + index + '"></td><td><input type="hidden" class="form-control" name="id_impuesto[]" id="id_impuesto_' + index + '"><input type="text" class="form-control impuesto" name="" id="impuesto_' + index + '"></td>');
 		//$("#producto").append('<tr><td><input type="hidden" id="id_producto_' + index + '" name="id_producto[]" required><input type="text" class="form-control" id="codigo_' + index + '" name="codigo[]" required></td><td><input type="text" class="form-control nombrePro" id="producto_' + index + '" name="nombre[]" required></td><td><input type="text" class="form-control precio_uni" id="precioUni_' + index + '" name="precioUnita[]" value="0" required></td><td><input type="text" class="form-control precio" id="precio_' + index + '" name="precio[]" required></td><td><input type="hidden" id="cantidad_' + index + '" name="cant[]" required><input type="text" class="form-control cant" name="cantidad[]" id="cant_' + index + '" required></td><td><input type="text" class="form-control Total" id="total_' + index + '" name="total[]" value="0" required></td><td><input type="hidden" class="form-control" name="id_categoria[]"id="id_categoria_' + index + '" required><input type="text" class="form-control categoria"name="" id="categoria_' + index + '" required></td><td><input type="hidden" class="form-control" name="id_medida[]"id="id_medida_' + index + '"><input type="text" class="form-control medida" name=""id="medida_' + index + '"></td><?phpif ($_SESSION["rol"] == "Administrador") {?><td><input type="hidden" class="form-control " name="id_local[]"id="id_local_' + index + '"><input type="text" class="form-control nom_local"id="local_' + index + '" required></td><?php}?></tr>');
 		index++;
 	});
@@ -396,7 +470,13 @@ $(document).ready(function () {
 $(document).ready(function () {
 	var index = 2;
 	$("#agregarPedido").click(function () {
-		$("#pedidoProducto").append('<tr class="eliminar_' + index + '"><td><input type="hidden" name="id_pedido[]" id="id_predido_' + index + '"><input type="text"name="producto[]" class="form-control producto" id="producto_' + index + '"placeholder="Producto"></td><th><textarea name="descripcion[]" id="descripcion_' + index + '" class="form-control" cols="30"rows="1"></textarea></th><th><input type="number" name="cantidad[]" class="form-control"placeholder="Cantidad Pedido"></th><th><a class="btn btn-primary eliminar" id="eliminarFactura"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" /></svg></a></th></tr>');
+		var urlActual = window.location.href;
+		var hosting = window.location.hostname;
+		if (urlActual == "http://" + hosting + "/creativatec.gihub.io/domicilioPedido") {
+			$("#pedidoProducto").append('<tr class="eliminar_' + index + '"><td><input type="hidden" name="id_pedido[]" id="id_predido_' + index + '"><input type="text"name="producto[]" class="form-control producto" id="producto_' + index + '"placeholder="Producto"></td><th><textarea name="descripcion[]" id="descripcion_' + index + '" class="form-control" cols="30"rows="1"></textarea></th><th><input type="hidden" name="precio[]" class="form-control valor" id="precio_1" placeholder="Precio" disabled><input type="text" name="precio[]" class="form-control valor" id="valor_' + index + '" placeholder="Precio"></th><th><input type="text" name="cantidad[]" class="form-control cantidad" placeholder="Cantidad Pedido" id="cantidad_' + index + '" value="0" required></th><th><input type="text" name="total" class="form-control resultado" id="resultado_' + index + '" disabled></th><th><a class="btn btn-primary eliminar" id="eliminarFactura"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" /></svg></a></th></tr>');
+		} else {
+			$("#pedidoProducto").append('<tr class="eliminar_' + index + '"><td><input type="hidden" name="id_pedido[]" id="id_predido_' + index + '"><input type="text"name="producto[]" class="form-control producto" id="producto_' + index + '"placeholder="Producto"></td><th><textarea name="descripcion[]" id="descripcion_' + index + '" class="form-control" cols="30"rows="1"></textarea></th><th><input type="number" name="cantidad[]" class="form-control"placeholder="Cantidad Pedido"></th><th><a class="btn btn-primary eliminar" id="eliminarFactura"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" /></svg></a></th></tr>');
+		}
 		index++;
 	});
 });
@@ -427,7 +507,7 @@ function habilitarInput() {
 var urlActual = window.location.href;
 var hosting = window.location.hostname;
 //console.log(hosting);
-if (urlActual == "http://" + hosting + "/juniorPizza/configuracion") {
+if (urlActual == "http://" + hosting + "/creativatec.gihub.io/configuracion") {
 	//actualizar funciones
 
 	$('input[type="checkbox"]').on('change', function () {
@@ -799,7 +879,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	var index = 2;
 	$("#agregarFactura").click(function () {
-		$("#factura").append('<tr class="eliminar_' + index + '"><td><input type="hidden" name="id_articulo[]" id="id_articulo_' + index + '"><input type="text" name="codigo" class="form-control codigo_articulo" id="codigo_' + index + '" placeholder="Codigo producto"></td><td><input type="text" name="articulo" class="form-control nombre_articulo" id="nombre_' + index + '" placeholder="Nombre producto"></td><td><input type="text" name="precio" class="form-control valor" id="valor_' + index + '" disabled></td><!--<td><input type="text" name="descuento[]" class="form-control" id="descuento_' + index + '" value="0"></td>--><!--<td><input type="text" name="peso[]" class="form-control peso" id="peso_' + index + '" value="0" required>--><td><input type="text" name="cantidad[]" class="form-control cantidad" id="cantidad_' + index + '" value="0" required></td><td><input type="text" name="total" class="form-control resultado" id="resultado_' + index + '" disabled></td><td><a class="btn btn-primary mt-3 eliminar" id="eliminarFactura">Eliminar</a></td></tr>');
+		$("#factura").append('<tr class="eliminar_' + index + '"><td><input type="hidden" name="id_articulo[]" id="id_articulo_' + index + '"><input type="text" name="codigo" class="form-control codigo_articulo" id="codigo_' + index + '" placeholder="Codigo producto"></td><td><input type="text" name="articulo" class="form-control nombre_articulo" id="nombre_' + index + '" placeholder="Nombre producto"></td><td><input type="text" name="precio[]" class="form-control valor" id="valor_' + index + '"></td><!--<td><input type="text" name="descuento[]" class="form-control" id="descuento_' + index + '" value="0"></td>--><!--<td><input type="text" name="peso[]" class="form-control peso" id="peso_' + index + '" value="0" required>--><td><input type="text" name="cantidad[]" class="form-control cantidad" id="cantidad_' + index + '" value="0" required></td><td><input type="text" name="total" class="form-control resultado" id="resultado_' + index + '" disabled></td><td><a class="btn btn-primary mt-3 eliminar" id="eliminarFactura">Eliminar</a></td></tr>');
 		index++;
 	});
 });
@@ -1035,7 +1115,7 @@ $(document).ready(function () {
 							var id = data[0]['id_producto'];
 							var codigo = data[0]['codigo_producto'];
 							var name = data[0]['nombre_producto'];
-							var cantidad  = data[0]['cantidad_producto'];
+							var cantidad = data[0]['cantidad_producto'];
 							//agregar miles
 							var valor = data[0]['precio_unitario'];
 							valor = valor.toString();
@@ -1044,16 +1124,16 @@ $(document).ready(function () {
 							var hosting = window.location.hostname;
 							//console.log(hosting);
 							//if (cantidad <= 0) {
-								//swal("Ups!!!!", "El producto: "+name+" esta agotado", "error");
+							//swal("Ups!!!!", "El producto: "+name+" esta agotado", "error");
 							//} else {
-								if (urlActual == "http://" + hosting + "/creativatec.gihub.io/caja") {
-									document.getElementById('id_articulo_' + index).value = id;
-									document.getElementById('codigo_' + index).value = codigo;
-									document.getElementById('nombre_' + index).value = name;
-									document.getElementById('valor_' + index).value = value;
-								} else {
-									document.getElementById('nombre_' + index).value = name;
-								}
+							if (urlActual == "http://" + hosting + "/creativatec.gihub.io/caja") {
+								document.getElementById('id_articulo_' + index).value = id;
+								document.getElementById('codigo_' + index).value = codigo;
+								document.getElementById('nombre_' + index).value = name;
+								document.getElementById('valor_' + index).value = value;
+							} else {
+								document.getElementById('nombre_' + index).value = name;
+							}
 							//}
 						}
 
@@ -1111,23 +1191,23 @@ document.addEventListener('keydown', function (event) {
 		var urlActual = window.location.href;
 		var hosting = window.location.hostname;
 		//console.log(hosting);
-		if (urlActual == "http://" + hosting + "/juniorPizza/productos") {
+		if (urlActual == "http://" + hosting + "/creativatec.gihub.io/productos") {
 			if (!document.getElementById('agregarProducto')) {
 				document.getElementById("agreProducto").click();
 			} else {
 				document.getElementById("agregarProducto").click();
 			}
-		} if (urlActual == "http://" + hosting + "/juniorPizza/ingredientes") {
+		} if (urlActual == "http://" + hosting + "/creativatec.gihub.io/ingredientes") {
 			if (!document.getElementById("agregarIngrediente")) {
 				document.getElementById("agregIngrediente").click();
 			} else {
 				document.getElementById("agregarIngrediente").click();
 			}
-		} if (urlActual == "http://" + hosting + "/juniorPizza/ingrediente_Producto") {
+		} if (urlActual == "http://" + hosting + "/creativatec.gihub.io/ingrediente_Producto") {
 			if (document.getElementById("agregarIngredienteProducto")) {
 				document.getElementById("agregarIngredienteProducto").click();
 			}
-		} if (urlActual == "http://" + hosting + "/juniorPizza/promocion") {
+		} if (urlActual == "http://" + hosting + "/creativatec.gihub.io/promocion") {
 			if (document.getElementById("agregarPromocion")) {
 				document.getElementById("agregarPromocion").click();
 			}
@@ -1417,7 +1497,7 @@ $(document).ready(function () {
 
 var currentURL = window.location.href;
 var host = window.location.hostname;
-if (currentURL.includes("http://" + host + "/juniorPizza/caja")) {
+if (currentURL.includes("http://" + host + "/creativatec.gihub.io/caja")) {
 
 	document.addEventListener("DOMContentLoaded", async () => {
 		// Función para calcular el total de una fila
@@ -1745,46 +1825,6 @@ $(document).ready(function () {
 		});
 	});
 });
-
-//enviar Comprobante pago
-document.addEventListener('DOMContentLoaded', function () {
-	const abrirModalBtn = document.getElementById('abrirModal');
-	const comprobanteForm = document.getElementById('comprobanteForm');
-
-	abrirModalBtn.addEventListener('click', function () {
-		$('#caducidadModal').modal('hide');
-		$('#comprobanteModal').modal('show');
-	});
-
-	comprobanteForm.addEventListener('submit', function (e) {
-		e.preventDefault();
-
-		const nombreEstablecimiento = document.getElementById('nombreEstablecimiento').value;
-		const comprobantePago = document.getElementById('comprobantePago').files[0];
-
-		if (nombreEstablecimiento && comprobantePago) {
-			const formData = new FormData();
-			formData.append('nombreEstablecimiento', nombreEstablecimiento);
-			formData.append('comprobantePago', comprobantePago);
-
-			fetch('views/enviarCorreo.php', {
-				method: 'POST',
-				body: formData
-			})
-			.then(response => response.text())
-			.then(result => {
-				alert('Comprobante enviado exitosamente.');
-				$('#comprobanteModal').modal('hide');
-			})
-			.catch(error => {
-				console.error('Error:', error);
-			});
-		} else {
-			alert('Por favor, complete todos los campos.');
-		}
-	});
-});
-
 //Cargar EXCEL
 $(document).ready(function () {
 	$('#uploadForm').on('submit', function (e) {
@@ -1816,3 +1856,204 @@ $(document).ready(function () {
 		});
 	});
 });
+var currentURL = window.location.href;
+var host = window.location.hostname;
+if (currentURL.includes("http://" + host + "/creativatec.gihub.io/informe")) {
+	//descarge excel informe ventas electronico
+
+	document.getElementById('informeVentaElectronico').addEventListener('click', function (event) {
+		event.preventDefault(); // Evitar que el enlace realice una acción predeterminada
+
+		// Obtener los valores de las fechas del formulario
+		const inicio = document.getElementById('inicio').value;
+		const fin = document.getElementById('fin').value;
+
+		// Crear un objeto FormData para enviar los datos del formulario
+		const formData = new FormData();
+		formData.append('inicio', inicio);
+		formData.append('fin', fin);
+
+		// Enviar los datos al archivo PHP encargado de generar el Excel
+		fetch('views/excel.php', {
+			method: 'POST',
+			body: formData
+		})
+			.then(response => response.blob()) // Convertir la respuesta a blob (archivo)
+			.then(blob => {
+				// Crear una URL temporal para el archivo
+				const url = window.URL.createObjectURL(blob);
+
+				// Crear un enlace temporal para la descarga
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'Informe_Venta_Electronico.xlsx'; // Nombre del archivo a descargar
+				document.body.appendChild(a);
+				a.click();
+
+				// Limpiar URL temporal y remover enlace
+				a.remove();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+	});
+}
+////manejar accionn boton descargar pdf o impresora pos
+
+document.getElementById('btnImprimirPDF').addEventListener('click', function () {
+	// Llamada AJAX para generar el PDF
+	$.ajax({
+		url: 'views/pdf.php',  // Archivo que genera el PDF
+		type: 'POST',
+		data: { datosFactura: obtenerDatosFactura() },  // Envías los datos de la tabla
+		dataType: 'json',  // Esperas una respuesta en JSON
+		success: function (response) {
+			// Verifica si la URL del PDF está presente en la respuesta
+			if (response.urlPDF) {
+				//console.log('URL del PDF:', response.urlPDF); // Mostrar en consola la URL
+				// Crear un enlace temporal para descargar el PDF automáticamente
+				const a = document.createElement('a');
+				a.href = response.urlPDF;
+				a.download = 'cotizacion.pdf';
+				a.click();
+			} else {
+				console.error('No se recibió la URL del PDF.');
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('Error en la solicitud:', error);
+			alert('Error al generar el PDF');
+		}
+	});
+});
+
+
+// Función para obtener los datos de la tabla
+function obtenerDatosFactura() {
+	var factura = [];
+	$('#factura tr').each(function () {
+		var item = {
+			codigo: $(this).find('input[name="codigo"]').val(),
+			articulo: $(this).find('input[name="articulo"]').val(),
+			precio: $(this).find('input[name="precio[]"]').val(),
+			cantidad: $(this).find('input[name="cantidad[]"]').val(),
+			total: $(this).find('input[name="total"]').val(),
+		};
+		factura.push(item);
+	});
+	return factura;
+}
+
+
+function actualizarPrint(id) {
+	if (confirm("Quieres Confirmar El Pedido")) {
+		fetch('views/ajax.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				action: 'actualizarPrint',
+				id_domicilio_pedido: id
+			})
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert("Pedido Confirmado");
+					location.reload();
+				} else {
+					alert("Error al actualizar: " + data.error);
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Error en la solicitud.");
+			});
+	}
+}
+
+function actualizarCancelado(id) {
+	if (confirm("Quieres Cancelar El Pedido")) {
+		fetch('views/ajax.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				action: 'actualizarCancel',
+				id_domicilio_pedido: id
+			})
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert("Pedido Cancelado");
+					location.reload();
+				} else {
+					alert("Error al actualizar: " + data.error);
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Error en la solicitud.");
+			});
+	}
+}
+
+function actualizarDomiciliario(id) {
+	if (confirm("Quieres Entregar El Pedido")) {
+		fetch('views/ajax.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				action: 'actualizarLlevar',
+				id_domicilio_pedido: id
+			})
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert("Pedido Para Entregar");
+					location.reload();
+				} else {
+					alert("Error al actualizar: " + data.error);
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Error en la solicitud.");
+			});
+	}
+}
+
+function actualizarEntregado(id) {
+	if (confirm("Confirmar Entrega")) {
+		fetch('views/ajax.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				action: 'actualizarEntrega',
+				id_domicilio_pedido: id
+			})
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert("Pedido Entregado");
+					location.reload();
+				} else {
+					alert("Error al actualizar: " + data.error);
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Error en la solicitud.");
+			});
+	}
+}

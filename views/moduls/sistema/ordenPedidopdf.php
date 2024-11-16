@@ -39,7 +39,7 @@ if (isset($_GET['id_cliente_taller'])) {
             <thead>
                 <tr>
                     <th>
-                        <img src="http://<?php echo $_SERVER['HTTP_HOST'] ?>/juniorPizza/views/img/logotecni.png" class="img-fluid" alt="...">
+                        <img src="http://<?php echo $_SERVER['HTTP_HOST'] ?>/creativatec.gihub.io/views/img/logotecni.png" class="img-fluid" alt="...">
                     </th>
                 </tr>
             </thead>

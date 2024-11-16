@@ -49,6 +49,9 @@ class ModeloViews
 
         // Definir las rutas de redirección según el valor de $enlace
         switch ($enlace) {
+            case 'pedidoCancelado':
+                $modulo = 'domicilioPedido.php';
+                break;
             case 'agregarUsuario':
             case 'eliminarUsuario':
             case 'actualizarUsuario':

@@ -7,9 +7,9 @@ class ControladorFactura
         if (isset($_POST['agregarFactrua'])) {
             #Agregar Factura
             $factura  = (isset($_POST['factura'])) ? $_POST['factura'] : "false";
-            $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
-            $placa = (isset($_POST['placa'])) ? $_POST['placa'] : "";
-            $observacion = (isset($_POST['observacion'])) ? $_POST['observacion'] : "";
+            $nombre = $_POST['nombre'];
+            $placa = $_POST['placa'];
+            $observacion = $_POST['observacion'];
             $id_usuario = $_SESSION['id_usuario'];
             $id_cliente = $_POST['id_cliente'];
             $id_articulo = $_POST['id_articulo'];
@@ -79,8 +79,8 @@ class ControladorFactura
             $agreagrFactura = new ModeloFactura();
             $resFactura = $agreagrFactura->agregarFacturaModelo($dato);
             $resUltimoId = $agreagrFactura->mostrarUltimoId();
-            if (isset($_SESSION['estable'])) {
-                if ($_SESSION['estable'] == 3) {
+            if (isset($_SESSION['taller'])) {
+                if ($_SESSION['taller'] == 'true') {
                     //datos observacion
                     $datoObservacion = array(
                         'id_factura' => $resUltimoId[0]['MAX(id_factura)'],
@@ -233,6 +233,22 @@ class ControladorFactura
                                     }
                                 }
                             }
+                        }
+                        if (isset($_GET['id_domicilio'])) {
+                            #Mostrar Pedido Mesa
+                            $listarid = new ModeloDomicilio();
+                            $res = $listarid->listarPedidoDomicilioFacturaModelo($_GET['id_domicilio']);
+                            foreach ($res as $key => $value) {
+                                if ($value['id_producto'] == $id_articulo[$i]) {
+                                    #Actualizar el pago pedido a 1
+                                    $actualizarPagoPedido = new ControladorDomicilio();
+                                    $rePedido = $actualizarPagoPedido->actualizarPagoPedidoDomicilio($_GET['id_domicilio'], $value['fecha_ingreso']);
+                                    #Actualizar estado mesa Disponible
+                                    if ($rePedido == true) {
+                                        echo '<script>window.location="factura_pdf"</script>';
+                                    }
+                                }
+                            }
                         } else {
                             echo '<script>window.location="factura_pdf"</script>';
                         }
@@ -245,7 +261,7 @@ class ControladorFactura
     function listarFacturaCliente()
     {
         if (isset($_POST['buscarr'])) {
-            date_default_timezone_set('America/Bogota');
+            date_default_timezone_set('America/Mexico_City');
             $fechaActal = date('Y-m-d');
             if ($_POST['cc'] && $_POST['fecha'] != null) {
                 $dato = array(
@@ -256,6 +272,11 @@ class ControladorFactura
                 $dato = array(
                     'cc' => $_POST['cc'],
                     'fecha' => $fechaActal
+                );
+            } else {
+                $dato = array(
+                    'cc' => '',
+                    'fecha' => $_POST['fecha']
                 );
             }
             $consultar = new ModeloFactura();
@@ -273,6 +294,17 @@ class ControladorFactura
         }
     }
 
+    function listarFacturaElctronica()
+    {
+        if (isset($_POST['consultar'])) {
+            $inicio = $_POST['inicio'];
+            $fin = $_POST['fin'];
+            $buscar = new ModeloFactura();
+            //$res = $buscar->factruaElectronicaInicioFinModelo($inicio, $fin);
+            //return $res;
+        }
+    }
+
     function listarDeudoresFactura()
     {
         $agregarFactura = new ModeloFactura();
@@ -282,7 +314,7 @@ class ControladorFactura
 
     function actualizarDeudaFactura()
     {
-        date_default_timezone_set('America/Bogota');
+        date_default_timezone_set('America/Mexico_City');
         $fechaActal = date('Y-m-d');
         if (isset($_POST['guardar'])) {
             $total = str_replace(',', '', $_POST['debe']) + str_replace(',', '', $_POST['abono']);

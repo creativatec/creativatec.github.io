@@ -536,7 +536,7 @@ function validarXML($doc)
 
     $xml = new DOMDocument();
     $xml->loadXML($doc);
-    $doc_validator = "C:/xampp/htdocs/juniorPizza/views/xmlValidator/UBL-Invoice-2.1.xsd";
+    $doc_validator = "C:/xampp/htdocs/creativatec.gihub.io/views/xmlValidator/UBL-Invoice-2.1.xsd";
 
     if ($xml->schemaValidate($doc_validator)) {
         //echo "enviado";
