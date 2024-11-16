@@ -171,10 +171,10 @@ if ($ress != null) {
     <?php
     if (isset($_SESSION['estable'])) {
         if ($_SESSION['estable'] == 1) {
-            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Mesero") {
+            if ($_SESSION['rol'] != "Administrador" && $_SESSION['rol'] != "Gerente" && $_SESSION['rol'] != "Mesero" && $_SESSION['rol'] != "Domiciliario") {
             } else {
     ?>
-                <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido' || $_GET['domicilio']) {
+                <li class="nav-item <?php if ($_GET['action'] == 'mesas' || $_GET['action'] == 'pedido' || $_GET['action'] == 'domicilio') {
                                         print 'active';
                                     } ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mesero" aria-expanded="true" aria-controls="collapseUtilities">
@@ -184,9 +184,19 @@ if ($ress != null) {
                     <div id="mesero" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu:</h6>
-                            <a class="collapse-item" href="mesas">Mesas</a>
-                            <a class="collapse-item" href="pedido">Pedidos</a>
-                            <a class="collapse-item" href="domicilio">Domicilio</a>
+                            <?php
+                            if ($_SESSION['rol'] != 'Domiciliario') {
+                            ?>
+                                <a class="collapse-item" href="mesas">Mesas</a>
+                                <a class="collapse-item" href="pedido">Pedidos</a>
+                                <a class="collapse-item" href="domicilio">Domicilio</a>
+                            <?php
+                            } else {
+                            ?>
+                                <a class="collapse-item" href="domicilio">Domicilio</a>
+                            <?php
+                            }
+                            ?>
                             <!--<a class="collapse-item" href="utilities-animation.html">Animations</a>
                 <a class="collapse-item" href="utilities-other.html">Other</a>-->
                         </div>
