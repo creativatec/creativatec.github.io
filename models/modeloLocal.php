@@ -7,7 +7,7 @@ class ModeloLocal
     public $tabla3 = "establecimiento";
     function agregarLocalModelo($dato)
     {
-        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono, inicio, fin, plazo,id_sistema,id_establecimiento) VALUES (?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO $this->tabla (nombre_local, nit, direccion, telefono, inicio, fin, plazo,id_sistema,id_establecimiento,cuota,valor) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -20,6 +20,8 @@ class ModeloLocal
             $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
             $stms->bindParam(8, $dato['sistema'], PDO::PARAM_INT);
             $stms->bindParam(9, $dato['estable'], PDO::PARAM_INT);
+            $stms->bindParam(10, $dato['cuota'], PDO::PARAM_INT);
+            $stms->bindParam(11, $dato['valor'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
@@ -120,7 +122,7 @@ class ModeloLocal
 
     function actualizarLocalAdminModelo($dato)
     {
-        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=?,id_sistema=?,id_establecimiento=? WHERE id_local=?";
+        $sql = "UPDATE $this->tabla SET nombre_local=?,nit=?,direccion=?,telefono=?,inicio=?,fin=?,plazo=?,id_sistema=?,id_establecimiento=?, cuota = ?, valor = ? WHERE id_local=?";
         $conn = new Conexion();
         $stms = $conn->conectar()->prepare($sql);
         if ($dato != '') {
@@ -133,7 +135,9 @@ class ModeloLocal
             $stms->bindParam(7, $dato['plazo'], PDO::PARAM_STR);
             $stms->bindParam(8, $dato['sistema'], PDO::PARAM_INT);
             $stms->bindParam(9, $dato['estable'], PDO::PARAM_INT);
-            $stms->bindParam(10, $dato['id'], PDO::PARAM_INT);
+            $stms->bindParam(10, $dato['cuota'], PDO::PARAM_INT);
+            $stms->bindParam(11, $dato['valor'], PDO::PARAM_INT);
+            $stms->bindParam(12, $dato['id'], PDO::PARAM_INT);
         }
         try {
             if ($stms->execute()) {
@@ -279,6 +283,24 @@ class ModeloLocal
         try {
             if ($stms->execute()) {
                 return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function actualizarCuotaSistermaLocalModelo($total){
+        $sql = "UPDATE $this->tabla SET cuota = ? WHERE id_local = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectar()->prepare($sql);
+        $stms->bindParam(1, $total, PDO::PARAM_INT);
+        $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
+
+        try {
+            if ($stms->execute()) {
+                return true;
             } else {
                 return false;
             }

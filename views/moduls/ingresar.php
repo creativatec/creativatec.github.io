@@ -62,6 +62,8 @@ if (isset($_GET['action'])) {
             </script>';
     }
     if ($_GET['action'] == "LoginSuspendidoPorPago") {
+        $local = new ControladorLocal();
+        $ress = $local->consultarLocal($_GET['id_local']);
 ?>
         <script>
             $(document).ready(function() {
@@ -80,7 +82,7 @@ if (isset($_GET['action'])) {
                     <div class="modal-body">
                         Ya han caducado los 7 días hábiles. Te quedan 0 días para pagar por lo cual tu establecimiento fue suspendido. Por favor, envía la confirmación de tu pago a través de un correo electrónico para habilitar tu establecimiento.
                         <br>
-                        Total A pagar $60.000
+                        Total A pagar $<?php echo number_format($ress[0]['valor'], 0) ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="abrirModal">Enviar Correo</button>

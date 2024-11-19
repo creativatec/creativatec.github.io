@@ -1,42 +1,64 @@
 <?php
+session_start();
+//controlador
+foreach (glob("../controllers/*.php") as $filename) {
+    require_once $filename;
+}
+
+// Requiere todos los archivos en la carpeta 'models'
+foreach (glob("../models/*.php") as $filename) {
+    require_once $filename;
+}
 // Función para crear el cuerpo del correo con archivo adjunto
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php'; // Asegúrate de ajustar la ruta si no usas Composer
+
 function enviarCorreoConAdjunto($to, $subject, $message, $filePath, $fileName)
 {
-    // Obtener el tipo de contenido del archivo
-    $fileType = mime_content_type($filePath);
+    $mail = new PHPMailer(true);
 
-    // Leer el contenido del archivo
-    $fileData = file_get_contents($filePath);
+    try {
+        // Configuración del servidor SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Cambia esto por tu servidor SMTP
+        $mail->SMTPAuth = true;
+        $mail->Username = 'feliperenjifoz@gmail.com'; // Tu correo electrónico
+        $mail->Password = 'eojcvtovqfdueobs'; // Tu contraseña de correo
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587; // Puerto SMTP
 
-    // Codificar el contenido del archivo en base64
-    $encodedFile = chunk_split(base64_encode($fileData));
 
-    // Generar un boundary único
-    $boundary = md5(time());
+        // Configurar el remitente y destinatario
+        $mail->setFrom('soporte@creativapublicidadytecnologia.com', 'Soporte Creativa');
+        $mail->addAddress($to);
 
-    // Encabezados del correo
-    $headers = "From: soporte@creativapublicidadytecnologia.com\r\n";
-    $headers .= "Reply-To: soporte@creativapublicidadytecnologia.com\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
+        // Adjuntar archivo
+        $mail->addAttachment($filePath, $fileName);
 
-    // Cuerpo del mensaje
-    $body = "--$boundary\r\n";
-    $body .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $body .= "$message\r\n";
-    $body .= "--$boundary\r\n";
-    $body .= "Content-Type: $fileType; name=\"$fileName\"\r\n";
-    $body .= "Content-Transfer-Encoding: base64\r\n";
-    $body .= "Content-Disposition: attachment; filename=\"$fileName\"\r\n\r\n";
-    $body .= "$encodedFile\r\n";
-    $body .= "--$boundary--";
+        // Contenido del correo
+        $mail->isHTML(false); // Si deseas usar HTML, cambia a true
+        $mail->Subject = $subject;
+        $mail->Body = $message;
 
-    // Enviar el correo
-    if (mail($to, $subject, $body, $headers)) {
-        echo 'Correo enviado exitosamente.';
-    } else {
-        echo 'Error al enviar el correo.';
+        // Enviar correo
+        $mail->send();
+
+        // Lógica adicional después de enviar el correo
+        $local = new ControladorLocal();
+        $res = $local->consultarLocal($_SESSION['id_local']);
+        $total = $res[0]['cuota'] - 1;
+        $actualizar = new ControladorLocal();
+        $resActualizar = $actualizar->actualizarCuotaSistermaLocal($total);
+
+        if ($resActualizar) {
+            echo 'Correo enviado exitosamente.';
+        } else {
+            echo 'Error al actualizar cuota';
+        }
+    } catch (Exception $e) {
+        echo "Error al enviar el correo: {$mail->ErrorInfo}";
     }
 }
 

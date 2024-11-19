@@ -56,7 +56,64 @@ $resultado2 = $ventasAnualNum - $gastoproeevedorAnualNum - $gastoAnualNum - $nom
 $ventasMes = '$' . number_format($resultado, 0, '.', ',');
 $gastosMes = '$' . number_format($resultado1, 0, '.', ',');
 $ventaAnual = '$' . number_format($resultado2, 0, '.', ',');
+if ($_SESSION['fin'] > 0) {
+} else {
+    if ($ress[0]['valor'] <= 0) {
+    } else {
+        print "<script>
+        $(document).ready(function() {
+            $('#caducidadModal').modal('toggle')
+        });
+    </script>";
+    }
+}
 ?>
+
+<div class="modal fade" id="caducidadModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">¡Atención!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ya han caducado los 30 días hábiles. Te quedan 7 días para pagar antes de que se desactive el sistema. Por favor, envía la confirmación de tu pago a través de un correo electrónico.
+                <br>
+                Total A pagar $<?php echo number_format($ress[0]['valor'], 0) ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="abrirModal">Enviar Correo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="comprobanteModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Enviar Comprobante de Pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="comprobanteForm">
+                    <div class="form-group">
+                        <label for="nombreEstablecimiento">Nombre del Establecimiento:</label>
+                        <input type="text" class="form-control" id="nombreEstablecimiento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comprobantePago">Foto del Comprobante de Pago:</label>
+                        <input type="file" class="form-control-file" id="comprobantePago" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function() {
         $('#exampleModalCenter').modal('toggle')

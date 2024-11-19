@@ -79,6 +79,13 @@ $res = $user->listarUsuario();
 
                                     </div>
                                 </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Valor<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="number" id="valor" name="valor" class="span4">
+
+                                    </div>
+                                </div>
                             </fieldset>
                         </div>
                         <div id="acct-password-row" class="span7">
@@ -122,6 +129,13 @@ $res = $user->listarUsuario();
                                             </select>
 
                                         </div>
+
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">Cuatas<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input type="text" id="cuota" name="cuota" class="span4">
 
                                     </div>
                                 </div>

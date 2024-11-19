@@ -37,7 +37,7 @@ class ControladorDomicilio
     {
         $listar = new ModeloDomicilio();
         $res = $listar->listarPedidoDomicilioPrintAjaxModelo($print);
-        if ($res) {
+        if ($res != null) {
             $resListo = $listar->listarPedidoDomicilioPirntFechaIngreso($res[0]['MAX(id_domicilio_pedido)'], $print);
             return $resListo;
         }

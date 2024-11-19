@@ -14,7 +14,9 @@ class ControladorLocal
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
                 'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
-                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null
+                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null,
+                'cuota ' => $_POST['cuota'],
+                'valor' => $_POST['valor']
             );
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
@@ -44,14 +46,16 @@ class ControladorLocal
                 'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
                 'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
                 'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
-                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null
+                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null,
+                'cuota' => $_POST['cuotaEdit'],
+                'valor' => $_POST['valorEdit']
             );
             $agregar = new ModeloLocal();
             $res = $agregar->actualizarLocalAdminModelo($dato);
             if ($res == true) {
                 echo '<script>window.location="actualizarLocal"</script>';
             }
-        }elseif (isset($_POST['actualizarLocal'])) {
+        } elseif (isset($_POST['actualizarLocal'])) {
             $dato = array(
                 'id' => $_POST['id'],
                 'local' => $_POST['localEdit'],
@@ -99,15 +103,24 @@ class ControladorLocal
         }
     }
 
-    function listarSistema(){
+    function listarSistema()
+    {
         $listar = new ModeloLocal();
         $res = $listar->listarSistemaModelo();
         return $res;
     }
 
-    function listarEstablecimiento(){
+    function listarEstablecimiento()
+    {
         $listar = new ModeloLocal();
         $res = $listar->listarEstablecimientoModelo();
+        return $res;
+    }
+
+    function actualizarCuotaSistermaLocal($total)
+    {
+        $listar = new ModeloLocal();
+        $res = $listar->actualizarCuotaSistermaLocalModelo($total);
         return $res;
     }
 }

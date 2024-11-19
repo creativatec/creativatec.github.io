@@ -207,7 +207,11 @@ class Ajax
         $resDomicilio = new ControladorDomicilio();
         $res = $resDomicilio->listarPedidoDomicilioPrintAjaxControlador($this->printDomicilio);
         foreach ($res as $key => $value) {
-            $datos[] = array('nombre' => $value['producto'], 'cantidad' => $value['cantidad'], 'descripcion' => (isset($value['descripcion'])) ? $value['descripcion'] : " ", 'categoria' => $value['nombre_categoria']);
+            if ($res != null) {
+                $datos[] = array('nombre' => $value['producto'], 'cantidad' => $value['cantidad'], 'descripcion' => (isset($value['descripcion'])) ? $value['descripcion'] : " ", 'categoria' => $value['nombre_categoria']);
+            }else{
+                $datos[] = '';
+            }
         }
         header('Content-Type: text/html; charset=UTF-8');
         print json_encode($datos);

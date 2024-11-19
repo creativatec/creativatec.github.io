@@ -39,9 +39,55 @@ class ControladorUsuario
                             $diferenciaPlazo = $fechaActual->diff($fechaFinDatePlazo);
                             $diasRestantes = (int)$diferencia->format("%r%a");
                             $Restantes = (int)$diferenciaPlazo->format("%r%a");
-                            if ($diasRestantes <= 0) {
-                                if ($Restantes <= 0) {
-                                    echo "<script type='text/javascript'>window.location.href = 'LoginSuspendidoPorPago';</script>";
+                            if ($reslocal[0]['cuota'] > 0 && $Restantes > 0) {
+                                $local = new ControladorLocal();
+                                $resLocal = $local->consultarLocal($res[0]['id_local']);
+                                $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
+                                $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
+                                $_SESSION['fin'] = $diasRestantes;
+                                $_SESSION['restamte'] = $Restantes;
+                                $_SESSION['id_usuario'] = $res[0]['id_usuario'];
+                                $_SESSION['id_local'] = $res[0]['id_local'];
+                                $_SESSION['usuario'] = $res[0]['usuario'];
+                                $_SESSION['rol'] = $res[0]['nombre_rol'];
+                                $_SESSION['validar'] = true;
+                                $funcion = new ControladorFuncion();
+                                $funcion->listarFunciones();
+                            } else {
+                                if ($diasRestantes <= 0) {
+                                    if ($Restantes <= 0) {
+                                        if ($reslocal[0]['cuota'] <= 0) {
+                                            $local = new ControladorLocal();
+                                            $resLocal = $local->consultarLocal($res[0]['id_local']);
+                                            $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
+                                            $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
+                                            $_SESSION['fin'] = $diasRestantes;
+                                            $_SESSION['restamte'] = $Restantes;
+                                            $_SESSION['id_usuario'] = $res[0]['id_usuario'];
+                                            $_SESSION['id_local'] = $res[0]['id_local'];
+                                            $_SESSION['usuario'] = $res[0]['usuario'];
+                                            $_SESSION['rol'] = $res[0]['nombre_rol'];
+                                            $_SESSION['validar'] = true;
+                                            $funcion = new ControladorFuncion();
+                                            $funcion->listarFunciones();
+                                        } else {
+                                            echo "<script type='text/javascript'>window.location.href = 'index.php?action=LoginSuspendidoPorPago&id_local=" . $res[0]['id_local'] . "';</script>";
+                                        }
+                                    } else {
+                                        $local = new ControladorLocal();
+                                        $resLocal = $local->consultarLocal($res[0]['id_local']);
+                                        $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
+                                        $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
+                                        $_SESSION['fin'] = $diasRestantes;
+                                        $_SESSION['restamte'] = $Restantes;
+                                        $_SESSION['id_usuario'] = $res[0]['id_usuario'];
+                                        $_SESSION['id_local'] = $res[0]['id_local'];
+                                        $_SESSION['usuario'] = $res[0]['usuario'];
+                                        $_SESSION['rol'] = $res[0]['nombre_rol'];
+                                        $_SESSION['validar'] = true;
+                                        $funcion = new ControladorFuncion();
+                                        $funcion->listarFunciones();
+                                    }
                                 } else {
                                     $local = new ControladorLocal();
                                     $resLocal = $local->consultarLocal($res[0]['id_local']);
@@ -57,20 +103,6 @@ class ControladorUsuario
                                     $funcion = new ControladorFuncion();
                                     $funcion->listarFunciones();
                                 }
-                            } else {
-                                $local = new ControladorLocal();
-                                $resLocal = $local->consultarLocal($res[0]['id_local']);
-                                $_SESSION['sistema'] = $resLocal[0]['id_sistema'];
-                                $_SESSION['estable'] = $resLocal[0]['id_establecimiento'];
-                                $_SESSION['fin'] = $diasRestantes;
-                                $_SESSION['restamte'] = $Restantes;
-                                $_SESSION['id_usuario'] = $res[0]['id_usuario'];
-                                $_SESSION['id_local'] = $res[0]['id_local'];
-                                $_SESSION['usuario'] = $res[0]['usuario'];
-                                $_SESSION['rol'] = $res[0]['nombre_rol'];
-                                $_SESSION['validar'] = true;
-                                $funcion = new ControladorFuncion();
-                                $funcion->listarFunciones();
                             }
                         } else {
                             echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";

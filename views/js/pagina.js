@@ -487,6 +487,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('input[name="inicio"]').value = data.inicio;
                     document.querySelector('input[name="fin"]').value = data.fin;
                     document.querySelector('input[name="diasHabiles"]').value = data.plazo;
+                    document.querySelector('input[name="cuota"]').value = data.cuota;
+                    document.querySelector('input[name="valor"]').value = data.valor;
 
                     const selectSistema = document.querySelector('select[name="sistema"]');
                     selectSistema.value = data.id_sistema;
@@ -507,9 +509,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('input[name="nit"]').setAttribute('name', 'nitEdit');
                     document.querySelector('input[name="dire"]').setAttribute('name', 'direEdit');
                     document.querySelector('input[name="tel"]').setAttribute('name', 'telEdit');
+                    document.querySelector('input[name="cuota"]').setAttribute('name', 'cuotaEdit');
+                    document.querySelector('input[name="valor"]').setAttribute('name', 'valorEdit');
                     ocument.querySelector('input[name="inicio"]').setAttribute('name', 'inicioEdit');
                     ocument.querySelector('input[name="fin"]').setAttribute('name', 'finEdit');
                     ocument.querySelector('input[name="diasHabiles"]').setAttribute('name', 'diasHabilesEdit');
+                    
                 })
                 .catch(error => console.error('Error:', error));
         });

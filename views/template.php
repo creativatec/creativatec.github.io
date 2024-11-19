@@ -872,6 +872,24 @@ if (isset($_SESSION['validarPagina'])) {
                                                 });
 
                                             } else {
+                                                $.ajax({
+                                                    url: 'views/ajax.php',
+                                                    type: 'GET',
+                                                    dataType: 'json',
+                                                    data: {
+                                                        respuestaPrintDomicilio: printDomicilio,
+                                                        id: producto.id
+                                                    },
+                                                    success: async function(response) {
+                                                        if (response == true) {
+                                                            location.reload();
+                                                        }
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        // Mostrar error si hay algún problema con la solicitud AJAX
+                                                        $('#valorEspecifico').text('Error: ' + error);
+                                                    }
+                                                });
                                                 alert("Error: " + respuesta);
                                             }
 
@@ -918,6 +936,24 @@ if (isset($_SESSION['validarPagina'])) {
                                                 });
 
                                             } else {
+                                                $.ajax({
+                                                    url: 'views/ajax.php',
+                                                    type: 'GET',
+                                                    dataType: 'json',
+                                                    data: {
+                                                        respuestaPrintDomicilio: printDomicilio,
+                                                        id: producto.id
+                                                    },
+                                                    success: async function(response) {
+                                                        if (response == true) {
+                                                            location.reload();
+                                                        }
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        // Mostrar error si hay algún problema con la solicitud AJAX
+                                                        $('#valorEspecifico').text('Error: ' + error);
+                                                    }
+                                                });
                                                 alert("Error: " + respuesta);
                                             }
 
@@ -965,6 +1001,7 @@ if (isset($_SESSION['validarPagina'])) {
     <script src="views/js/jquery-ui.js"></script>
     <script src="views/js/ConectorJavaScript.js"></script>
     <script src="views/js/js.js"></script>
+    <script src="assets/js/js.js"></script>
 
 
 
