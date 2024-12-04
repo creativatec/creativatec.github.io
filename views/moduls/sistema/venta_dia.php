@@ -35,11 +35,14 @@ if (isset($_POST['cierre'])) {
 }
 if ($_SESSION['fin'] > 0) {
 } else {
-    print "<script>
+    if ($ress[0]['cuota'] <= 0) {
+    } else {
+        print "<script>
                     $(document).ready(function() {
                         $('#caducidadModal').modal('toggle')
                     });
                 </script>";
+    }
 }
 ?>
 <div class="modal fade" id="caducidadModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">

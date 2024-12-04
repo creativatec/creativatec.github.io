@@ -240,7 +240,7 @@ class ControladorProducto
                     if ($id[$i] != null) {
                         $cantidad_producto = $cant[$i] + $cantidad[$i];
                         $agreagr = new ModeloProducto();
-                        $res = $agreagr->actualizarProductoModelo($id[$i], $id_proeevedor, $codigo[$i], $nombre[$i], $precio[$i], $cantidad_producto, $id_categoria[$i], $id_medida[$i],$id_impuesto[$i], $id_local[$i]);
+                        $res = $agreagr->actualizarProductoModelo($id[$i], $id_proeevedor, $codigo[$i], $nombre[$i], $precio[$i], $cantidad_producto, $id_categoria[$i], $id_medida[$i], $id_impuesto[$i], $id_local[$i]);
                         if ($res == true) {
                             $agregarFactura = new ControladorFacturaProeevedor();
                             $resFactura = $agregarFactura->agregarFacturaProeevedor($id_categoria[$i], $id_proeevedor, $_SESSION['id_usuario'], $id_medida[$i], $codigo[$i], $nombre[$i], $precio[$i], $cantidad[$i], $id_local, $totalFactura, $precioUnita[$i], $total[$i]);
@@ -250,7 +250,7 @@ class ControladorProducto
                         }
                     } else {
                         $agreagr = new ModeloProducto();
-                        $res = $agreagr->agregarProductoModelo($id_proeevedor, $codigo[$i], $nombre[$i], $precio[$i], $cantidad[$i], $id_categoria[$i], $id_medida[$i],$id_impuesto[$i], $id_local[$i]);
+                        $res = $agreagr->agregarProductoModelo($id_proeevedor, $codigo[$i], $nombre[$i], $precio[$i], $cantidad[$i], $id_categoria[$i], $id_medida[$i], $id_impuesto[$i], $id_local[$i]);
                         if ($res == true) {
                             $agregarFactura = new ControladorFacturaProeevedor();
                             $resFactura = $agregarFactura->agregarFacturaProeevedor($id_categoria[$i], $id_proeevedor, $_SESSION['id_usuario'], $id_medida[$i], $codigo[$i], $nombre[$i], $precio[$i], $cantidad[$i], $id_local, $totalFactura, $precioUnita[$i], $total[$i]);
@@ -278,10 +278,10 @@ class ControladorProducto
         return $res;
     }
 
-    function consultarProductoAjaxControlador($dato,$id)
+    function consultarProductoAjaxControlador($dato, $id)
     {
         $consultar = new ModeloProducto();
-        $res = $consultar->consultarModeloProductoAjaxModelo($dato,$id);
+        $res = $consultar->consultarModeloProductoAjaxModelo($dato, $id);
         return $res;
     }
 
@@ -296,6 +296,13 @@ class ControladorProducto
     {
         $conusltar = new ModeloProducto();
         $res = $conusltar->consultarAritucloProeevedoridAjaxModelo($nit);
+        return $res;
+    }
+
+    function consultarAritucloProeevedornitAjax($nit)
+    {
+        $conusltar = new ModeloProducto();
+        $res = $conusltar->consultarAritucloProeevedornitAjaxModelo($nit);
         return $res;
     }
 

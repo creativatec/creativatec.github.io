@@ -125,7 +125,7 @@ class ModeloProducto
     function consultarAritucloProeevedoridAjaxModelo($nit)
     {
 
-        $sql = "SELECT * FROM $this->tabla WHERE codigo_producto like ? OR nombre_producto like ? AND id_local = ?";
+        $sql = "SELECT * FROM $this->tabla WHERE nombre_producto like ? AND id_local = ?";
 
         try {
             $conn = new Conexion();
@@ -133,9 +133,30 @@ class ModeloProducto
             if ($nit != null) {
                 $nombre = '%' . $nit . '%';
                 $nit = $nit . '%';
-                $stms->bindParam(1, $nit, PDO::PARAM_INT);
-                $stms->bindParam(2, $nombre, PDO::PARAM_STR);
-                $stms->bindParam(3, $_SESSION['id_local'], PDO::PARAM_INT);
+                $stms->bindParam(1, $nombre, PDO::PARAM_STR);
+                $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
+            }
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return [];
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function consultarAritucloProeevedornitAjaxModelo($nit){
+        $sql = "SELECT * FROM $this->tabla WHERE codigo_producto like ? AND id_local = ?";
+
+        try {
+            $conn = new Conexion();
+            $stms = $conn->conectar()->prepare($sql);
+            if ($nit != null) {
+                $nombre = '%' . $nit . '%';
+                $nit = $nit . '%';
+                $stms->bindParam(1, $nombre, PDO::PARAM_STR);
+                $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
             }
             if ($stms->execute()) {
                 return $stms->fetchAll();

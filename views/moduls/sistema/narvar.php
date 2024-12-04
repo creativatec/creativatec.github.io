@@ -382,7 +382,7 @@ if ($ress != null) {
                 Dias Restantes: <?php echo $_SESSION['fin'] ?>
                 <?php
             } else {
-                if ($ress[0]['valor'] <= 0) {
+                if ($ress[0]['cuota'] <= 0) {
                 } else {
                 ?>
                     Dias Restantes Plazo Suspencion: <?php echo $_SESSION['restamte'] ?>

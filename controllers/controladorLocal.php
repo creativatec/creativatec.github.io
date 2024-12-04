@@ -10,18 +10,19 @@ class ControladorLocal
                 'nit' => $_POST['nit'],
                 'dire' => $_POST['dire'],
                 'tel' => $_POST['tel'],
-                'inicio' => (isset($_POST['inicio'])) ? $_POST['inicio'] : null,
-                'fin' => (isset($_POST['fin'])) ? $_POST['fin'] : null,
-                'plazo' => (isset($_POST['diasHabiles'])) ? $_POST['diasHabiles'] : null,
-                'sistema' => (isset($_POST['sistema'])) ? $_POST['sistema'] : null,
-                'estable' => (isset($_POST['estable'])) ? $_POST['estable'] : null,
-                'cuota ' => $_POST['cuota'],
+                'inicio' => $_POST['inicio'],
+                'fin' => $_POST['fin'],
+                'plazo' => $_POST['diasHabiles'],
+                'sistema' => $_POST['sistema'],
+                'estable' => $_POST['estable'],
+                'cuota' => $_POST['cuota'],
                 'valor' => $_POST['valor']
             );
+            var_dump($dato);
             $agregar = new ModeloLocal();
             $res = $agregar->agregarLocalModelo($dato);
             $resIDLocal = $agregar->obtenerUltimoID();
-            $dato = array(
+            $datos = array(
                 'priNombre' => 'NNNN',
                 'segNombre' => '',
                 'priApellido' => 'NNNN',
@@ -31,7 +32,7 @@ class ControladorLocal
                 'local' => $resIDLocal[0]['MAX(id_local)']
             );
             $cliente = new ModeloCliente();
-            $resClient = $cliente->agregarClienteModelo($dato);
+            $resClient = $cliente->agregarClienteModelo($datos);
             if ($resClient == true) {
                 echo '<script>window.location="agregarLocal"</script>';
             }

@@ -320,7 +320,7 @@ class Ajax
     function consultarAritucloProeevedorAgregarFactura()
     {
         $consultar_id = new ControladorProducto();
-        $res = $consultar_id->consultarAritucloProeevedoridAjax($this->articulo);
+        $res = $consultar_id->consultarAritucloProeevedornitAjax($this->articulo);
         foreach ($res as $key => $value) {
             $datos[] = array(
                 'value' => $value['id_producto'],
@@ -343,6 +343,13 @@ class Ajax
         }
 
         print json_encode($datos);
+    }
+    function eliminarLocalIdMasivo($id){
+        $listar = new ModeloLocal();
+        $res = $listar->listarTablasLocal();
+        foreach ($res as $key => $value) {
+            $listar->obtenerTablasPorID($value['table_name'],$id);
+        }
     }
 }
 
@@ -480,6 +487,11 @@ if (isset($_GET['codigo1'])) {
 if (isset($_GET['impuesto'])) {
     $ajax->impuesto = $_GET['impuesto'];
     $ajax->consultarImpuestoAjax();
+}
+
+if (isset($_POST['id_locaEliminar'])) {
+    $id_local = $_POST['id_locaEliminar'];
+    $red = $ajax->eliminarLocalIdMasivo($id_local);
 }
 
 ////
