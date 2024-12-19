@@ -612,3 +612,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.edit-button-maps');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+
+            // Realiza una llamada AJAX para obtener los datos
+            fetch('models/modeloMaps.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id_maps=' + id
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    // Asigna los valores obtenidos a los campos de entrada
+                    document.querySelector('input[name="id_maps"]').value = data.id_maps;
+                    document.querySelector('input[name="Nomcliente"]').value = data.name;
+                    document.querySelector('input[name="dire"]').value = data.direccion;
+                    document.querySelector('input[name="lit"]').value = data.lat;
+                    document.querySelector('input[name="long"]').value = data.lng;
+                    document.querySelector('input[name="uploadImage1"]').value = data.logo;
+                    document.querySelector('img[id="uploadPreview2"]').src = data.logo;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+});

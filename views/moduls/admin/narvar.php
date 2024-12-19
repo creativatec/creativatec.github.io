@@ -60,6 +60,11 @@
                             <i class="icon-list-alt icon-large"></i> Cliente
                         </a>
                     </li>
+                    <li>
+                        <a href="maps">
+                            <i class="icon-list-alt icon-large"></i> Mapa
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

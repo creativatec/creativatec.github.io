@@ -149,7 +149,9 @@ class ModeloViews
             return $moduloRuta;
         } else {
             // Retornar 404 si no se encuentra el módulo
-            if (isset($_SESSION['validar'])) {
+            if (isset($_SESSION['validarPagina'])) {
+                return $this->directorioAlternativo . '404.php';
+            }elseif (isset($_SESSION['validar'])) {
                 return $this->directorioSistema . '404.php';
             } else {
                 return $this->directorioModulos . '404.php';
