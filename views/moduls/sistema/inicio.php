@@ -58,13 +58,16 @@ $gastosMes = '$' . number_format($resultado1, 0, '.', ',');
 $ventaAnual = '$' . number_format($resultado2, 0, '.', ',');
 if ($_SESSION['fin'] > 0) {
 } else {
-    if ($ress[0]['valor'] <= 0) {
-    } else {
-        print "<script>
-        $(document).ready(function() {
-            $('#caducidadModal').modal('toggle')
-        });
-    </script>";
+    if (isset($ress[0]['valor'])) {
+        if ($ress[0]['valor'] <= 0) {
+            # code...
+        } else {
+            print "<script>
+            $(document).ready(function() {
+                $('#caducidadModal').modal('toggle')
+            });
+        </script>";
+        }
     }
 }
 ?>

@@ -3,6 +3,7 @@
 class ModeloProducto
 {
     public $tabla = "producto";
+    public $tabla1 = "productos";
     function agregarProductoModelo($id_proeevedor, $codigo, $nombre, $precio, $cantidad, $id_categoria, $id_medida, $id_impuesto, $id_local)
     {
         $sql = "INSERT INTO $this->tabla (id_proeevedor, codigo_producto, nombre_producto, precio_unitario, cantidad_producto, id_categoria, id_medida,id_impuesto, id_local) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -306,6 +307,158 @@ class ModeloProducto
                 } catch (PDOException $e) {
                     print_r($e->getMessage());
                 }
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+////////////////
+    function agregarProductoModeloTienda($dato)
+    {
+        $sql = "INSERT INTO $this->tabla1(nombre,precio,precio_descuento,cantidad,id_categoria) VALUES (?,?,?,?,?)";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        if ($dato != '') {
+            $stms->bindParam(1, $dato['nom'], PDO::PARAM_STR);
+            $stms->bindParam(2, $dato['precio'], PDO::PARAM_INT);
+            $stms->bindParam(3, $dato['precioPromo'], PDO::PARAM_INT);
+            $stms->bindParam(4, $dato['cant'], PDO::PARAM_INT);
+            $stms->bindParam(5, $dato['id_categoria'], PDO::PARAM_INT);
+        }
+        try {
+            if ($stms->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function obtenerUltimoIdProducto()
+    {
+        $sql = "SELECT MAX(id_producto) FROM $this->tabla1";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarProductosModelo()
+    {
+        $sql = "SELECT *, categoria.nombre AS categoria, productos.nombre AS producto FROM $this->tabla1 INNER JOIN categoria ON categoria.id_categoria = productos.id_categoria INNER JOIN fotos_producto ON fotos_producto.id_producto = productos.id_producto";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function consultarProductoAjaxModelo($dato)
+    {
+        $sql = "SELECT *, categoria.nombre AS categoria, productos.nombre AS producto FROM $this->tabla1 INNER JOIN categoria ON categoria.id_categoria = productos.id_categoria INNER JOIN fotos_producto ON fotos_producto.id_producto = productos.id_producto INNER JOIN descripcion_producto ON descripcion_producto.id_producto = productos.id_producto WHERE productos.nombre like ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        if ($dato != '') {
+            $nom = "%" . $dato . "%";
+            $stms->bindParam(1, $nom, PDO::PARAM_STR);
+        }
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function actualizarProductoModeloTienda($dato)
+    {
+        $sql = "UPDATE $this->tabla1 SET nombre= ?,precio= ?,precio_descuento= ?,cantidad= ?,id_categoria= ? WHERE id_producto = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        if ($dato != '') {
+            $stms->bindParam(1, $dato['nom'], PDO::PARAM_STR);
+            $stms->bindParam(2, $dato['precio'], PDO::PARAM_INT);
+            $stms->bindParam(3, $dato['precioPromo'], PDO::PARAM_INT);
+            $stms->bindParam(4, $dato['cant'], PDO::PARAM_INT);
+            $stms->bindParam(5, $dato['id_categoria'], PDO::PARAM_INT);
+            $stms->bindParam(6, $dato['id'], PDO::PARAM_INT);
+        }
+        try {
+            if ($stms->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarTablasProducto()
+    {
+        $sql = "SELECT table_name FROM information_schema.columns WHERE column_name = 'id_producto' AND table_schema = 'proverpe_tienaproverpet'";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function obtenerTablasPorID($tabla, $id_producto)
+    {
+        $sql = "DELETE FROM $tabla WHERE id_producto = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        $stms->bindParam(1, $id_producto, PDO::PARAM_INT);
+
+        try {
+            if ($stms->execute()) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al eliminar']);
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarProductoIdModelo($id)
+    {
+        $sql = "SELECT *, categoria.nombre AS categoria, productos.nombre AS producto FROM $this->tabla1 INNER JOIN categoria ON categoria.id_categoria = productos.id_categoria INNER JOIN fotos_producto ON fotos_producto.id_producto = productos.id_producto INNER JOIN descripcion_producto ON descripcion_producto.id_producto = productos.id_producto WHERE productos.id_producto = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        $stms->bindParam(1, $id, PDO::PARAM_STR);
+
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
             } else {
                 return false;
             }

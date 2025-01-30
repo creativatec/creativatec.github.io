@@ -111,6 +111,9 @@ $listarRedes = $agregarRedes->agregarRedes();
                         <div class="button">
                             <a href="contactanos" class="btn white-bg mouse-dir">Consigue Una Cotización<span class="dir-part"></span></a>
                         </div>
+                        <div class="button">
+                            <a href="tienda" class="btn white-bg mouse-dir">Tienda<span class="dir-part"></span></a>
+                        </div>
                     </nav> <!-- navbar -->
                 </div>
             </div>

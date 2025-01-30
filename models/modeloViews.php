@@ -5,6 +5,7 @@ class ModeloViews
 
     private $directorioSistema = 'views/moduls/sistema/';
     private $directorioAlternativo = 'views/moduls/admin/';
+    private $directorioATienda = 'views/moduls/tienda/';
     private $directorioModulos = 'views/moduls/';
     private $modulosValidos = [];
 
@@ -15,6 +16,8 @@ class ModeloViews
             $this->cargarModulosValidos($this->directorioAlternativo);
         } elseif (isset($_SESSION['validar'])) {
             $this->cargarModulosValidos($this->directorioSistema);
+        } elseif (isset($_SESSION['tienda'])) {
+            $this->cargarModulosValidos($this->directorioATienda);
         } else {
             $this->cargarModulosValidos($this->directorioModulos);
         }
@@ -43,6 +46,8 @@ class ModeloViews
             $directorioBase = $this->directorioAlternativo;
         } elseif (isset($_SESSION['validar'])) {
             $directorioBase = $this->directorioSistema;
+        } elseif (isset($_SESSION['tienda'])) {
+            $directorioBase = $this->directorioATienda;
         } else {
             $directorioBase = $this->directorioModulos;
         }
@@ -151,8 +156,10 @@ class ModeloViews
             // Retornar 404 si no se encuentra el módulo
             if (isset($_SESSION['validarPagina'])) {
                 return $this->directorioAlternativo . '404.php';
-            }elseif (isset($_SESSION['validar'])) {
+            } elseif (isset($_SESSION['validar'])) {
                 return $this->directorioSistema . '404.php';
+            } elseif (isset($_SESSION['tienda'])) {
+                return $this->directorioATienda . '404.php';
             } else {
                 return $this->directorioModulos . '404.php';
             }

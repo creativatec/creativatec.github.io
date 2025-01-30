@@ -1008,6 +1008,78 @@ if (isset($_SESSION['validarPagina'])) {
 
     </html>
 <?php
+} elseif (isset($_SESSION['tienda'])) {
+?>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PROVERPET <?php if (isset($_GET['action'])) {
+                                print "| " . $_GET['action'];
+                            } ?></title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
+
+        <!-- Favicon -->
+        <link href="views/img/logo2.jpeg" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <script src="views/js/sweetalert.min.js"></script>
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="views/lib/tienda/animate/animate.min.css" rel="stylesheet">
+        <link href="views/lib/tienda/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="views/css/tienda/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="views/css/jquery-ui.css" />
+
+    </head>
+
+    <body>
+        <?php
+        include("views/moduls/tienda/narvar.php");
+        ?>
+        <?php
+        $mvc = new controladorViews();
+        $mvc->enlacesPaginaControlador();
+        ?>
+        </div>
+        <?php
+        include("views/moduls/tienda/footer.php");
+        ?>
+    </body>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap4.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="views/lib/tienda/easing/easing.min.js"></script>
+    <script src="views/lib/tienda/owlcarousel/owl.carousel.min.js"></script>
+    <script src="views/js/jquery-ui.js"></script>
+    <!-- Contact Javascript File -->
+    <script src="views/mail/tienda/jqBootstrapValidation.min.js"></script>
+    <script src="views/mail/tienda/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="views/js/tienda/main.js"></script>
+    <script src="views/js/tienda.js"></script>
+    <script src="views/js/table.js"></script>
+
+    </html>
+<?php
 } else {
 ?>
     <!DOCTYPE html>
