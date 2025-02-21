@@ -57,7 +57,7 @@ $precioRes = $precio->agregarPrecio();
                 <div class="feature-right wow fadeInUp" data-wow-delay=".3s">
                     <div class="watch-inner">
                         <div class="video-head wow zoomIn" data-wow-delay="0.4s">
-                            <a href="https://www.youtube.com/watch?v=BqI0Q7e4kbk" class="glightbox video"><i
+                            <a href="https://www.youtube.com/watch?v=JRpVvu3VVcM" class="glightbox video"><i
                                     class="lni lni-play"></i></a>
                         </div>
                     </div>

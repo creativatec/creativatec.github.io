@@ -1610,7 +1610,7 @@ p {
 
 .feature-right {
   position: relative;
-  background-image: url('../images/feature-image.jpg');
+  background-image: url('../images/logo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;

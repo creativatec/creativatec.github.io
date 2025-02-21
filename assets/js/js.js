@@ -70,10 +70,10 @@ initMap();
 
 var urlActual = window.location.href;
 var hosting = window.location.hostname;
-if (urlActual == "http://" + hosting + "/creativatec.gihub.io/inicio") {
+if (urlActual == "https://" + hosting + "/inicio") {
   //========= glightbox
   GLightbox({
-    'href': 'https://www.youtube.com/watch?v=BqI0Q7e4kbk&t=1s',
+    'href': 'https://www.youtube.com/watch?v=JRpVvu3VVcM&t=1s',
     'type': 'video',
     'source': 'youtube', //vimeo, youtube or local
     'width': 900,

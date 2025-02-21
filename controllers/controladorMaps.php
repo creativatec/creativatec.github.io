@@ -8,41 +8,33 @@ foreach (glob("../controllers/*.php") as $filename) {
 foreach (glob("../models/*.php") as $filename) {
     require_once $filename;
 }
+
 class ControladorMaps
 {
     function agregarClienteMaps()
     {
-        if (isset($_POST['cliente'])) {
-            if ($_POST['id_maps'] > 0) {
-                //actualizar
-                $archivo = $_FILES['logo']['name'];
-                //Si el archivo contiene algo y es diferente de vacio
-                if (isset($archivo) && $archivo != "") {
-                    //Obtenemos algunos datos necesarios sobre el archivo
+        if (isset($_POST['clienteMaps'])) {
+            $archivo = isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK ? $_FILES['logo']['name'] : null;
+            $file = $archivo ? 'assets/images/web/' . $archivo : (isset($_POST['uploadImage1']) ? $_POST['uploadImage1'] : '');
+
+            if (isset($_POST['id_maps']) && $_POST['id_maps'] > 0) {
+                // Actualizar
+                if ($archivo) {
                     $tipo = $_FILES['logo']['type'];
                     $tamano = $_FILES['logo']['size'];
                     $temp = $_FILES['logo']['tmp_name'];
-                    //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
+
                     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
                         echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
                             - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
                     } else {
-                        //Si la imagen es correcta en tamaño y tipo
-                        //Se intenta subir al servidor
                         $destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/images/web/' . $archivo;
                         if (move_uploaded_file($temp, $destino)) {
                             chmod($destino, 0777);
-                            echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
-                        } else {
-                            echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
                         }
                     }
                 }
-                if ($_FILES['logo']['name'] != null) {
-                    $file = 'assets/images/web/' . $archivo;
-                } else {
-                    $file = $_POST['uploadImage1'];
-                }
+                
                 $dato = array(
                     'id' => $_POST['id_maps'],
                     'cliente' => $_POST['Nomcliente'],
@@ -51,43 +43,38 @@ class ControladorMaps
                     'long' => $_POST['long'],
                     'logo' => $file
                 );
-                $actaulziar = new ModeloMaps();
-                $res = $actaulziar->actualizarClienteModleo($dato);
+                
+                $actualizar = new ModeloMaps();
+                $res = $actualizar->actualizarClienteModleo($dato);
                 if ($res == true) {
                     echo "<script type='text/javascript'>history.back();</script>";
                 }
             } else {
-                //agreagr
-                $archivo = $_FILES['logo']['name'];
-                //Si el archivo contiene algo y es diferente de vacio
-                if (isset($archivo) && $archivo != "") {
-                    //Obtenemos algunos datos necesarios sobre el archivo
+                // Agregar
+                if ($archivo) {
                     $tipo = $_FILES['logo']['type'];
                     $tamano = $_FILES['logo']['size'];
-                    print $temp = $_FILES['logo']['tmp_name'];
-                    //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
+                    $temp = $_FILES['logo']['tmp_name'];
+
                     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
                         echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
                             - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
                     } else {
-                        //Si la imagen es correcta en tamaño y tipo
-                        //Se intenta subir al servidor
                         $destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/images/web/' . $archivo;
                         if (move_uploaded_file($temp, $destino)) {
                             chmod($destino, 0777);
-                            echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
-                        } else {
-                            echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
                         }
                     }
                 }
+                
                 $dato = array(
                     'cliente' => $_POST['Nomcliente'],
                     'dire' => $_POST['dire'],
                     'lit' => $_POST['lit'],
                     'long' => $_POST['long'],
-                    'logo' => 'assets/images/web/' . $archivo
+                    'logo' => $file
                 );
+                
                 $agregar = new ModeloMaps();
                 $res = $agregar->agregarClienteModleo($dato);
                 if ($res == true) {
@@ -95,12 +82,13 @@ class ControladorMaps
                 }
             }
         }
+        
         $mostrar = new ModeloMaps();
-        $res = $mostrar->mostrarClienteModleo();
-        return $res;
+        return $mostrar->mostrarClienteModleo();
     }
 }
+
 if (isset($_POST['cliente'])) {
     $agregar = new ControladorMaps();
-    $res = $agregar->agregarClienteMaps();
+    $agregar->agregarClienteMaps();
 }

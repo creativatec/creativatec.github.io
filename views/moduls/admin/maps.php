@@ -100,7 +100,7 @@ $res = $agregar->agregarClienteMaps();
                         </div>
                     </div>
                     <footer id="submit-actions" class="form-actions">
-                        <button id="submit-button" type="submit" class="btn btn-primary" name="cliente" value="CONFIRM">Guardar</button>
+                        <button id="submit-button" type="submit" class="btn btn-primary" name="clienteMaps" value="CONFIRM">Guardar</button>
                     </footer>
                 </form>
             </div>
