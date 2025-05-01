@@ -26,13 +26,13 @@ $listarRedes = $agregarRedes->agregarRedes();
                         <a class="text-secondary" href="contact"><i class="fa fa-angle-right mr-2"></i>Contactanos</a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
+                <div class="col-md-6 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">Ubicación</h5>
                     <iframe id="gmap_canvas"
                         src="https://maps.google.com/maps?q=Cl.+18+%233-19,+Girardot,+Cundinamarca&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
                         style="width: 100%;"></iframe>
                 </div>
-                <div class="col-md-4 mb-5">
+                <!--<div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">SIGUENOS</h5>
                     <div class="d-flex">
                         <?php
@@ -43,7 +43,7 @@ $listarRedes = $agregarRedes->agregarRedes();
                         }
                         ?>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

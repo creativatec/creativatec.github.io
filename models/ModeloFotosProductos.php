@@ -8,7 +8,7 @@ class ModeloFotosProductos
     {
         $sql = "INSERT INTO $this->tabla(id_producto,foto_protada,foto1,foto2,foto3) VALUES (?,?,?,?,?)";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         if ($dato != '') {
             $stms->bindParam(1, $dato['id_producto'], PDO::PARAM_INT);
             $stms->bindParam(2, $dato['portada'], PDO::PARAM_STR);
@@ -30,7 +30,7 @@ class ModeloFotosProductos
     function agctualizarFotosProductosModelo($dato){
         $sql = "UPDATE $this->tabla SET foto_protada= ?,foto1= ?,foto2= ?,foto3= ? WHERE id_producto = ?";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         if ($dato != '') {
             $stms->bindParam(1, $dato['portada'], PDO::PARAM_STR);
             $stms->bindParam(2, $dato['foto1'], PDO::PARAM_STR);

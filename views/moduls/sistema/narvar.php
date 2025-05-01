@@ -250,13 +250,28 @@ if ($ress != null) {
             <div id="facutracion" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menu:</h6>
-                    <a class="collapse-item" href="caja">Caja</a>
-                    <a class="collapse-item" href="venta_dia">Venta dia</a>
-                    <a class="collapse-item" href="gastos">Gastos</a>
-                    <a class="collapse-item" href="nomina">Nomina</a>
-                    <a class="collapse-item" href="propina">Propina</a>
-                    <a class="collapse-item" href="devoluciones">Devoluciones</a>
-                    <a class="collapse-item" href="deudores">Deudores</a>
+                    <?php if (isset($_SESSION['estable'])) {
+                        if ($_SESSION['estable'] == 4) {
+                    ?>
+                            <a class="collapse-item" href="caja">Caja</a>
+                            <a class="collapse-item" href="venta_dia">Venta dia</a>
+                            <a class="collapse-item" href="gastos">Gastos</a>
+                            <a class="collapse-item" href="nomina">Nomina</a>
+                            <a class="collapse-item" href="devoluciones">Devoluciones</a>
+                        <?php
+                        } else {
+                        ?>
+                            <a class="collapse-item" href="caja">Caja</a>
+                            <a class="collapse-item" href="venta_dia">Venta dia</a>
+                            <a class="collapse-item" href="gastos">Gastos</a>
+                            <a class="collapse-item" href="nomina">Nomina</a>
+                            <a class="collapse-item" href="propina">Propina</a>
+                            <a class="collapse-item" href="devoluciones">Devoluciones</a>
+                            <a class="collapse-item" href="deudores">Deudores</a>
+                    <?php
+                        }
+                    } ?>
+
                 </div>
             </div>
         </li>

@@ -3,6 +3,7 @@ require_once 'conexion.php';
 class ModeloUsuario
 {
     public $tabla = "usuario";
+    public $tabla1 = "usuariotienda";
 
     function ModeloLoginIngresarPagina($dato)
     {
@@ -43,6 +44,27 @@ class ModeloUsuario
             print_r($e->getMessage());
         }
     }
+
+    function ModeloLoginIngresarTienda($dato)
+    {
+        $sql = "SELECT * FROM $this->tabla1 WHERE usuario = ? AND clave = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        if ($dato != '') {
+            $stms->bindParam(1, $dato['user'], PDO::PARAM_STR);
+            $stms->bindParam(2, $dato['clave'], PDO::PARAM_STR);
+        }
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
     function agregarUsuarioModelo($dato)
     {
         $sql = "INSERT INTO $this->tabla (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, usuario, clave, id_rol, id_activo, id_local) VALUES (?,?,?,?,?,?,?,?,?)";

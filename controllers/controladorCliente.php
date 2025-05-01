@@ -103,4 +103,17 @@ class ControladorCliente
             echo '<script>window.location="eliminarCliente"</script>';
         }
     }
+
+    function listarClienteTienda()
+    {
+        $lis = new ModeloCliente();
+        $res = $lis->listarClientes();
+        return $res;
+    }
+    function listarclientetoken($token)
+    {
+        $listar = new ModeloCliente();
+        $res = $listar->listarclientetokenModelo($token);
+        return $res;
+    }
 }

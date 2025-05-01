@@ -38,6 +38,13 @@ class Ajax
     public $id_factura;
     public $impuesto;
 
+    //Tienda
+
+    public $id_producto;
+    public $id_reviews;
+    public $id_carrito;
+    public $cantidad;
+
     function consultarProeevedorAjax()
     {
         $consultar = new ControladorProeevedor();
@@ -209,7 +216,7 @@ class Ajax
         foreach ($res as $key => $value) {
             if ($res != null) {
                 $datos[] = array('nombre' => $value['producto'], 'cantidad' => $value['cantidad'], 'descripcion' => (isset($value['descripcion'])) ? $value['descripcion'] : " ", 'categoria' => $value['nombre_categoria']);
-            }else{
+            } else {
                 $datos[] = '';
             }
         }
@@ -344,12 +351,98 @@ class Ajax
 
         print json_encode($datos);
     }
-    function eliminarLocalIdMasivo($id){
+    function eliminarLocalIdMasivo($id)
+    {
         $listar = new ModeloLocal();
         $res = $listar->listarTablasLocal();
         foreach ($res as $key => $value) {
-            $listar->obtenerTablasPorID($value['table_name'],$id);
+            $listar->obtenerTablasPorID($value['table_name'], $id);
         }
+    }
+
+    //tienda
+
+    function consultaridProductoAjax()
+    {
+        $listar = new ControladorProducto();
+        $res = $listar->consultarProductoAjaxControladorTienda($this->producto);
+        header('Content-Type: text/html; charset=UTF-8');
+        foreach ($res as $key => $value) {
+            $dato[] = array(
+                'id' => $value['id_producto'],
+                'label' => $value['producto'],
+                'precio' => $value['precio'],
+                'cant' => $value['cantidad'],
+                'desc' => $value['precio_descuento'],
+                'id_categoria' => $value['id_categoria'],
+                'des' => $value['descripcion'],
+                'info' => $value['informacion_adicional'],
+                'protada' => $value['foto_protada'],
+                'foto1' => $value['foto1'],
+                'foto2' => $value['foto2'],
+                'foto3' => $value['foto3'],
+            );
+        }
+        print json_encode($dato);
+    }
+    function consultaridCategoriaAjax()
+    {
+        $listar = new ControladorCategoria();
+        $res = $listar->consultarCategoriaAjaxControlador($this->categoria);
+        header('Content-Type: text/html; charset=UTF-8');
+        foreach ($res as $key => $value) {
+            $dato[] = array(
+                'id' => $value['id_categoria'],
+                'label' => $value['nombre']
+            );
+        }
+        print json_encode($dato);
+    }
+    function eliminarLocalMasivo($id)
+    {
+        $listar = new ModeloProducto();
+        $res = $listar->listarTablasProducto();
+        foreach ($res as $key => $value) {
+            $listar->obtenerTablasPorID($value['table_name'], $id);
+        }
+    }
+    function eliminarReviewsIdMasivo($id)
+    {
+        $listar = new ModeloReview();
+        $res = $listar->listarTablasReviews();
+        foreach ($res as $key => $value) {
+            $listar->obtenerTablasPorID($value['table_name'], $id);
+        }
+    }
+    function eliminarCarritoIdMasivo($id)
+    {
+        $listar = new ModeloCarrito();
+        $res = $listar->listarTablasCarrito();
+        foreach ($res as $key => $value) {
+            $listar->obtenerTablasPorID($value['table_name'], $id);
+        }
+    }
+
+    function actualizarCantidadProductoCarrito($id, $cant)
+    {
+        $act = new ControladorCarrito();
+        $res = $act->actualizarCantCarritoProducto($id, $cant);
+    }
+    function actualizarCliente($dato)
+    {
+        $actu = new ModeloCliente();
+        $res = $actu->actualizarCLienteAjax($dato);
+    }
+
+    function registrarConsultarCLienteAjax($dato)
+    {
+        $actu = new ModeloCliente();
+        $res = $actu->registrarConsultarCLienteAjax($dato);
+    }
+    function eliminarClienteIdMasivo($dato)
+    {
+        $actu = new ModeloCliente();
+        $res = $actu->eliminarClienteIdMasivo($dato);
     }
 }
 
@@ -494,6 +587,67 @@ if (isset($_POST['id_locaEliminar'])) {
     $red = $ajax->eliminarLocalIdMasivo($id_local);
 }
 
+//tienda
+
+if (isset($_GET['producto'])) {
+    $ajax->producto = $_GET['producto'];
+    $ajax->consultarProductoAjax();
+}
+if (isset($_GET['categoria'])) {
+    $ajax->categoria = $_GET['categoria'];
+    $ajax->consultarCategoriaAjax();
+}
+if (isset($_POST['id_producto_eliminar'])) {
+    $id_producto = $_POST['id_producto_eliminar'];
+    $red = $ajax->eliminarLocalMasivo($id_producto);
+}
+if (isset($_POST['id_reviews_eliminar'])) {
+    $id_reviews = $_POST['id_reviews_eliminar'];
+    $red = $ajax->eliminarReviewsIdMasivo($id_reviews);
+}
+
+if (isset($_POST['id_carrito_eliminar'])) {
+    $id_carrito = $_POST['id_carrito_eliminar'];
+    $red = $ajax->eliminarCarritoIdMasivo($id_carrito);
+}
+if (isset($_POST['id_cliente_eliminar'])) {
+    $id_cliente = $_POST['id_cliente_eliminar'];
+    $red = $ajax->eliminarClienteIdMasivo($id_cliente);
+}
+if (isset($_POST['id_carrito']) && isset($_POST['nueva_cantidad'])) {
+    $id_carrito = $_POST['id_carrito'];
+    $cantidad = $_POST['nueva_cantidad'];
+    $red = $ajax->actualizarCantidadProductoCarrito($id_carrito, $cantidad);
+}
+
+if (isset($_GET['id_cliente'])) {
+    $dato = array(
+        'id_cliente' => $_GET['id_cliente'],
+        'nombres' => $_GET['nombres'],
+        'apellidos' => $_GET['apellidos'],
+        'correo' => $_GET['correo'],
+        'telefono' => $_GET['telefono'],
+        'direccion1' => $_GET['direccion1'],
+        'direccion2' => $_GET['direccion2'],
+        'ciudad' => $_GET['ciudad'],
+        'barrio' => $_GET['barrio'],
+        'codigoPostal' => $_GET['codigoPostal']
+    );
+    $red = $ajax->actualizarCliente($dato);
+}
+
+if (isset($_POST['nombres']) && isset($_POST['apellidos']) && isset($_POST['correo']) && isset($_POST['telefono'])) {
+    $dato = array(
+        'nombres' => $_POST['nombres'],
+        'apellidos' => $_POST['apellidos'],
+        'correo' => $_POST['correo'],
+        'telefono' => $_POST['telefono']
+    );
+    $red = $ajax->registrarConsultarCLienteAjax($dato);
+}
+
+///
+
 ////
 try {
     // Leer el cuerpo de la solicitud
@@ -593,4 +747,3 @@ try {
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
 exit;
-

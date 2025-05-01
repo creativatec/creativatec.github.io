@@ -111,7 +111,20 @@ class ControladorUsuario
                         echo "<script type='text/javascript'>window.location.href = 'loginInactivo';</script>";
                     }
                 } else {
-                    echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";
+                    $resPagina = $consultarUsuario->ModeloLoginIngresarTienda($dato);
+                    if ($resPagina != []) {
+                        if ($resPagina[0]['usuario'] == $_POST['user'] && $resPagina[0]['clave'] == $_POST['clave']) {
+
+                            $_SESSION['id_usuario'] = $resPagina[0]['id_usuario'];
+                            $_SESSION['usuario'] = $resPagina[0]['nombre'];
+                            $_SESSION['validarTienda'] = true;
+                            echo "<script type='text/javascript'>window.location.href = 'inicio';</script>";
+                        } else {
+                            echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";
+                        }
+                    } else {
+                        echo "<script type='text/javascript'>window.location.href = 'loginFallido';</script>";
+                    }
                 }
             }
         }

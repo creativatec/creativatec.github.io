@@ -35,9 +35,9 @@
                                 ?>
 
                           </div>
-                          <div class="d-flex align-items-center justify-content-center mb-1">
+                          <!--<div class="d-flex align-items-center justify-content-center mb-1">
                               <h5>Ahorro del: <?php echo number_format(($value['precio'] - $value['precio_descuento']) / 1000, 0); ?>%</h5>
-                          </div>
+                          </div>-->
                       </div>
                   </div>
               </div>

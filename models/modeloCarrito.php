@@ -47,7 +47,7 @@ class ModeloCarrito
 
     function listarTablasCarrito()
     {
-        $sql = "SELECT table_name FROM information_schema.columns WHERE column_name = 'id_carrito' AND table_schema = 'proverpe_tienaproverpet'";
+        $sql = "SELECT table_name FROM information_schema.columns WHERE column_name = 'id_carrito' AND table_schema = 'creativepagina'";
         $conn = new Conexion();
         $stms = $conn->conectarPagina()->prepare($sql);
 

@@ -1,8 +1,8 @@
 <?php
 $agregar = new ControladorProducto();
-$res = $agregar->agregarProducto();
+$res = $agregar->agregarProductoTienda();
 $cat = new ControladorCategoria();
-$resCat = $cat->agregarCategoria();
+$resCat = $cat->agregarCategoriaTienda();
 if (isset($_GET['action'])) {
     if ($_GET['action'] == "agregarProductp") {
         print '<script>

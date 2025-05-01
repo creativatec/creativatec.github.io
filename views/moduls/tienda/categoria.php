@@ -1,6 +1,6 @@
 <?php
 $cat = new ControladorCategoria();
-$resCat = $cat->agregarCategoria();
+$resCat = $cat->agregarCategoriaTienda();
 $cat->eliminarCategoria();
 if (isset($_GET['action'])) {
     if ($_GET['action'] == "agregarCategoria") {

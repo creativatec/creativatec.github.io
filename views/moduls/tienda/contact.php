@@ -1,8 +1,8 @@
 <?php
-$navegacion = new ControladorNavegacion();
-$agregar = $navegacion->agregarNavegacion();
-$redes = new ControladorRedes();
-$res = $redes->agregarRedes();
+$agregarInforRedes = new ControladorInformacionBasica();
+$agregar = $agregarInforRedes->agregarInformacionBasica();
+$agregarRedes = new ControladorInformacionBasica();
+$redes = $agregarRedes->agregarRedes();
 ?>
 
 <!-- Breadcrumb Start -->
@@ -58,13 +58,13 @@ $res = $redes->agregarRedes();
         <div class="col-lg-5 mb-5">
             <div class="bg-light p-30 mb-30">
                 <iframe style="width: 100%; height: 250px;"
-                    src="https://maps.google.com/maps?q=<?php echo $agregar[0]['ubicacion'] ?>&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                    src="https://maps.google.com/maps?q=<?php echo $agregar[0]['direccion']." Girardot" ?>&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
                     style="width: 100%;"></iframe>
             </div>
             <div class="bg-light p-30 mb-3">
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i><?php echo $agregar[0]['direccion'] ?></p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i><?php echo $agregar[0]['correo'] ?></p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i><a href="tel:+57<?php echo $agregar[0]['tel1'] ?>">+57 <?php echo $agregar[0]['tel1'] ?></a></p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i><a href="tel:+57<?php echo $agregar[0]['telefono1'] ?>">+57 <?php echo $agregar[0]['telefono1'] ?></a></p>
             </div>
         </div>
     </div>

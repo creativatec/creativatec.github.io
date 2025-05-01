@@ -74,7 +74,7 @@ class ModeloProducto
     {
         if ($dato != '') {
             $dato = '%' . $dato . '%';
-            $sql = "SELECT * FROM $this->tabla INNER JOIN categoria ON categoria.id_categoria = producto.id_categoria INNER JOIN medida ON medida.id_medida = producto.id_medida INNER JOIN local ON local.id_local = producto.id_local WHERE nombre_producto like ? AND producto.id_local = ? ORDER BY id_producto";
+            $sql = "SELECT * FROM $this->tabla INNER JOIN categoria ON categoria.id_categoria = producto.id_categoria INNER JOIN medida ON medida.id_medida = producto.id_medida INNER JOIN local ON local.id_local = producto.id_local WHERE nombre_producto like ? OR producto.codigo_producto like ? AND producto.id_local = ? ORDER BY id_producto";
         } else {
             $sql = "SELECT * FROM $this->tabla WHERE id_local = ? ORDER BY id_producto";
         }
@@ -89,7 +89,8 @@ class ModeloProducto
             }
             if ($dato != '') {
                 $stms->bindParam(1, $dato, PDO::PARAM_STR);
-                $stms->bindParam(2, $local, PDO::PARAM_INT);
+                $stms->bindParam(2, $dato, PDO::PARAM_STR);
+                $stms->bindParam(3, $local, PDO::PARAM_INT);
             }else{
                 $stms->bindParam(1, $local, PDO::PARAM_INT);
             }
@@ -126,7 +127,7 @@ class ModeloProducto
     function consultarAritucloProeevedoridAjaxModelo($nit)
     {
 
-        $sql = "SELECT * FROM $this->tabla WHERE nombre_producto like ? AND id_local = ?";
+        $sql = "SELECT * FROM $this->tabla INNER JOIN categoria ON categoria.id_categoria = producto.id_categoria INNER JOIN medida ON medida.id_medida = producto.id_medida INNER JOIN local ON local.id_local = producto.id_local WHERE codigo_producto like ? OR nombre_producto like ? AND producto.id_local = ?";
 
         try {
             $conn = new Conexion();
@@ -134,8 +135,9 @@ class ModeloProducto
             if ($nit != null) {
                 $nombre = '%' . $nit . '%';
                 $nit = $nit . '%';
-                $stms->bindParam(1, $nombre, PDO::PARAM_STR);
-                $stms->bindParam(2, $_SESSION['id_local'], PDO::PARAM_INT);
+                $stms->bindParam(1, $nit, PDO::PARAM_INT);
+                $stms->bindParam(2, $nombre, PDO::PARAM_STR);
+                $stms->bindParam(3, $_SESSION['id_local'], PDO::PARAM_INT);
             }
             if ($stms->execute()) {
                 return $stms->fetchAll();

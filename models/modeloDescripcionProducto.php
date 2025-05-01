@@ -8,7 +8,7 @@ class ModeloDescripcionProducto
     {
         $sql = "INSERT INTO $this->tabla(id_producto,descripcion,informacion_adicional) VALUES (?,?,?)";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         if ($dato != '') {
             $stms->bindParam(1, $dato['id_producto'], PDO::PARAM_INT);
             $stms->bindParam(2, $dato['descrip'], PDO::PARAM_STR);
@@ -29,7 +29,7 @@ class ModeloDescripcionProducto
     {
         $sql = "UPDATE $this->tabla SET descripcion= ?,informacion_adicional= ? WHERE id_producto = ?";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         if ($dato != '') {
             $stms->bindParam(1, $dato['descrip'], PDO::PARAM_STR);
             $stms->bindParam(2, $dato['infoAdd'], PDO::PARAM_STR);

@@ -25,8 +25,8 @@ $cart = $carrito->countCarrito();
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="" class="text-decoration-none">
-                <span class="h1 text-uppercase text-primary bg-dark px-2">PROV</span>
-                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">ERPET</span>
+                <span class="h1 text-uppercase text-primary bg-dark px-2">CREA</span>
+                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">TIVA</span>
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
@@ -52,7 +52,7 @@ $cart = $carrito->countCarrito();
 <div class="container-fluid bg-dark mb-30">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+            <!--<a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
                 <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categorías</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
@@ -76,7 +76,7 @@ $cart = $carrito->countCarrito();
                     <a href="" class="nav-item nav-link">Jackets</a>
                     <a href="" class="nav-item nav-link">Shoes</a>
                 </div>
-            </nav>
+            </nav>-->
         </div>
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
@@ -102,7 +102,7 @@ $cart = $carrito->countCarrito();
                                                                         print 'active';
                                                                     } ?>">Contactos</a>
                         <?php
-                        if (isset($_SESSION['validar'])) {
+                        if (isset($_SESSION['validarTienda'])) {
 
                         ?>
                             <div class="nav-item dropdown">

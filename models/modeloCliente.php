@@ -176,9 +176,9 @@ class ModeloCliente
 
     function actualizarCLienteAjax($dato)
     {
-        $sql = "UPDATE $this->tabla SET nombres = ?, apellidos = ?, correo = ?, tel = ?, dire1 = ?, dire2 = ?, ciudad = ?, barrio = ?, codigo_postal = ? WHERE id_cliente = ?";
+        $sql = "UPDATE clientetienda SET nombres = ?, apellidos = ?, correo = ?, tel = ?, dire1 = ?, dire2 = ?, ciudad = ?, barrio = ?, codigo_postal = ? WHERE id_cliente = ?";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         $stms->bindParam(1, $dato['nombres'], PDO::PARAM_STR);
         $stms->bindParam(2, $dato['apellidos'], PDO::PARAM_STR);
         $stms->bindParam(3, $dato['correo'], PDO::PARAM_STR);
@@ -203,9 +203,9 @@ class ModeloCliente
     function registrarConsultarCLienteAjax($dato)
     {
 
-        $sql = "SELECT * FROM $this->tabla WHERE nombres = ? AND apellidos = ? AND correo = ? AND tel = ?";
+        $sql = "SELECT * FROM clientetienda WHERE nombres = ? AND apellidos = ? AND correo = ? AND tel = ?";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
 
         // Asociamos los parámetros con los valores del array $dato
         $stms->bindParam(1, $dato['nombres'], PDO::PARAM_STR);
@@ -232,9 +232,9 @@ class ModeloCliente
                         'buyerFullName' => $dato['nombres'] . " " . $dato['apellidos']
                     ]);
                 } else {
-                    $sql = "INSERT INTO $this->tabla (nombres, apellidos, correo, tel) VALUES (?,?,?,?)";
+                    $sql = "INSERT INTO clientetienda (nombres, apellidos, correo, tel) VALUES (?,?,?,?)";
                     $conn = new Conexion();
-                    $stms = $conn->conectar()->prepare($sql);
+                    $stms = $conn->conectarPagina()->prepare($sql);
 
                     // Asociamos los parámetros con los valores del array $dato
                     $stms->bindParam(1, $dato['nombres'], PDO::PARAM_STR);
@@ -279,9 +279,9 @@ class ModeloCliente
 
     function listarClientes()
     {
-        $sql = "SELECT * FROM $this->tabla";
+        $sql = "SELECT * FROM clientetienda";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         try {
             if ($stms->execute()) {
                 return $stms->fetchAll();
@@ -294,10 +294,27 @@ class ModeloCliente
     }
 
     function eliminarClienteIdMasivo($dato){
-        $sql = "DELETE FROM $this->tabla WHERE id_cliente = ?";
+        $sql = "DELETE FROM clientetienda WHERE id_cliente = ?";
         $conn = new Conexion();
-        $stms = $conn->conectar()->prepare($sql);
+        $stms = $conn->conectarPagina()->prepare($sql);
         $stms->bindParam(1, $dato, PDO::PARAM_INT);
+        try {
+            if ($stms->execute()) {
+                return $stms->fetchAll();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+    }
+
+    function listarclientetokenModelo($token)
+    {
+        $sql = "SELECT * FROM $this->tabla WHERE token = ?";
+        $conn = new Conexion();
+        $stms = $conn->conectarPagina()->prepare($sql);
+        $stms->bindParam(1, $token, PDO::PARAM_INT);
         try {
             if ($stms->execute()) {
                 return $stms->fetchAll();

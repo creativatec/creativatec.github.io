@@ -1,7 +1,7 @@
 <?php
 
 $reviews = new ControladorCliente();
-$res = $reviews->listarCliente();
+$res = $reviews->listarClienteTienda();
 
 ?>
 <div class="container">
@@ -33,8 +33,7 @@ $res = $reviews->listarCliente();
                                 <td><?php echo $value['dire1'] ?></td>
                                 <td><?php echo $value['ciudad'] ?></td>
                                 <td><?php echo $value['barrio'] ?></td>
-                                <td><a class="eliminar-button-
-                                " data-id="<?php print $value['id_cliente']; ?>"><i class="fas fa-trash-alt fa-lg"></i></a></a></td>
+                                <td><a class="eliminar-button-cliente" data-id="<?php print $value['id_cliente']; ?>"><i class="fas fa-trash-alt fa-lg"></i></a></a></td>
                             </tr>
                         <?php
                         }
