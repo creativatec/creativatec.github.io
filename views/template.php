@@ -78,6 +78,10 @@ if (isset($_SESSION['validarPagina'])) {
     $res = $local->consultarLocal($_SESSION['id_local']);
     if ($res != null) {
         $nombreSistema = $res[0]['nombre_local'];
+        if (strpos($nombreSistema, '58') !== false) {
+            $nombreSistema = str_replace('58', '', $nombreSistema);
+        }
+        $nombreSistema;
         $nit = $res[0]['nit'];
         $tel = $res[0]['telefono'];
         $dire = $res[0]['direccion'];
